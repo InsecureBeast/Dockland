@@ -25,4 +25,8 @@ export class  RemoteService {
   getStacks(environment: string): Observable<Container[]> {
     return this._http.get<Container[]>(`${this._baseUrl}api/stacks?env=${environment}`).pipe(first());
   }
+
+  removeStack(environment: string, stack: string): Observable<boolean> {
+    return this._http.delete<boolean>(`${this._baseUrl}api/stacks/remove?env=${environment}&stack=${stack}`).pipe(first());
+  }
 }

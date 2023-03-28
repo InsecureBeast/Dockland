@@ -14,10 +14,7 @@ export class StacksComponent {
 
   constructor(private readonly _remoteService: RemoteService) {
     this._remoteService.getStacks(TEST_ENV).subscribe({ 
-      next: (result) => { this.containers = result.map(i => {
-        return i;
-      });
-      },
+      next: (result) => { this.containers = result.map(i => i) }, 
       error: (e) => console.error(e)
     });
   }
@@ -25,5 +22,12 @@ export class StacksComponent {
   getStack(map: Map<string, string>): string {
     const pair = Object.entries(map).find((k) => k[0] === DockerComposeLabels.PROJECT);
     return pair?.[1] as string;
+  }
+
+  remove(): void {
+    this._remoteService.removeStack(TEST_ENV, "rrr").subscribe({
+      next: (result) => console.log(result), 
+      error: (e) => console.error(e)
+    })
   }
 }

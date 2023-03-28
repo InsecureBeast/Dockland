@@ -21,13 +21,12 @@ namespace DockerW.Controllers
         [HttpGet]
         public async Task<IEnumerable<Container>> Get(string env)
         {
-            var stacks = new List<Stack>();
             var containers = new List<Container>();
             var param = new ContainersListParameters();
             param.All = true;
             var client = _dockerService.GetService(env);
             var containersRespose = await client.Containers.ListContainersAsync(param);
-            
+
             foreach (var response in containersRespose)
             {
                 if (!response.Labels.ContainsKey("com.docker.compose.image"))
@@ -46,6 +45,37 @@ namespace DockerW.Controllers
                 containers.Add(container);
             }
             return containers;
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<bool> Remove(string env, string stack)
+        {
+            var client = _dockerService.GetService(env);
+            var parameters = new ContainersListParameters();
+            parameters.Filters = new Dictionary<string, IDictionary<string, bool>>
+            {
+                ["label"] = new Dictionary<string, bool>
+                {
+                    [DockerComposeLabels.PROJECT] = true
+                }
+            };
+
+            var stackContainers = await client.Containers.ListContainersAsync(parameters);
+            foreach (var container in stackContainers)
+            {
+                var removeParameters = new ContainerRemoveParameters();
+                removeParameters.RemoveVolumes = true;
+                removeParameters.Force = true;
+                try
+                {
+                    await client.Containers.RemoveContainerAsync(container.ID, removeParameters);
+                }
+                catch (Exception e)
+                {
+                    throw;
+                }
+            }
+            return true;
         }
     }
 }

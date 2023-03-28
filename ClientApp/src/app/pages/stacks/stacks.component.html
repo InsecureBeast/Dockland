@@ -4,13 +4,14 @@
 
 <div class="d-flex justify-content-end">
   <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-    <button type="button" class="btn btn-outline-secondary" disabled>Start</button>
-    <button type="button" class="btn btn-outline-secondary" disabled>Stop</button>
-    <button type="button" class="btn btn-outline-secondary" disabled>Kill</button>
-    <button type="button" class="btn btn-outline-secondary" disabled>Restart</button>
-    <button type="button" class="btn btn-outline-secondary" disabled>Pause</button>
-    <button type="button" class="btn btn-outline-secondary" disabled>Resume</button>
-    <button type="button" class="btn btn-outline-danger">Remove</button>
+    <button type="button" class="btn btn-outline-secondary" disabled><i class="bi bi-play me-2"></i>Start</button>
+    <button type="button" class="btn btn-outline-secondary" disabled><i class="bi bi-stop me-2"></i>Stop</button>
+    <button type="button" class="btn btn-outline-secondary" disabled><i class="bi bi-x me-2"></i>Kill</button>
+    <button type="button" class="btn btn-outline-secondary" disabled><i class="bi bi-arrow-repeat me-2"></i>Restart</button>
+    <button type="button" class="btn btn-outline-secondary" disabled><i class="bi bi-pause me-2"></i>Pause</button>
+    <button type="button" class="btn btn-outline-secondary" disabled><i class="bi bi-play me-2"></i>Resume</button>
+    <button type="button" class="btn btn-outline-danger" (click)="remove()">
+      <i class="bi bi-trash2 me-2"></i>Remove</button>
   </div>
 </div>
 
