@@ -1,0 +1,26 @@
+<h1 id="tableLabel">Images</h1>
+
+<p>An image is a read-only template with instructions for creating a Docker container. <a href="https://docs.docker.com/get-started/overview/#images" target="_blank" rel="noopener noreferrer">Learn more</a></p>
+
+<p *ngIf="!images"><em>Loading...</em></p>
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="images">
+  <thead>
+    <tr>
+      <th>name</th>
+      <th>tag</th>
+      <th>status</th>
+      <th>created</th>
+      <th>size</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let image of images">
+      <td>{{ image.name }}</td>
+      <td>{{ image.tag }}</td>
+      <td>{{ image.status }}</td>
+      <td>{{ image.created }}</td>
+      <td>{{ image.size | formatFileSize: false }} </td>
+    </tr>
+  </tbody>
+</table>

@@ -1,0 +1,27 @@
+<h1 id="tableLabel">Containers</h1>
+
+<p>A container packages up code and its dependencies so the application runs quickly and reliably from one computing environment to another.
+  <a href="https://docs.docker.com/get-started/overview/#containers" target="_blank" rel="noopener noreferrer">Learn more</a></p>
+
+<p *ngIf="!containers"><em>Loading...</em></p>
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="containers">
+  <thead>
+    <tr>
+      <th>name</th>
+      <th>image</th>
+      <th>status</th>
+      <th>port(s)</th>
+      <th>last started</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let container of containers">
+      <td>{{ container.names }}</td>
+      <td>{{ container.image` }}</td>
+      <td>{{ container.status }}</td>
+      <td>{{ container.ports }} </td>
+      <td>{{ container.created }} </td>
+    </tr>
+  </tbody>
+</table>

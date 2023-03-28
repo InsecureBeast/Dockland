@@ -231,3 +231,4 @@ _Pvt_Extensions
 .fake/
 /ClientApp/.angular/*
 /ClientApp/package-lock.json
+/ClientApp/.vscode/*
