@@ -1,0 +1,50 @@
+<h1 id="tableLabel">Stacks</h1>
+
+<p *ngIf="!containers"><em>Loading...</em></p>
+
+<div class="d-flex justify-content-end">
+  <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+    <button type="button" class="btn btn-outline-secondary" disabled>Start</button>
+    <button type="button" class="btn btn-outline-secondary" disabled>Stop</button>
+    <button type="button" class="btn btn-outline-secondary" disabled>Kill</button>
+    <button type="button" class="btn btn-outline-secondary" disabled>Restart</button>
+    <button type="button" class="btn btn-outline-secondary" disabled>Pause</button>
+    <button type="button" class="btn btn-outline-secondary" disabled>Resume</button>
+    <button type="button" class="btn btn-outline-danger">Remove</button>
+  </div>
+</div>
+
+<table class='table table-striped mt-2' aria-labelledby="tableLabel" *ngIf="containers">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>State</th>
+      <th>Stack</th>
+      <th>Image</th>
+      <th>Created</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let container of containers">
+      <td>{{ container.names[0] | slice:1 }}</td>
+      <td>
+        <ng-container *ngTemplateOutlet="stateTemplate;context:{cState:container.state}"></ng-container>
+      </td>
+      <td>{{ getStack(container.labels) }}</td>
+      <td>{{ container.image }} </td>
+      <td>{{ container.created | date:'medium' }} </td>
+    </tr>
+  </tbody>
+</table>
+
+<ng-template #stateTemplate let-state="cState">
+  <ng-container *ngIf="state === 'running'">
+    <span class="badge bg-success">{{state}}</span>
+  </ng-container>
+  <ng-container *ngIf="state === 'exited'">
+    <span class="badge bg-danger">{{state}}</span>
+  </ng-container>
+  <ng-container *ngIf="state === 'paused'">
+    <span class="badge bg-secondary">{{state}}</span>
+  </ng-container>
+</ng-template>

@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Image } from '../core/data-classes';
-import { RemoteService } from '../services/remote.service';
-import { TEST_ENV } from '../core/const';
+import { Image } from '../../core/data-classes';
+import { RemoteService } from '../../services/remote.service';
+import { TEST_ENV } from '../../core/const';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({

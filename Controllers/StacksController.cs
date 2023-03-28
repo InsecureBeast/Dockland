@@ -1,18 +1,18 @@
 ﻿using Docker.DotNet.Models;
-using Microsoft.AspNetCore.Mvc;
 using DockerW.DataModels;
 using DockerW.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DockerW.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
-    public class ContainersController : ControllerBase
+    [Route("api/[controller]")]
+    public class StacksController : ControllerBase
     {
-        private readonly ILogger<ContainersController> _logger;
+        private readonly ILogger<StacksController> _logger;
         private readonly IDockerService _dockerService;
 
-        public ContainersController(ILogger<ContainersController> logger, IDockerService dockerService)
+        public StacksController(ILogger<StacksController> logger, IDockerService dockerService)
         {
             _logger = logger;
             _dockerService = dockerService;
@@ -21,14 +21,18 @@ namespace DockerW.Controllers
         [HttpGet]
         public async Task<IEnumerable<Container>> Get(string env)
         {
+            var stacks = new List<Stack>();
             var containers = new List<Container>();
             var param = new ContainersListParameters();
             param.All = true;
             var client = _dockerService.GetService(env);
-            var imagesRespose = await client.Containers.ListContainersAsync(param);
-
-            foreach (var response in imagesRespose)
+            var containersRespose = await client.Containers.ListContainersAsync(param);
+            
+            foreach (var response in containersRespose)
             {
+                if (!response.Labels.ContainsKey("com.docker.compose.image"))
+                    continue;
+
                 var container = new Container();
                 container.Names = response.Names;
                 container.Id = response.ID;
@@ -44,4 +48,4 @@ namespace DockerW.Controllers
             return containers;
         }
     }
- }
+}

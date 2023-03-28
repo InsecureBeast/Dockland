@@ -6,12 +6,14 @@ import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
-import { ImagesComponent } from './images/images.component';
+import { HomeComponent } from './pages/home/home.component';
+import { CounterComponent } from './pages/counter/counter.component';
+import { ImagesComponent } from './pages/images/images.component';
 import { FormatFileSizePipe } from './pipes/format-file-size.pipe';
-import { ContainersModule } from './containers/containers.module';
-import { ContainersComponent } from './containers/containers.component';
+import { ContainersModule } from './pages/containers/containers.module';
+import { ContainersComponent } from './pages/containers/containers.component';
+import { StacksComponent } from './pages/stacks/stacks.component';
+import { StacksModule } from './pages/stacks/stacks.module';
 
 @NgModule({
   declarations: [
@@ -31,8 +33,10 @@ import { ContainersComponent } from './containers/containers.component';
       { path: 'counter', component: CounterComponent },
       { path: 'images', component: ImagesComponent },
       { path: 'containers', component: ContainersComponent },
+      { path: 'stacks', component: StacksComponent },
     ]),
-    ContainersModule
+    ContainersModule,
+    StacksModule
   ],
   providers: [],
   bootstrap: [AppComponent]

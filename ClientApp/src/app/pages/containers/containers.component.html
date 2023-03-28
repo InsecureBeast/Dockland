@@ -9,19 +9,21 @@
   <thead>
     <tr>
       <th>name</th>
-      <th>image</th>
+      <th>state</th>
       <th>status</th>
-      <th>port(s)</th>
-      <th>last started</th>
+      <th>image</th>
+      <th>created</th>
+      <th>labels</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let container of containers">
-      <td>{{ container.names }}</td>
-      <td>{{ container.image` }}</td>
+      <td>{{ container.names[0] | slice:1 }}</td>
+      <td>{{ container.state }}</td>
       <td>{{ container.status }}</td>
-      <td>{{ container.ports }} </td>
+      <td>{{ container.image }} </td>
       <td>{{ container.created }} </td>
+      <td>{{ toString(container.labels) }} </td>
     </tr>
   </tbody>
 </table>

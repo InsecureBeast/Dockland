@@ -44,9 +44,6 @@ namespace DockerW.Controllers
                     image.Size = response.Size;
                     images.Add(image);
                 }
-
-                var sysInfo = await client.System.GetSystemInfoAsync();
-                var sysInfo1 = await client.System.GetVersionAsync();
             }
             catch (Exception e)
             {

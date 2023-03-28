@@ -25,7 +25,7 @@ namespace DockerW.Services
             
             IDockerClient client = string.IsNullOrEmpty(url) 
                 ? new DockerClientConfiguration().CreateClient() 
-                : new DockerClientConfiguration().CreateClient();
+                : new DockerClientConfiguration(new Uri(url)).CreateClient();
 
             _dockerServices.Add(name, client);
         }
