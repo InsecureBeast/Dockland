@@ -12,7 +12,6 @@ import { ImagesComponent } from './pages/images/images.component';
 import { FormatFileSizePipe } from './pipes/format-file-size.pipe';
 import { ContainersModule } from './pages/containers/containers.module';
 import { ContainersComponent } from './pages/containers/containers.component';
-import { StacksComponent } from './pages/stacks/stacks.component';
 import { StacksModule } from './pages/stacks/stacks.module';
 
 @NgModule({
@@ -33,7 +32,11 @@ import { StacksModule } from './pages/stacks/stacks.module';
       { path: 'counter', component: CounterComponent },
       { path: 'images', component: ImagesComponent },
       { path: 'containers', component: ContainersComponent },
-      { path: 'stacks', component: StacksComponent },
+      // {
+      //   path: "stacks",
+      //   loadChildren: () =>
+      //     import('./pages/stacks/stacks.module').then((x) => x.StacksModule),
+      // },
     ]),
     ContainersModule,
     StacksModule

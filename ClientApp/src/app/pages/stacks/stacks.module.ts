@@ -1,15 +1,23 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
-import { StacksComponent } from "./stacks.component";
+import { RouterModule } from "@angular/router";
+import { StackComponent } from "./stack/stack.component";
+import { StacksComponent } from "./stacks/stacks.component";
 
 @NgModule({
   declarations: [
-    StacksComponent
+    StacksComponent,
+    StackComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule.forRoot([
+      { path: 'stacks', component: StacksComponent },
+      { path: 'stacks/:name', component: StackComponent }, 
+    ]),
   ],
+  exports: [RouterModule],
   providers: [],
-  bootstrap: [StacksComponent]
+  bootstrap: [StacksComponent, StackComponent]
 })
 export class StacksModule {}

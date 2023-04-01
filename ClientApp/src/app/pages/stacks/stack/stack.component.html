@@ -1,9 +1,9 @@
-<h1 id="tableLabel">Stacks</h1>
+<h1 id="tableLabel">Stack {{stack}}</h1>
 
 <p *ngIf="!containers"><em>Loading...</em></p>
 
 <div class="d-flex justify-content-end">
-  <button type="button" class="btn btn-outline-danger" (click)="remove()">
+  <button type="button" class="btn btn-danger" [disabled]="containers.length == 0" (click)="remove()">
     <i class="bi bi-trash2 me-2"></i>
     Remove
   </button>
