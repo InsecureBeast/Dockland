@@ -22,8 +22,9 @@ export class  RemoteService {
     return this._http.get<Container[]>(`${this._baseUrl}api/containers?env=${environment}`).pipe(first());
   }
 
-  getStacks(environment: string): Observable<Container[]> {
-    return this._http.get<Container[]>(`${this._baseUrl}api/stacks?env=${environment}`).pipe(first());
+  getStacks(environment: string, stack?: string): Observable<Container[]> {
+    let stackRequest = stack ? `&&stack=${stack}` : "";
+    return this._http.get<Container[]>(`${this._baseUrl}api/stacks?env=${environment}` + stackRequest).pipe(first());
   }
 
   removeStack(environment: string, stack: string): Observable<boolean> {

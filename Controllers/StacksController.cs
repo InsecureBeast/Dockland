@@ -19,29 +19,14 @@ namespace DockerW.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Container>> Get(string env)
+        public async Task<IEnumerable<Container>> Get(string env, string? stack)
         {
             var containers = new List<Container>();
-            var param = new ContainersListParameters();
-            param.All = true;
-            var client = _dockerService.GetService(env);
-            var containersRespose = await client.Containers.ListContainersAsync(param);
+            var containersRespose = await GetStacksAsync(env);
 
-            foreach (var response in containersRespose)
+            foreach (var response in containersRespose.FilterContsiners(stack))
             {
-                if (!response.Labels.ContainsKey("com.docker.compose.image"))
-                    continue;
-
-                var container = new Container();
-                container.Names = response.Names;
-                container.Id = response.ID;
-                container.Created = response.Created;
-                container.State = response.State;
-                container.Status = response.Status;
-                container.Command = response.Command;
-                container.Image = response.Image;
-                container.ImageId = response.ImageID;
-                container.Labels = response.Labels;
+                var container = ToContainer(response);
                 containers.Add(container);
             }
             return containers;
@@ -49,6 +34,19 @@ namespace DockerW.Controllers
 
         [HttpDelete("{id}")]
         public async Task<bool> Remove(string env, string stack)
+        {
+            var containersRespose = await GetStacksAsync(env);
+            foreach (var container in containersRespose.FilterContsiners(stack))
+            {
+                var removeParameters = new ContainerRemoveParameters();
+                removeParameters.RemoveVolumes = true;
+                removeParameters.Force = true;
+                //await client.Containers.RemoveContainerAsync(container.ID, removeParameters);
+            }
+            return true;
+        }
+
+        private Task<IList<ContainerListResponse>> GetStacksAsync(string env)
         {
             var client = _dockerService.GetService(env);
             var parameters = new ContainersListParameters();
@@ -60,22 +58,38 @@ namespace DockerW.Controllers
                 }
             };
 
-            var stackContainers = await client.Containers.ListContainersAsync(parameters);
-            foreach (var container in stackContainers)
+            return client.Containers.ListContainersAsync(parameters);
+        }
+
+        private Container ToContainer(ContainerListResponse response)
+        {
+            var container = new Container
             {
-                var removeParameters = new ContainerRemoveParameters();
-                removeParameters.RemoveVolumes = true;
-                removeParameters.Force = true;
-                try
-                {
-                    await client.Containers.RemoveContainerAsync(container.ID, removeParameters);
-                }
-                catch (Exception e)
-                {
-                    throw;
-                }
-            }
-            return true;
+                Names = response.Names,
+                Id = response.ID,
+                Created = response.Created,
+                State = response.State,
+                Status = response.Status,
+                Command = response.Command,
+                Image = response.Image,
+                ImageId = response.ImageID,
+                Labels = response.Labels
+            };
+            return container;
+        }
+    }
+
+    static class ContainerListResponseExtensions
+    {
+        public static IEnumerable<ContainerListResponse> FilterContsiners(this IList<ContainerListResponse> list, string? stack)
+        {
+            if (list == null)
+                return Enumerable.Empty<ContainerListResponse>();
+
+            if (string.IsNullOrEmpty(stack))
+                return list;
+
+            return list.Where(c => c.Labels[DockerComposeLabels.PROJECT] == stack);
         }
     }
 }
