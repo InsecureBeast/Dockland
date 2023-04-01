@@ -49,6 +49,9 @@ namespace DockerW.Controllers
         private Task<IList<ContainerListResponse>> GetStacksAsync(string env)
         {
             var client = _dockerService.GetService(env);
+            if (client == null)
+                return Task.FromResult(Array.Empty<ContainerListResponse>() as IList<ContainerListResponse>);
+
             var parameters = new ContainersListParameters();
             parameters.Filters = new Dictionary<string, IDictionary<string, bool>>
             {

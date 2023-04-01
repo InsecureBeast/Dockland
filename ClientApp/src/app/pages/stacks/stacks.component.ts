@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DockerComposeLabels, TEST_ENV } from 'src/app/core/const';
+import { getBoolean } from 'src/app/core/utils';
 import { RemoteService } from 'src/app/services/remote.service';
+import { ToolbarService } from 'src/app/services/toolbar.service';
 import { Container } from '../containers/container';
 
 @Component({
@@ -14,7 +16,10 @@ export class StacksComponent implements OnInit {
   containers: Container[] = [];
   checked: Container[] = [];
 
-  constructor(private readonly _remoteService: RemoteService, private _route: ActivatedRoute) {
+  constructor(
+    private readonly _remoteService: RemoteService, 
+    private _route: ActivatedRoute, 
+    private _toolbarService: ToolbarService) {
     
   }
 
@@ -23,10 +28,14 @@ export class StacksComponent implements OnInit {
       .subscribe(params => {
         console.log(params); // { name: "stack-name" }
         const stackName = params.name;
-        this._remoteService.getStacks(TEST_ENV, stackName).subscribe({ 
+        const env = params.env ? params.env : TEST_ENV;
+
+        this._remoteService.getStacks(env, stackName).subscribe({ 
           next: (result) => { this.containers = result.map(i => i) }, 
           error: (e) => console.error(e)
         });
+
+        this._toolbarService.changeVisibility(!getBoolean(params.hide));
       }
     );
   }
