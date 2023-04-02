@@ -8,8 +8,8 @@
         public string ImageId { get; set; }
         public string Command { get; set; }
         public DateTime Created { get; set; }
-        
-        //  ports: IPort[];
+
+        public IList<Port> Ports { get; set; } = new List<Port>();
         //  sizeRw: bigint;
         //  sizeRootFs: bigint;
         public IDictionary<string, string> Labels { get; set; } = new Dictionary<string, string>();
@@ -18,5 +18,13 @@
 
         //  networkSettings: ISummaryNetworkSettings;
         //  mounts: IMountPoint[];
+    }
+
+    public class Port
+    {
+        public string Ip { get; set; } = String.Empty;   
+        public ushort PrivatePort { get; set; }
+        public ushort PublicPort { get; set; }
+        public string Type { get; set; } = String.Empty;
     }
 }

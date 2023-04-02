@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Observable, of, tap } from 'rxjs';
 import { TEST_ENV } from 'src/app/core/const';
+import { Container, IPort } from 'src/app/core/data-classes';
 import { getBoolean } from 'src/app/core/utils';
 import { RemoteService } from 'src/app/services/remote.service';
 import { ToolbarService } from 'src/app/services/toolbar.service';
-import { Container } from '../../containers/container';
-import { getStackName } from '../stacks.utils';
 
 @Component({
   selector: 'app-stack',
@@ -13,10 +13,12 @@ import { getStackName } from '../stacks.utils';
   styleUrls: ['./stack.component.css']
 })
 export class StackComponent implements OnInit {
-  private _env: string = TEST_ENV;
-  stack: string = '';
+  private _env: string = TEST_ENV; //TODO get from env database
+  private _containersCount = 0;
+  private _url: string = "http://0.0.0.0"; //TODO get from env database
 
-  containers: Container[] = [];
+  stack: string = '';
+  containers: Observable<Container[]> = of([]);
 
   constructor(
     private readonly _remoteService: RemoteService, 
@@ -28,16 +30,12 @@ export class StackComponent implements OnInit {
   ngOnInit() {
     this._route.params
       .subscribe(params => {
-        console.log(params); // { name: "stack-name" }
         this.stack = params.name as string;
-
         this._route.queryParams.subscribe(params => {
           this._env = params.env ? params.env : TEST_ENV;
-          this._remoteService.getStacks(this._env, this.stack).subscribe({ 
-            next: (result) => { this.containers = result.map(i => i) }, 
-            error: (e) => console.error(e)
-          });
-    
+          this._url = params.url ? params.url as string : "http://0.0.0.0";
+          this.containers = this._remoteService.getStack(this._env, this.stack)
+            .pipe(tap(c => this._containersCount = c.length));
           this._toolbarService.changeVisibility(!getBoolean(params.hide));
         });
 
@@ -45,8 +43,8 @@ export class StackComponent implements OnInit {
     );
   }
 
-  getStack(map: Map<string, string>): string {
-    return getStackName(map);
+  getUrl(port: IPort): string {
+    return `${this._url}:${port.publicPort}`;
   }
 
   remove(): void {
@@ -54,5 +52,9 @@ export class StackComponent implements OnInit {
       next: (result) => console.log(result), 
       error: (e) => console.error(e)
     }) 
+  }
+
+  isDisabled(): boolean {
+    return this._containersCount == 0;
   }
 }

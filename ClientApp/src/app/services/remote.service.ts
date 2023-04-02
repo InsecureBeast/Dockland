@@ -1,8 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
 import { first, Observable } from "rxjs";
-import { Image } from "../core/data-classes";
-import { Container } from "../pages/containers/container";
+import { Container, Image } from "../core/data-classes";
 
 @Injectable({ providedIn: 'root' })
 export class  RemoteService {
@@ -23,8 +22,12 @@ export class  RemoteService {
   }
 
   getStacks(environment: string, stack?: string): Observable<Container[]> {
-    let stackRequest = stack ? `&&stack=${stack}` : "";
+    let stackRequest = stack ? `&stack=${stack}` : "";
     return this._http.get<Container[]>(`${this._baseUrl}api/stacks?env=${environment}` + stackRequest).pipe(first());
+  }
+
+  getStack(environment: string, stack: string): Observable<Container[]> {
+    return this._http.get<Container[]>(`${this._baseUrl}api/stack?env=${environment}&stack=${stack}`).pipe(first());
   }
 
   removeStack(environment: string, stack: string): Observable<boolean> {

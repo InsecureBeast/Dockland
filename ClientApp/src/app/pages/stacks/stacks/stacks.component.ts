@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TEST_ENV } from 'src/app/core/const';
+import { Container } from 'src/app/core/data-classes';
 import { RemoteService } from 'src/app/services/remote.service';
-import { Container } from '../../containers/container';
 import { getStackName } from '../stacks.utils';
 
 @Component({

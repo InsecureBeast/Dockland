@@ -35,7 +35,6 @@ namespace DockerW.Services
         {
             if (!_dockerServices.ContainsKey(name))
                 return null;
-                //throw new InvalidOperationException("Service doen't exists. Please register service first.");
             
             return _dockerServices[name];
         }

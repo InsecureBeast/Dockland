@@ -11,7 +11,8 @@ const PROXY_CONFIG = [
       "/weatherforecast",
       "/api/images",
       "/api/containers",
-      "/api/stacks"
+      "/api/stacks",
+      "/api/stack"
    ],
     target: target,
     secure: false,

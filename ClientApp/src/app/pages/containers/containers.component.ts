@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { TEST_ENV } from 'src/app/core/const';
+import { Container } from 'src/app/core/data-classes';
 import { RemoteService } from 'src/app/services/remote.service';
-import { Container } from './container';
 
 @Component({
   selector: 'app-containers',

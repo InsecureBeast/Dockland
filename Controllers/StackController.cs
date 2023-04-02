@@ -8,20 +8,21 @@ namespace DockerW.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class StacksController : ControllerBase
+    public class StackController : ControllerBase
     {
         private readonly ILogger<StacksController> _logger;
         private readonly IDockerService _dockerService;
 
-        public StacksController(ILogger<StacksController> logger, IDockerService dockerService)
+        public StackController(ILogger<StacksController> logger, IDockerService dockerService)
         {
             _logger = logger;
             _dockerService = dockerService;
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Container>> Get(string env, string? stack)
+        public async Task<IEnumerable<Container>> Get(string env, string stack)
         {
+            var client = _dockerService.GetService(env);
             var containers = new List<Container>();
             var containersRespose = await _dockerService.GetStacksAsync(env);
 

@@ -1,9 +1,11 @@
-<h1 id="tableLabel">Stack {{stack}}</h1>
+<h1 id="tableLabel">Stack</h1>
+<h4>{{stack}}</h4>
 
 <p *ngIf="!containers"><em>Loading...</em></p>
 
+
 <div class="d-flex justify-content-end">
-  <button type="button" class="btn btn-danger" [disabled]="containers.length == 0" (click)="remove()">
+  <button type="button" class="btn btn-danger" [disabled]="isDisabled()" (click)="remove()">
     <i class="bi bi-trash2 me-2"></i>
     Remove
   </button>
@@ -26,18 +28,18 @@
     <tr>
       <th>Name</th>
       <th>State</th>
-      <th>Stack</th>
+      <th>Port</th>
       <th>Image</th>
       <th>Created</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let container of containers">
+    <tr *ngFor="let container of containers | async">
       <td>{{ container.names[0] | slice:1 }}</td>
       <td>
         <ng-container *ngTemplateOutlet="stateTemplate;context:{cState:container.state}"></ng-container>
       </td>
-      <td>{{ getStack(container.labels) }}</td>
+      <td><a [href]="getUrl(container.ports[0])" target="_blank">{{getUrl(container.ports[0])}}</a></td>
       <td>{{ container.image }} </td>
       <td>{{ container.created | date:'medium' }} </td>
     </tr>
