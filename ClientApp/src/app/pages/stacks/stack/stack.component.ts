@@ -34,8 +34,7 @@ export class StackComponent implements OnInit {
         this._route.queryParams.subscribe(params => {
           this._env = params.env ? params.env : TEST_ENV;
           this._url = params.url ? params.url as string : "http://0.0.0.0";
-          this.containers = this._remoteService.getStack(this._env, this.stack)
-            .pipe(tap(c => this._containersCount = c.length));
+          this.getStackInfo();
           this._toolbarService.changeVisibility(!getBoolean(params.hide));
         });
 
@@ -43,18 +42,27 @@ export class StackComponent implements OnInit {
     );
   }
 
-  getUrl(port: IPort): string {
+  getUrl(ports: IPort[]): string {
+    if (ports.length === 0)
+      return "";
+    
+    const port = ports[0];
     return `${this._url}:${port.publicPort}`;
   }
 
   remove(): void {
     this._remoteService.removeStack(this._env, this.stack).subscribe({
-      next: (result) => console.log(result), 
+      next: (result) => this.getStackInfo(), 
       error: (e) => console.error(e)
     }) 
   }
 
   isDisabled(): boolean {
     return this._containersCount == 0;
+  }
+
+  private getStackInfo(): void {
+    this.containers = this._remoteService.getStack(this._env, this.stack)
+      .pipe(tap(c => this._containersCount = c.length));
   }
 }

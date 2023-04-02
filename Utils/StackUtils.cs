@@ -13,13 +13,14 @@ namespace DockerW.Utils
                 return Task.FromResult(Array.Empty<ContainerListResponse>() as IList<ContainerListResponse>);
 
             var parameters = new ContainersListParameters();
-            parameters.Filters = new Dictionary<string, IDictionary<string, bool>>
-            {
-                ["label"] = new Dictionary<string, bool>
-                {
-                    [DockerComposeLabels.PROJECT] = true
-                }
-            };
+            parameters.All = true;
+            //parameters.Filters = new Dictionary<string, IDictionary<string, bool>>
+            //{
+            //    ["label"] = new Dictionary<string, bool>
+            //    {
+            //        [DockerComposeLabels.SERVICE] = true
+            //    }
+            //};
 
             return client.Containers.ListContainersAsync(parameters);
         }

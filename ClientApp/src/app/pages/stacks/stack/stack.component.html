@@ -39,7 +39,7 @@
       <td>
         <ng-container *ngTemplateOutlet="stateTemplate;context:{cState:container.state}"></ng-container>
       </td>
-      <td><a [href]="getUrl(container.ports[0])" target="_blank">{{getUrl(container.ports[0])}}</a></td>
+      <td><a [href]="getUrl(container.ports)" target="_blank">{{getUrl(container.ports)}}</a></td>
       <td>{{ container.image }} </td>
       <td>{{ container.created | date:'medium' }} </td>
     </tr>

@@ -31,6 +31,6 @@ export class  RemoteService {
   }
 
   removeStack(environment: string, stack: string): Observable<boolean> {
-    return this._http.delete<boolean>(`${this._baseUrl}api/stacks/remove?env=${environment}&stack=${stack}`).pipe(first());
+    return this._http.delete<boolean>(`${this._baseUrl}api/stack/remove?env=${environment}&stack=${stack}`).pipe(first());
   }
 }

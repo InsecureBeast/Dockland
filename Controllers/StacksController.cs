@@ -36,18 +36,18 @@ namespace DockerW.Controllers
         [HttpDelete("{id}")]
         public async Task<bool> Remove(string env, string stack)
         {
-            var client = _dockerService.GetService(env);
-            if (env == null)
-                return false;
+            //var client = _dockerService.GetService(env);
+            //if (env == null)
+            //    return false;
 
             var containersRespose = await _dockerService.GetStacksAsync(env);
-            foreach (var container in containersRespose.FilterContsiners(stack))
-            {
-                var removeParameters = new ContainerRemoveParameters();
-                removeParameters.RemoveVolumes = true;
-                removeParameters.Force = true;
-                await client.Containers.RemoveContainerAsync(container.ID, removeParameters);
-            }
+            //foreach (var container in containersRespose.FilterContsiners(stack))
+            //{
+            //    var removeParameters = new ContainerRemoveParameters();
+            //    removeParameters.RemoveVolumes = true;
+            //    removeParameters.Force = true;
+            //    await client.Containers.RemoveContainerAsync(container.ID, removeParameters);
+            //}
             return true;
         }
     }
