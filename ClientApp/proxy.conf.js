@@ -12,7 +12,10 @@ const PROXY_CONFIG = [
       "/api/images",
       "/api/containers",
       "/api/stacks",
-      "/api/stack"
+      "/api/stack",
+      "/api/volumes",
+      "/api/volume"
+
    ],
     target: target,
     secure: false,

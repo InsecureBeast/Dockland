@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
 import { first, Observable } from "rxjs";
 import { Container, Image } from "../core/data-classes";
+import { IVolume } from "../core/volume";
 
 @Injectable({ providedIn: 'root' })
 export class  RemoteService {
@@ -32,5 +33,10 @@ export class  RemoteService {
 
   removeStack(environment: string, stack: string): Observable<boolean> {
     return this._http.delete<boolean>(`${this._baseUrl}api/stack/remove?env=${environment}&stack=${stack}`).pipe(first());
+  }
+
+  getVolumes(environment: string, stack?: string): Observable<IVolume[]> {
+    let stackRequest = stack ? `&stack=${stack}` : "";
+    return this._http.get<IVolume[]>(`${this._baseUrl}api/volumes?env=${environment}` + stackRequest).pipe(first());
   }
 }

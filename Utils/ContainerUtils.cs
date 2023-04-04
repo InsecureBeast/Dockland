@@ -18,12 +18,12 @@ namespace DockerW.Utils
                 Image = response.Image,
                 ImageId = response.ImageID,
                 Labels = response.Labels,
-                Ports = response.Ports.Select(p => ToPort(p)).ToArray()
+                Ports = response.Ports.Select(p => p.ToPort()).ToArray()
             };
             return container;
         }
 
-        private static DataModels.Port ToPort(Docker.DotNet.Models.Port port)
+        private static DataModels.Port ToPort(this Docker.DotNet.Models.Port port)
         {
             return new DataModels.Port
             {

@@ -22,35 +22,30 @@ namespace DockerW.Controllers
         public async Task<IEnumerable<Image>> Get(string env)
         {
             var images = new List<Image>();
-            try
+            var param = new ImagesListParameters
             {
-                var param = new ImagesListParameters();
-                param.All = true;
-                param.Digests = true;
-                
-                var client = _dockerService.GetService(env);
-                var imagesRespose = await client.Images.ListImagesAsync(param);
-                
-                foreach (var response in imagesRespose)
-                {
-                    var image = new Image();
-                    image.Labels = response.Labels;
-                    image.ID = response.ID;
-                    image.RepoTags = response.RepoTags;
-                    image.RepoDigests = response.RepoDigests;
-                    image.ParentID = response.ParentID;
-                    image.Containers = response.Containers;
-                    image.Created = response.Created;
-                    image.Size = response.Size;
-                    images.Add(image);
-                }
-            }
-            catch (Exception e)
+                All = true,
+                Digests = true
+            };
+
+            var client = _dockerService.GetService(env);
+            if (client == null)
+                return images;
+
+            var imagesRespose = await client.Images.ListImagesAsync(param);
+            foreach (var response in imagesRespose)
             {
-                var t = e;
-                throw;
+                var image = new Image();
+                image.Labels = response.Labels;
+                image.ID = response.ID;
+                image.RepoTags = response.RepoTags;
+                image.RepoDigests = response.RepoDigests;
+                image.ParentID = response.ParentID;
+                image.Containers = response.Containers;
+                image.Created = response.Created;
+                image.Size = response.Size;
+                images.Add(image);
             }
-            
 
             return images;
         }

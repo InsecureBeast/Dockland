@@ -13,6 +13,7 @@ import { FormatFileSizePipe } from './pipes/format-file-size.pipe';
 import { ContainersModule } from './pages/containers/containers.module';
 import { ContainersComponent } from './pages/containers/containers.component';
 import { StacksModule } from './pages/stacks/stacks.module';
+import { VolumesModule } from './pages/volumes/volumes.module';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { StacksModule } from './pages/stacks/stacks.module';
       // },
     ]),
     ContainersModule,
-    StacksModule
+    StacksModule,
+    VolumesModule
   ],
   providers: [],
   bootstrap: [AppComponent]
