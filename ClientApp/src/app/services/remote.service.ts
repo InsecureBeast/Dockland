@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
 import { first, Observable } from "rxjs";
 import { Container, Image } from "../core/data-classes";
+import { INetwork } from "../core/network";
 import { IVolume } from "../core/volume";
 
 @Injectable({ providedIn: 'root' })
@@ -38,5 +39,10 @@ export class  RemoteService {
   getVolumes(environment: string, stack?: string): Observable<IVolume[]> {
     let stackRequest = stack ? `&stack=${stack}` : "";
     return this._http.get<IVolume[]>(`${this._baseUrl}api/volumes?env=${environment}` + stackRequest).pipe(first());
+  }
+
+  getNetworks(environment: string, stack?: string): Observable<INetwork[]> {
+    let stackRequest = stack ? `&stack=${stack}` : "";
+    return this._http.get<INetwork[]>(`${this._baseUrl}api/networks?env=${environment}` + stackRequest).pipe(first());
   }
 }

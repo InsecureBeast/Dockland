@@ -9,10 +9,10 @@ namespace DockerW.Controllers
     [Route("api/[controller]")]
     public class VolumesController : ControllerBase
     {
-        private readonly ILogger<ImagesController> _logger;
+        private readonly ILogger<VolumesController> _logger;
         private readonly IDockerService _dockerService;
 
-        public VolumesController(ILogger<ImagesController> logger, IDockerService dockerService)
+        public VolumesController(ILogger<VolumesController> logger, IDockerService dockerService)
         {
             _logger = logger;
             _dockerService = dockerService;

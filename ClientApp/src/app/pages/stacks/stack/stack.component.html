@@ -3,32 +3,14 @@
 
 <p *ngIf="!containers"><em>Loading...</em></p>
 
-<h4 class="mt-4">
-  <i class="bi bi-box me-1"></i>
-  Containers
-</h4>
-
-<div class="d-flex justify-content-end">
-  <button type="button" class="btn btn-danger" [disabled]="isDisabled()" (click)="remove()">
-    <i class="bi bi-trash2 me-"></i>
-    Remove
-  </button>
-  <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-    <button type="button" class="btn btn-outline-secondary d-none" disabled><i class="bi bi-play me-2"></i>Start</button>
-    <button type="button" class="btn btn-outline-secondary d-none" disabled><i class="bi bi-stop me-2"></i>Stop</button>
-    <button type="button" class="btn btn-outline-secondary d-none" disabled><i class="bi bi-x me-2"></i>Kill</button>
-    <button type="button" class="btn btn-outline-secondary d-none" disabled><i class="bi bi-arrow-repeat me-2"></i>Restart</button>
-    <button type="button" class="btn btn-outline-secondary d-none" disabled><i class="bi bi-pause me-2"></i>Pause</button>
-    <button type="button" class="btn btn-outline-secondary d-none" disabled><i class="bi bi-play me-2"></i>Resume</button>
-    <button type="button" class="btn btn-outline-danger d-none" (click)="remove()">
-      <i class="bi bi-trash2 me-1"></i>
-      Remove
-    </button>
-  </div>
-</div>
-
-<table class='table table-striped mt-2' aria-labelledby="tableLabel" *ngIf="containers">
-  <thead>
+<table class='table table-hover mt-2 caption-top' *ngIf="containers">
+  <caption>
+    <div>
+      <i class="bi bi-box me-2"></i><span>Containers</span>
+      <ng-container *ngTemplateOutlet="buttonsTemplate"></ng-container>
+    </div>
+  </caption>
+  <thead class="table-light">
     <tr>
       <th>Name</th>
       <th style="width: 100px;">State</th>
@@ -50,13 +32,9 @@
   </tbody>
 </table>
 
-<h4 class="mt-4">
-  <i class="bi bi-database me-1"></i>
-  Volumes
-</h4>
-
-<table class='table table-striped mt-2' aria-labelledby="tableLabel" *ngIf="volumes">
-  <thead>
+<table class='table table-hover mt-2 caption-top' aria-labelledby="tableLabel" *ngIf="volumes">
+  <caption><i class="bi bi-database me-2"></i>Volumes</caption>
+  <thead class="table-light">
     <tr>
       <th>Name</th>
       <th style="width: 90px;">Driver</th>
@@ -74,6 +52,26 @@
   </tbody>
 </table>
 
+<table class='table table-hover mt-2 caption-top' aria-labelledby="tableLabel" *ngIf="networks">
+  <caption><i class="bi bi-hdd-network me-2"></i>Networks</caption>
+  <thead class="table-light">
+    <tr>
+      <th>Name</th>
+      <th style="width: 90px;">Driver</th>
+      <th>Attachable</th>
+      <th>Created</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let network of networks | async">
+      <td class="text-truncate">{{ network.name }}</td>
+      <td class="text-truncate">{{ network.driver }}</td>
+      <td class="text-truncate">{{ network.attachable }} </td>
+      <td class="text-truncate">{{ network.created | date:'medium' }} </td>
+    </tr>
+  </tbody>
+</table>
+
 <ng-template #stateTemplate let-state="cState">
   <ng-container *ngIf="state === 'running'">
     <span class="badge bg-success">{{state}}</span>
@@ -84,4 +82,25 @@
   <ng-container *ngIf="state === 'paused'">
     <span class="badge bg-secondary">{{state}}</span>
   </ng-container>
+</ng-template>
+
+<ng-template #buttonsTemplate>
+  <div class="d-flex justify-content-end">
+    <button type="button" class="btn btn-danger" [disabled]="isDisabled()" (click)="remove()">
+      <i class="bi bi-trash2 me-1"></i>
+      Remove
+    </button>
+    <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+      <button type="button" class="btn btn-outline-secondary d-none" disabled><i class="bi bi-play me-2"></i>Start</button>
+      <button type="button" class="btn btn-outline-secondary d-none" disabled><i class="bi bi-stop me-2"></i>Stop</button>
+      <button type="button" class="btn btn-outline-secondary d-none" disabled><i class="bi bi-x me-2"></i>Kill</button>
+      <button type="button" class="btn btn-outline-secondary d-none" disabled><i class="bi bi-arrow-repeat me-2"></i>Restart</button>
+      <button type="button" class="btn btn-outline-secondary d-none" disabled><i class="bi bi-pause me-2"></i>Pause</button>
+      <button type="button" class="btn btn-outline-secondary d-none" disabled><i class="bi bi-play me-2"></i>Resume</button>
+      <button type="button" class="btn btn-outline-danger d-none" (click)="remove()">
+        <i class="bi bi-trash2 me-1"></i>
+        Remove
+      </button>
+    </div>
+  </div>
 </ng-template>

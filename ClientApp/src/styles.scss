@@ -18,3 +18,10 @@ code {
 .table {
   table-layout: fixed;
 }
+.table>:not(:first-child) {
+  border-top: 0px;
+}
+
+.mt-5 {
+  margin-top: 3rem;
+}

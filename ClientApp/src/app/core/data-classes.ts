@@ -47,10 +47,10 @@ export interface IPort {
 }
 
 export interface ISummaryNetworkSettings {
-  networks: Map<string, IEndpointSettings>;
+  networks: Map<string, IEndPointSettings>;
 }
 
-export interface IEndpointSettings {
+export interface IEndPointSettings {
   IPAMConfig: EndpointIPAMConfig;
   links: string[];
   aliases: string[];
