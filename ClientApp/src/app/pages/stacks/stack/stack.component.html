@@ -3,74 +3,99 @@
 
 <p *ngIf="!containers"><em>Loading...</em></p>
 
-<table class='table table-hover mt-2 caption-top' *ngIf="containers">
-  <caption>
-    <div>
-      <i class="bi bi-box me-2"></i><span>Containers</span>
-      <ng-container *ngTemplateOutlet="buttonsTemplate"></ng-container>
-    </div>
-  </caption>
-  <thead class="table-light">
-    <tr>
-      <th>Name</th>
-      <th style="width: 100px;">State</th>
-      <th>Port</th>
-      <th>Image</th>
-      <th>Created</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let container of containers | async">
-      <td class="text-truncate">{{ container.names[0] | slice:1 }}</td>
-      <td>
-        <ng-container *ngTemplateOutlet="stateTemplate;context:{cState:container.state}"></ng-container>
-      </td>
-      <td class="text-truncate"><a [href]="getUrl(container.ports)" target="_blank">{{getUrl(container.ports)}}</a></td>
-      <td class="text-truncate">{{ container.image }} </td>
-      <td class="text-truncate">{{ container.created | date:'medium' }} </td>
-    </tr>
-  </tbody>
-</table>
+<ng-container *ngTemplateOutlet="buttonsTemplate"></ng-container>
 
-<table class='table table-hover mt-2 caption-top' aria-labelledby="tableLabel" *ngIf="volumes">
-  <caption><i class="bi bi-database me-2"></i>Volumes</caption>
-  <thead class="table-light">
-    <tr>
-      <th>Name</th>
-      <th style="width: 90px;">Driver</th>
-      <th>Mount point</th>
-      <th>Created</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let volume of volumes | async">
-      <td class="text-truncate">{{ volume.name }}</td>
-      <td class="text-truncate">{{ volume.driver }}</td>
-      <td class="text-truncate">{{ volume.mountpoint }} </td>
-      <td class="text-truncate">{{ volume.createdAt | date:'medium' }} </td>
-    </tr>
-  </tbody>
-</table>
+<div class="mt-4 mb-2 fs-5"><i class="bi bi-box me-2"></i><span>Containers</span></div>
+<div class="card">
+  <table class='table table-hover mb-0' *ngIf="containers">
+    <thead class="table-light">
+      <tr>
+        <th>Name</th>
+        <th style="width: 100px;">State</th>
+        <th>Port</th>
+        <th>Image</th>
+        <th>Created</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let container of containers | async">
+        <td class="text-truncate">{{ container.names[0] | slice:1 }}</td>
+        <td>
+          <ng-container *ngTemplateOutlet="stateTemplate;context:{cState:container.state}"></ng-container>
+        </td>
+        <td class="text-truncate"><a [href]="getUrl(container.ports)" target="_blank">{{getUrl(container.ports)}}</a></td>
+        <td class="text-truncate">{{ container.image }} </td>
+        <td class="text-truncate">{{ container.created | date:'medium' }} </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
-<table class='table table-hover mt-2 caption-top' aria-labelledby="tableLabel" *ngIf="networks">
-  <caption><i class="bi bi-hdd-network me-2"></i>Networks</caption>
-  <thead class="table-light">
-    <tr>
-      <th>Name</th>
-      <th style="width: 90px;">Driver</th>
-      <th>Attachable</th>
-      <th>Created</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let network of networks | async">
-      <td class="text-truncate">{{ network.name }}</td>
-      <td class="text-truncate">{{ network.driver }}</td>
-      <td class="text-truncate">{{ network.attachable }} </td>
-      <td class="text-truncate">{{ network.created | date:'medium' }} </td>
-    </tr>
-  </tbody>
-</table>
+<div class="mt-4 mb-2 fs-5"><i class="bi bi-app me-2"></i>Images</div>
+<div class="card">
+  <table class='table table-hover mb-0' aria-labelledby="tableLabel" *ngIf="images">
+    <thead class="table-light">
+      <tr>
+        <th>Name</th>
+        <th style="width: 90px;">Tag</th>
+        <th>Created</th>
+        <th>Size</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let image of images | async">
+        <td class="text-truncate">{{ getImageName(image) }}</td>
+        <td class="text-truncate">{{ getImageTag(image) }}</td>
+        <td class="text-truncate">{{ image.created | date:'medium' }} </td>
+        <td class="text-truncate">{{ image.size | formatFileSize: false }} </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="mt-4 mb-2 fs-5"><i class="bi bi-database me-2"></i>Volumes</div>
+<div class="card">
+  <table class='table table-hover mb-0' aria-labelledby="tableLabel" *ngIf="volumes">
+    <thead class="table-light">
+      <tr>
+        <th>Name</th>
+        <th style="width: 90px;">Driver</th>
+        <th>Mount point</th>
+        <th>Created</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let volume of volumes | async">
+        <td class="text-truncate">{{ volume.name }}</td>
+        <td class="text-truncate">{{ volume.driver }}</td>
+        <td class="text-truncate">{{ volume.mountpoint }} </td>
+        <td class="text-truncate">{{ volume.createdAt | date:'medium' }} </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="mt-4 mb-2 fs-5"><i class="bi bi-hdd-network me-2"></i>Volumes</div>
+<div class="card mb-4">
+  <table class='table table-hover mb-0' aria-labelledby="tableLabel" *ngIf="networks">
+    <thead class="table-light">
+      <tr>
+        <th>Name</th>
+        <th style="width: 90px;">Driver</th>
+        <th>Attachable</th>
+        <th>Created</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let network of networks | async">
+        <td class="text-truncate">{{ network.name }}</td>
+        <td class="text-truncate">{{ network.driver }}</td>
+        <td class="text-truncate">{{ network.attachable }} </td>
+        <td class="text-truncate">{{ network.created | date:'medium' }} </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 <ng-template #stateTemplate let-state="cState">
   <ng-container *ngIf="state === 'running'">

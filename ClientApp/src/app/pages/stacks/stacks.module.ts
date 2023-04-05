@@ -1,13 +1,15 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
+import { FormatFileSizePipe } from "src/app/pipes/format-file-size.pipe";
 import { StackComponent } from "./stack/stack.component";
 import { StacksComponent } from "./stacks/stacks.component";
 
 @NgModule({
   declarations: [
     StacksComponent,
-    StackComponent
+    StackComponent,
+    FormatFileSizePipe
   ],
   imports: [
     CommonModule,
@@ -16,7 +18,7 @@ import { StacksComponent } from "./stacks/stacks.component";
       { path: 'stacks/:name', component: StackComponent }, 
     ]),
   ],
-  exports: [RouterModule],
+  exports: [RouterModule, FormatFileSizePipe],
   providers: [],
   bootstrap: [StacksComponent, StackComponent]
 })

@@ -22,7 +22,6 @@ import { VolumesModule } from './pages/volumes/volumes.module';
     HomeComponent,
     CounterComponent,
     ImagesComponent,
-    FormatFileSizePipe
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

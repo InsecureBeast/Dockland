@@ -28,32 +28,6 @@ namespace DockerW.Utils
             return client.Networks.ListNetworksAsync(parameters);
         }
 
-        //public static DataModels.Network ToVolume(this NetworkResponse response)
-        //{
-        //    var network = new DataModels.Network
-        //    {
-        //        Created = response.Created,
-        //        Attachable = response.Attachable,
-        //        ConfigFrom = new DataModels.Config(response.ConfigFrom),
-        //        ConfigOnly = response.ConfigOnly,
-        //        Containers = response.Containers.Select(c => new ),
-        //        Driver = response.Driver,
-        //        EnableIPv6 = response.EnableIPv6,
-        //        ID = response.ID,
-        //        Ingress = response.Ingress,
-        //        Internal = response.Internal,
-        //        IPAM = response.IPAM,
-        //        Labels = response.Labels,
-        //        Name = response.Name,
-        //        Options = response.Options,
-        //        Peers = response.Peers,
-        //        Scope = response.Scope,
-        //        Services = response.Services
-        //    };
-
-        //    return network;
-        //}
-
         public static IEnumerable<NetworkResponse> FilterNetworks(this IList<NetworkResponse> list, string? stack)
         {
             if (list == null)

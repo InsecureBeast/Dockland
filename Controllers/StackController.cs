@@ -1,8 +1,9 @@
-﻿using Docker.DotNet.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using Docker.DotNet;
+using Docker.DotNet.Models;
 using DockerW.DataModels;
 using DockerW.Services;
 using DockerW.Utils;
-using Microsoft.AspNetCore.Mvc;
 
 namespace DockerW.Controllers
 {
@@ -46,6 +47,7 @@ namespace DockerW.Controllers
                 var removeParameters = new ContainerRemoveParameters();
                 removeParameters.RemoveVolumes = true;
                 removeParameters.Force = true;
+                //await client.Containers.StopContainerAsync(container.ID, new ContainerStopParameters());
                 await client.Containers.RemoveContainerAsync(container.ID, removeParameters);
             }
 
@@ -62,15 +64,27 @@ namespace DockerW.Controllers
                 await client.Networks.DeleteNetworkAsync(network.Value.NetworkID);
             }
 
+            containers = containersRespose.FilterContsiners(stack).ToList();
             foreach (var container in containers)
             {
-                var imageParams = new ImageDeleteParameters();
-                imageParams.Force = true; //TODO Force
-                imageParams.NoPrune = false;
-                var result = await client.Images.DeleteImageAsync(container.ImageID, imageParams);
+                await RemoveImagesSafe(client, container);
             }
 
             return true;
+        }
+
+        private async Task RemoveImagesSafe(IDockerClient client, ContainerListResponse container)
+        {
+            try
+            {
+                var imageParams = new ImageDeleteParameters();
+                imageParams.Force = true; //TODO Force
+                await client.Images.DeleteImageAsync(container.ImageID, imageParams);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, e.Message);
+            }
         }
     }
 }

@@ -15,8 +15,9 @@ export class  RemoteService {
     
   }
 
-  getImages(environment: string):Observable<Image[]> {
-    return this._http.get<Image[]>(`${this._baseUrl}api/images?env=${environment}`).pipe(first());
+  getImages(environment: string, stack?: string):Observable<Image[]> {
+    let stackRequest = stack ? `&stack=${stack}` : "";
+    return this._http.get<Image[]>(`${this._baseUrl}api/images?env=${environment}` + stackRequest).pipe(first());
   }
   
   getContainers(environment: string): Observable<Container[]> {

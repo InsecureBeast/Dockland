@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Docker.DotNet.Models;
 using DockerW.Services;
+using DockerW.Utils;
 
 namespace DockerW.Controllers
 {
@@ -19,35 +20,13 @@ namespace DockerW.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Image>> Get(string env)
+        public async Task<IEnumerable<ImagesListResponse>> Get(string env, string? stack)
         {
-            var images = new List<Image>();
-            var param = new ImagesListParameters
-            {
-                All = true,
-                Digests = true
-            };
+            var imagesRespose = await _dockerService.GetImagesAsync(env);
+            if (imagesRespose == null)
+                return Enumerable.Empty<ImagesListResponse>();
 
-            var client = _dockerService.GetService(env);
-            if (client == null)
-                return images;
-
-            var imagesRespose = await client.Images.ListImagesAsync(param);
-            foreach (var response in imagesRespose)
-            {
-                var image = new Image();
-                image.Labels = response.Labels;
-                image.ID = response.ID;
-                image.RepoTags = response.RepoTags;
-                image.RepoDigests = response.RepoDigests;
-                image.ParentID = response.ParentID;
-                image.Containers = response.Containers;
-                image.Created = response.Created;
-                image.Size = response.Size;
-                images.Add(image);
-            }
-
-            return images;
+            return imagesRespose.FilterImagesAsync(stack);
         }
     }
 }
