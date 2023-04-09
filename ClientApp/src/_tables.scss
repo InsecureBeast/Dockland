@@ -1,0 +1,19 @@
+.table {
+  table-layout: fixed;
+}
+
+.table>:not(:first-child) {
+  border-top: 0px;
+}
+
+.table>tbody tr:last-child {
+  border-bottom: 0px solid transparent;
+}
+
+.table .cw-xs {
+  width: 100px;
+}
+
+.table .cw-s {
+  width: 200px;
+}

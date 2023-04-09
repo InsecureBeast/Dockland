@@ -1,4 +1,4 @@
-<h3 id="tableLabel">Stack details</h3>
+<h3 id="tableLabel"><i class="bi bi-layers me-2"></i>Stack details</h3>
 <span>Name: {{stack}}</span>
 
 <p *ngIf="!containers"><em>Loading...</em></p>
@@ -32,26 +32,7 @@
 </div>
 
 <div class="mt-4 mb-2 fs-5"><i class="bi bi-collection me-2"></i>Images</div>
-<div class="card">
-  <table class='table table-hover mb-0' aria-labelledby="tableLabel" *ngIf="images">
-    <thead class="table-light">
-      <tr>
-        <th>Name</th>
-        <th style="width: 90px;">Tag</th>
-        <th>Created</th>
-        <th>Size</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let image of images | async">
-        <td class="text-truncate">{{ getImageName(image) }}</td>
-        <td class="text-truncate">{{ getImageTag(image) }}</td>
-        <td class="text-truncate">{{ image.created | date:'medium' }} </td>
-        <td class="text-truncate">{{ image.size | formatFileSize: false }} </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<app-image-list [images]="images | async" *ngIf="images"></app-image-list>
 
 <div class="mt-4 mb-2 fs-5"><i class="bi bi-database me-2"></i>Volumes</div>
 <div class="card">
@@ -59,7 +40,7 @@
     <thead class="table-light">
       <tr>
         <th>Name</th>
-        <th style="width: 90px;">Driver</th>
+        <th style="width: 100px;">Driver</th>
         <th>Mount point</th>
         <th>Created</th>
       </tr>
@@ -81,7 +62,7 @@
     <thead class="table-light">
       <tr>
         <th>Name</th>
-        <th style="width: 90px;">Driver</th>
+        <th style="width: 100px;">Driver</th>
         <th>Attachable</th>
         <th>Created</th>
       </tr>

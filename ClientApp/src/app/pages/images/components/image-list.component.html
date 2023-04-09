@@ -1,0 +1,22 @@
+<p *ngIf="!images"><em>Loading...</em></p>
+
+<div class="card mt-3">
+  <table class='table table-hover mb-0' *ngIf="images">
+    <thead class="table-light">
+      <tr>
+        <th>Name</th>
+        <th class="cw-s">Tag</th>
+        <th class="cw-s">Created</th>
+        <th class="cw-xs">Size</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let image of images">
+        <td class="text-truncate">{{ getImageTagName(image.repoTags).name }}</td>
+        <td class="text-truncate">{{ getImageTagName(image.repoTags).tag }}</td>
+        <td class="text-truncate">{{ image.created | date:'medium' }}</td>
+        <td class="text-truncate">{{ image.size | formatFileSize: false }} </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap-icons/font/bootstrap-icons.css";
+@import "./tables";
 
 /* Provide sufficient contrast against white background */
 a {
@@ -15,18 +16,6 @@ code {
   color: #fff;
   background-color: #1b6ec2;
   border-color: #1861ac;
-}
-
-.table {
-  table-layout: fixed;
-}
-
-.table>:not(:first-child) {
-  border-top: 0px;
-}
-
-.table>tbody tr:last-child {
-  border-bottom: 0px solid transparent;
 }
 
 .mt-5 {

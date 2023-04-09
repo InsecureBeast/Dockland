@@ -8,12 +8,12 @@ import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './pages/home/home.component';
 import { CounterComponent } from './pages/counter/counter.component';
-import { ImagesComponent } from './pages/images/images.component';
 import { FormatFileSizePipe } from './pipes/format-file-size.pipe';
 import { ContainersModule } from './pages/containers/containers.module';
 import { ContainersComponent } from './pages/containers/containers.component';
 import { StacksModule } from './pages/stacks/stacks.module';
 import { VolumesModule } from './pages/volumes/volumes.module';
+import { ImagesModule } from './pages/images/images.module';
 
 @NgModule({
   declarations: [
@@ -21,7 +21,6 @@ import { VolumesModule } from './pages/volumes/volumes.module';
     NavMenuComponent,
     HomeComponent,
     CounterComponent,
-    ImagesComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -30,7 +29,6 @@ import { VolumesModule } from './pages/volumes/volumes.module';
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
-      { path: 'images', component: ImagesComponent },
       { path: 'containers', component: ContainersComponent },
       // {
       //   path: "stacks",
@@ -40,7 +38,8 @@ import { VolumesModule } from './pages/volumes/volumes.module';
     ]),
     ContainersModule,
     StacksModule,
-    VolumesModule
+    VolumesModule,
+    ImagesModule
   ],
   providers: [],
   bootstrap: [AppComponent]
