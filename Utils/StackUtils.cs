@@ -6,7 +6,7 @@ namespace DockerW.Utils
 {
     public static class StackExtensions
     {
-        public static Task<IList<ContainerListResponse>> GetStacksAsync(this IDockerService service, string env)
+        public static Task<IList<ContainerListResponse>> GetContainersInStackAsync(this IDockerService service, string env)
         {
             var client = service.GetService(env);
             if (client == null)
@@ -23,6 +23,19 @@ namespace DockerW.Utils
             //};
 
             return client.Containers.ListContainersAsync(parameters);
+        }
+
+        public static string GetStackName(this ContainerListResponse response)
+        {
+            return response.Labels?.FirstOrDefault(x => DockerComposeLabels.PROJECT == x.Key).Value;
+        }
+
+        public static string GetStackType(this ContainerListResponse response) 
+        {
+            if (response.Labels != null && response.Labels.ContainsKey(DockerComposeLabels.PROJECT))
+                return "Compose";
+
+            return "unknown";
         }
     }
 }

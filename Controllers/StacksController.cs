@@ -1,8 +1,7 @@
-﻿using Docker.DotNet.Models;
+﻿using Microsoft.AspNetCore.Mvc;
 using DockerW.DataModels;
 using DockerW.Services;
 using DockerW.Utils;
-using Microsoft.AspNetCore.Mvc;
 
 namespace DockerW.Controllers
 {
@@ -20,35 +19,22 @@ namespace DockerW.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Container>> Get(string env, string? stack)
+        public async Task<IEnumerable<Stack>> Get(string env)
         {
-            var containers = new List<Container>();
-            var containersRespose = await _dockerService.GetStacksAsync(env);
+            var stacks = new Dictionary<string, Stack>();
+            var containersRespose = await _dockerService.GetContainersInStackAsync(env);
 
-            foreach (var response in containersRespose.FilterContsiners(stack))
+            foreach (var response in containersRespose.FilterStackContsiners(null))
             {
-                var container = response.ToContainer();
-                containers.Add(container);
+                var stack = new Stack
+                {
+                    Name = response.GetStackName(),
+                    Type = response.GetStackType(),
+                    Created = response.Created
+                };
+                stacks[stack.Name] = stack;
             }
-            return containers;
-        }
-
-        [HttpDelete("{id}")]
-        public async Task<bool> Remove(string env, string stack)
-        {
-            //var client = _dockerService.GetService(env);
-            //if (env == null)
-            //    return false;
-
-            var containersRespose = await _dockerService.GetStacksAsync(env);
-            //foreach (var container in containersRespose.FilterContsiners(stack))
-            //{
-            //    var removeParameters = new ContainerRemoveParameters();
-            //    removeParameters.RemoveVolumes = true;
-            //    removeParameters.Force = true;
-            //    await client.Containers.RemoveContainerAsync(container.ID, removeParameters);
-            //}
-            return true;
+            return stacks.Values;
         }
     }
 }

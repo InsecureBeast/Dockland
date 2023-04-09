@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TEST_ENV } from 'src/app/core/const';
-import { Container } from 'src/app/core/data-classes';
 import { RemoteService } from 'src/app/services/remote.service';
+import { Stack } from '../stack';
 import { getStackName } from '../stacks.utils';
 
 @Component({
@@ -14,8 +14,8 @@ export class StacksComponent implements OnInit {
 
   private _env: string = TEST_ENV;
 
-  containers: Container[] = [];
-  checked: Container[] = [];
+  stacks: Stack[] = [];
+  checked: Stack[] = [];
 
   constructor(
     private readonly _remoteService: RemoteService, private _route: ActivatedRoute) {
@@ -27,7 +27,7 @@ export class StacksComponent implements OnInit {
       .subscribe(params => {
         this._env = params.env ? params.env : TEST_ENV;
         this._remoteService.getStacks(this._env).subscribe({ 
-          next: (result) => { this.containers = result.map(i => i) }, 
+          next: (result) => { this.stacks = result.map(i => i) }, 
           error: (e) => console.error(e)
         });
       }
@@ -39,8 +39,8 @@ export class StacksComponent implements OnInit {
   }
 
   remove(): void {
-    this.checked.forEach(container => {
-      this._remoteService.removeStack(this._env, this.getStack(container.labels)).subscribe({
+    this.checked.forEach(stack => {
+      this._remoteService.removeStack(this._env, stack.name).subscribe({
         next: (result) => console.log(result), 
         error: (e) => console.error(e)
       })  

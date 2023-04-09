@@ -24,8 +24,8 @@ namespace DockerW.Controllers
         public async Task<IEnumerable<Container>> Get(string env, string stack)
         {
             var containers = new List<Container>();
-            var containersRespose = await _dockerService.GetStacksAsync(env);
-            foreach (var response in containersRespose.FilterContsiners(stack))
+            var containersRespose = await _dockerService.GetContainersInStackAsync(env);
+            foreach (var response in containersRespose.FilterStackContsiners(stack))
             {
                 var container = response.ToContainer();
                 containers.Add(container);
@@ -40,14 +40,13 @@ namespace DockerW.Controllers
             if (client == null)
                 return false;
 
-            var containersRespose = await _dockerService.GetStacksAsync(env);
-            var containers = containersRespose.FilterContsiners(stack).ToList();
+            var containersRespose = await _dockerService.GetContainersInStackAsync(env);
+            var containers = containersRespose.FilterStackContsiners(stack).ToList();
             foreach (var container in containers)
             {
                 var removeParameters = new ContainerRemoveParameters();
                 removeParameters.RemoveVolumes = true;
                 removeParameters.Force = true;
-                //await client.Containers.StopContainerAsync(container.ID, new ContainerStopParameters());
                 await client.Containers.RemoveContainerAsync(container.ID, removeParameters);
             }
 
@@ -64,7 +63,7 @@ namespace DockerW.Controllers
                 await client.Networks.DeleteNetworkAsync(network.Value.NetworkID);
             }
 
-            containers = containersRespose.FilterContsiners(stack).ToList();
+            containers = containersRespose.FilterStackContsiners(stack).ToList();
             foreach (var container in containers)
             {
                 await RemoveImagesSafe(client, container);

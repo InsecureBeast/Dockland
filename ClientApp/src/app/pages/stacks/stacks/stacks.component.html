@@ -1,44 +1,32 @@
 <h1 id="tableLabel">Stacks</h1>
 
-<p *ngIf="!containers"><em>Loading...</em></p>
+<p *ngIf="!stacks"><em>Loading...</em></p>
 
 <div class="d-flex justify-content-end">
-  <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-    <button type="button" class="btn btn-outline-secondary" disabled><i class="bi bi-play me-2"></i>Start</button>
-    <button type="button" class="btn btn-outline-secondary" disabled><i class="bi bi-stop me-2"></i>Stop</button>
-    <button type="button" class="btn btn-outline-secondary" disabled><i class="bi bi-x me-2"></i>Kill</button>
-    <button type="button" class="btn btn-outline-secondary" disabled><i class="bi bi-arrow-repeat me-2"></i>Restart</button>
-    <button type="button" class="btn btn-outline-secondary" disabled><i class="bi bi-pause me-2"></i>Pause</button>
-    <button type="button" class="btn btn-outline-secondary" disabled><i class="bi bi-play me-2"></i>Resume</button>
     <button type="button" class="btn btn-outline-danger" [disabled]="checked.length == 0" (click)="remove()">
       <i class="bi bi-trash2 me-2"></i>
       Remove
     </button>
-  </div>
 </div>
 
-<table class='table table-striped mt-2' aria-labelledby="tableLabel" *ngIf="containers">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>State</th>
-      <th>Stack</th>
-      <th>Image</th>
-      <th>Created</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let container of containers">
-      <td>{{ container.names[0] | slice:1 }}</td>
-      <td>
-        <ng-container *ngTemplateOutlet="stateTemplate;context:{cState:container.state}"></ng-container>
-      </td>
-      <td>{{ getStack(container.labels) }}</td>
-      <td>{{ container.image }} </td>
-      <td>{{ container.created | date:'medium' }} </td>
-    </tr>
-  </tbody>
-</table>
+<div class="card mt-3">
+  <table class='table table-hover mb-0' *ngIf="stacks">
+    <thead class="table-light">
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Created</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let stack of stacks">
+        <td class="text-truncate"><a href="/stacks/{{stack.name}}">{{ stack.name }}</a></td>
+        <td class="text-truncate">{{ stack.type }} </td>
+        <td class="text-truncate">{{ stack.created | date:'medium' }} </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 <ng-template #stateTemplate let-state="cState">
   <ng-container *ngIf="state === 'running'">

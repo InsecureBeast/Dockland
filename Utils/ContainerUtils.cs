@@ -37,7 +37,7 @@ namespace DockerW.Utils
 
     public static class ContainerListResponseExtensions
     {
-        public static IEnumerable<ContainerListResponse> FilterContsiners(this IList<ContainerListResponse> list, string? stack)
+        public static IEnumerable<ContainerListResponse> FilterStackContsiners(this IList<ContainerListResponse> list, string? stack)
         {
             if (list == null)
                 return Enumerable.Empty<ContainerListResponse>();
