@@ -17,33 +17,33 @@ export class  RemoteService {
   }
 
   getImages(environment: string, stack?: string):Observable<Image[]> {
-    let stackRequest = stack ? `&stack=${stack}` : "";
-    return this._http.get<Image[]>(`${this._baseUrl}api/images?env=${environment}` + stackRequest).pipe(first());
+    let stackRequest = stack ? `/${stack}` : "";
+    return this._http.get<Image[]>(`${this._baseUrl}api/images/${environment}` + stackRequest).pipe(first());
   }
   
   getContainers(environment: string): Observable<Container[]> {
-    return this._http.get<Container[]>(`${this._baseUrl}api/containers?env=${environment}`).pipe(first());
+    return this._http.get<Container[]>(`${this._baseUrl}api/containers/${environment}`).pipe(first());
   }
-
+  
   getStacks(environment: string): Observable<Stack[]> {
-    return this._http.get<Stack[]>(`${this._baseUrl}api/stacks?env=${environment}`).pipe(first());
+    return this._http.get<Stack[]>(`${this._baseUrl}api/stacks/${environment}`).pipe(first());
   }
 
-  getStack(environment: string, stack: string): Observable<Container[]> {
-    return this._http.get<Container[]>(`${this._baseUrl}api/stack?env=${environment}&stack=${stack}`).pipe(first());
+  getStackContainers(environment: string, stack: string): Observable<Container[]> {
+    return this._http.get<Container[]>(`${this._baseUrl}api/containers/${environment}/${stack}`).pipe(first());
   }
 
-  removeStack(environment: string, stack: string): Observable<boolean> {
-    return this._http.delete<boolean>(`${this._baseUrl}api/stack/remove?env=${environment}&stack=${stack}`).pipe(first());
+  deleteStack(environment: string, stack: string): Observable<boolean> {
+    return this._http.delete<boolean>(`${this._baseUrl}api/stacks/${environment}/${stack}`).pipe(first());
   }
 
   getVolumes(environment: string, stack?: string): Observable<IVolume[]> {
-    let stackRequest = stack ? `&stack=${stack}` : "";
-    return this._http.get<IVolume[]>(`${this._baseUrl}api/volumes?env=${environment}` + stackRequest).pipe(first());
+    let stackRequest = stack ? `/${stack}` : "";
+    return this._http.get<IVolume[]>(`${this._baseUrl}api/volumes/${environment}` + stackRequest).pipe(first());
   }
 
   getNetworks(environment: string, stack?: string): Observable<INetwork[]> {
-    let stackRequest = stack ? `&stack=${stack}` : "";
-    return this._http.get<INetwork[]>(`${this._baseUrl}api/networks?env=${environment}` + stackRequest).pipe(first());
+    let stackRequest = stack ? `/${stack}` : "";
+    return this._http.get<INetwork[]>(`${this._baseUrl}api/networks/${environment}` + stackRequest).pipe(first());
   }
 }

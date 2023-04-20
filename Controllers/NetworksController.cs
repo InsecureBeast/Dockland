@@ -19,7 +19,7 @@ namespace DockerW.Controllers
             _dockerService = dockerService;
         }
 
-        [HttpGet]
+        [HttpGet("{env}/{stack?}")]
         public async Task<IEnumerable<NetworkResponse>> Get(string env, string? stack)
         {
             var volumesRespose = await _dockerService.GetNetworksAsync(env);

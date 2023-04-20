@@ -55,7 +55,7 @@ export class StackComponent implements OnInit {
   }
 
   remove(): void {
-    this._remoteService.removeStack(this._env, this.stack).subscribe({
+    this._remoteService.deleteStack(this._env, this.stack).subscribe({
       next: (result) => this.updateInfo(), 
       error: (e) => console.error(e)
     }) 
@@ -81,7 +81,7 @@ export class StackComponent implements OnInit {
   }
 
   private getStackInfo(): void {
-    this.containers = this._remoteService.getStack(this._env, this.stack)
+    this.containers = this._remoteService.getStackContainers(this._env, this.stack)
       .pipe(tap(c => this._containersCount = c.length));
   }
 

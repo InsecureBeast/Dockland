@@ -42,11 +42,20 @@ namespace DockerW.Utils
             if (list == null)
                 return Enumerable.Empty<ContainerListResponse>();
 
-            var stackList = list.Where(c => c.Labels != null && c.Labels.ContainsKey(DockerComposeLabels.PROJECT));
             if (string.IsNullOrEmpty(stack))
-                return stackList;
-            
+                return list;
+
+            var stackList = list.Where(c => c.Labels != null && c.Labels.ContainsKey(DockerComposeLabels.PROJECT));
             return stackList.Where(c => c.Labels[DockerComposeLabels.PROJECT] == stack);
+        }
+
+        public static IEnumerable<ContainerListResponse> FilterContsinersInStacks(this IList<ContainerListResponse> list)
+        {
+            if (list == null)
+                return Enumerable.Empty<ContainerListResponse>();
+
+            var stackList = list.Where(c => c.Labels != null && c.Labels.ContainsKey(DockerComposeLabels.PROJECT));
+            return stackList;
         }
     }
 }

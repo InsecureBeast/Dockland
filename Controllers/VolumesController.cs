@@ -18,7 +18,7 @@ namespace DockerW.Controllers
             _dockerService = dockerService;
         }
 
-        [HttpGet]
+        [HttpGet("{env}/{stack?}")]
         public async Task<IEnumerable<Volume>> Get(string env, string? stack)
         {
             var volumes = new List<Volume>();

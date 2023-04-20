@@ -18,7 +18,7 @@ namespace DockerW.Controllers
             _dockerService = dockerService;
         }
 
-        [HttpGet]
+        [HttpGet("{env}/{stack?}")]
         public async Task<IEnumerable<ImagesListResponse>> Get(string env, string? stack)
         {
             var imagesRespose = await _dockerService.GetImagesAsync(env);

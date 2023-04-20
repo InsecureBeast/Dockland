@@ -40,7 +40,7 @@ export class StacksComponent implements OnInit {
 
   remove(): void {
     this.checked.forEach(stack => {
-      this._remoteService.removeStack(this._env, stack.name).subscribe({
+      this._remoteService.deleteStack(this._env, stack.name).subscribe({
         next: (result) => console.log(result), 
         error: (e) => console.error(e)
       })  

@@ -2,6 +2,8 @@
 using DockerW.DataModels;
 using DockerW.Services;
 using DockerW.Utils;
+using Docker.DotNet.Models;
+using Docker.DotNet;
 
 namespace DockerW.Controllers
 {
@@ -18,13 +20,13 @@ namespace DockerW.Controllers
             _dockerService = dockerService;
         }
 
-        [HttpGet]
+        [HttpGet("{env}")]
         public async Task<IEnumerable<Stack>> Get(string env)
         {
             var stacks = new Dictionary<string, Stack>();
             var containersRespose = await _dockerService.GetContainersAsync(env);
 
-            foreach (var response in containersRespose.FilterStackContsiners(null))
+            foreach (var response in containersRespose.FilterContsinersInStacks())
             {
                 var stack = new Stack
                 {
@@ -35,6 +37,59 @@ namespace DockerW.Controllers
                 stacks[stack.Name] = stack;
             }
             return stacks.Values;
+        }
+
+        [HttpDelete("{env}/{stack}")]
+        public async Task<bool> Delete(string env, string stack)
+        {
+            var client = _dockerService.GetService(env);
+            if (client == null)
+                return false;
+
+            var containersRespose = await _dockerService.GetContainersAsync(env);
+            var containers = containersRespose.FilterStackContsiners(stack).ToList();
+            foreach (var container in containers)
+            {
+                var removeParameters = new ContainerRemoveParameters();
+                removeParameters.RemoveVolumes = true;
+                removeParameters.Force = true;
+                await client.Containers.RemoveContainerAsync(container.ID, removeParameters);
+            }
+
+            var firstContainer = containers.FirstOrDefault();
+            if (firstContainer == null)
+                return false;
+
+            foreach (var mount in firstContainer.Mounts)
+            {
+                await client.Volumes.RemoveAsync(mount.Name, true); //TODO Force
+            }
+            foreach (var network in firstContainer.NetworkSettings.Networks)
+            {
+                await client.Networks.DeleteNetworkAsync(network.Value.NetworkID);
+            }
+
+            containers = containersRespose.FilterStackContsiners(stack).ToList();
+            foreach (var container in containers)
+            {
+                await RemoveImagesSafe(client, container);
+            }
+
+            return true;
+        }
+
+        private async Task RemoveImagesSafe(IDockerClient client, ContainerListResponse container)
+        {
+            try
+            {
+                var imageParams = new ImageDeleteParameters();
+                imageParams.Force = true; //TODO Force
+                await client.Images.DeleteImageAsync(container.ImageID, imageParams);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, e.Message);
+            }
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using Docker.DotNet.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using DockerW.DataModels;
 using DockerW.Services;
 using DockerW.Utils;
@@ -19,14 +18,12 @@ namespace DockerW.Controllers
             _dockerService = dockerService;
         }
 
-        [HttpGet]
-        public async Task<IEnumerable<Container>> Get(string env)
+        [HttpGet("{env}/{stack?}")]
+        public async Task<IEnumerable<Container>> Get(string env, string? stack)
         {
             var containers = new List<Container>();
-            var param = new ContainersListParameters();
-            param.All = true;
-            var containerssRespose = await _dockerService.GetContainersAsync(env);
-            foreach (var response in containerssRespose)
+            var containersRespose = await _dockerService.GetContainersAsync(env);
+            foreach (var response in containersRespose.FilterStackContsiners(stack))
             {
                 var container = response.ToContainer();
                 containers.Add(container);
