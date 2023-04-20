@@ -1,0 +1,21 @@
+<p *ngIf="!networks"><em>Loading...</em></p>
+<div class="card mb-4">
+  <table class='table table-hover mb-0' *ngIf="networks">
+    <thead class="table-light">
+      <tr>
+        <th>Name</th>
+        <th style="width: 100px;">Driver</th>
+        <th>Attachable</th>
+        <th>Created</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let network of networks">
+        <td class="text-truncate">{{ network.name }}</td>
+        <td class="text-truncate">{{ network.driver }}</td>
+        <td class="text-truncate">{{ network.attachable }} </td>
+        <td class="text-truncate">{{ network.created | date:'medium' }} </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

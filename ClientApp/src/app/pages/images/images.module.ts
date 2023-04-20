@@ -14,7 +14,6 @@ import { ImagesComponent } from "./images/images.component";
     CommonModule,
     RouterModule.forRoot([
       { path: 'images', component: ImagesComponent },
-      //{ path: 'stacks/:name', component: ImageComponent }, 
     ]),
     PipesModule
   ],

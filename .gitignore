@@ -232,3 +232,5 @@ _Pvt_Extensions
 /ClientApp/.angular/*
 /ClientApp/package-lock.json
 /ClientApp/.vscode/*
+/.config/dotnet-tools.json
+/.vscode/*

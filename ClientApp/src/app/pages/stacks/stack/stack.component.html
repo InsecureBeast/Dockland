@@ -13,38 +13,7 @@
 <app-volume-list [volumes]="volumes | async" *ngIf="images"></app-volume-list>
 
 <div class="mt-4 mb-2 fs-5"><i class="bi bi-hdd-network me-2"></i>Networks</div>
-<div class="card mb-4">
-  <table class='table table-hover mb-0' aria-labelledby="tableLabel" *ngIf="networks">
-    <thead class="table-light">
-      <tr>
-        <th>Name</th>
-        <th style="width: 100px;">Driver</th>
-        <th>Attachable</th>
-        <th>Created</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let network of networks | async">
-        <td class="text-truncate">{{ network.name }}</td>
-        <td class="text-truncate">{{ network.driver }}</td>
-        <td class="text-truncate">{{ network.attachable }} </td>
-        <td class="text-truncate">{{ network.created | date:'medium' }} </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
-<ng-template #stateTemplate let-state="cState">
-  <ng-container *ngIf="state === 'running'">
-    <span class="badge bg-success">{{state}}</span>
-  </ng-container>
-  <ng-container *ngIf="state === 'exited'">
-    <span class="badge bg-danger">{{state}}</span>
-  </ng-container>
-  <ng-container *ngIf="state === 'paused'">
-    <span class="badge bg-secondary">{{state}}</span>
-  </ng-container>
-</ng-template>
+<app-network-list [networks]="networks | async"></app-network-list>
 
 <ng-template #buttonsTemplate>
   <div class="d-flex justify-content-end">

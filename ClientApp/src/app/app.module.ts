@@ -12,7 +12,7 @@ import { ContainersModule } from './pages/containers/containers.module';
 import { StacksModule } from './pages/stacks/stacks.module';
 import { VolumesModule } from './pages/volumes/volumes.module';
 import { ImagesModule } from './pages/images/images.module';
-import { ContainersComponent } from './pages/containers/containers/containers.component';
+import { NetworksModule } from './pages/networks/networks.module';
 
 @NgModule({
   declarations: [
@@ -28,7 +28,6 @@ import { ContainersComponent } from './pages/containers/containers/containers.co
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
-      { path: 'containers', component: ContainersComponent },
       // {
       //   path: "stacks",
       //   loadChildren: () =>
@@ -38,7 +37,8 @@ import { ContainersComponent } from './pages/containers/containers/containers.co
     ContainersModule,
     StacksModule,
     VolumesModule,
-    ImagesModule
+    ImagesModule,
+    NetworksModule
   ],
   providers: [],
   bootstrap: [AppComponent]
