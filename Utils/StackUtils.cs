@@ -25,7 +25,7 @@ namespace DockerW.Utils
             return client.Containers.ListContainersAsync(parameters);
         }
 
-        public static string GetStackName(this ContainerListResponse response)
+        public static string? GetStackName(this ContainerListResponse response)
         {
             return response.Labels?.FirstOrDefault(x => DockerComposeLabels.PROJECT == x.Key).Value;
         }

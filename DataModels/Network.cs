@@ -12,11 +12,11 @@ namespace DockerW.DataModels
         public string Scope { get; set; } = string.Empty;
         public string Driver { get; set; } = string.Empty;
         public bool EnableIPv6 { get; set; }
-        public IPAM IPAM { get; set; }
+        public IPAM? IPAM { get; set; }
         public bool Internal { get; set; }
         public bool Attachable { get; set; }
         public bool Ingress { get; set; }
-        public Config ConfigFrom { get; set; }
+        public Config? ConfigFrom { get; set; }
         public bool ConfigOnly { get; set; }
         public IDictionary<string, Endpoint> Containers { get; set; } = new Dictionary<string, Endpoint>();
         public IDictionary<string, string> Options { get; set; } = new Dictionary<string, string>();

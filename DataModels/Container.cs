@@ -2,19 +2,19 @@
 {
     public class Container
     {
-        public string Id { get; set; }
+        public string? Id { get; set; }
         public IList<string> Names { get; set; } = new List<string>();
-        public string Image { get; set; }
-        public string ImageId { get; set; }
-        public string Command { get; set; }
+        public string? Image { get; set; }
+        public string? ImageId { get; set; }
+        public string? Command { get; set; }
         public DateTime Created { get; set; }
 
         public IList<Port> Ports { get; set; } = new List<Port>();
         //  sizeRw: bigint;
         //  sizeRootFs: bigint;
         public IDictionary<string, string> Labels { get; set; } = new Dictionary<string, string>();
-        public string State { get; set; }
-        public string Status { get;set; }
+        public string? State { get; set; }
+        public string? Status { get;set; }
 
         //  networkSettings: ISummaryNetworkSettings;
         //  mounts: IMountPoint[];

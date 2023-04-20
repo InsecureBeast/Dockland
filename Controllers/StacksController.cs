@@ -34,7 +34,8 @@ namespace DockerW.Controllers
                     Type = response.GetStackType(),
                     Created = response.Created
                 };
-                stacks[stack.Name] = stack;
+                if (stack.Name != null)
+                    stacks[stack.Name] = stack;
             }
             return stacks.Values;
         }
