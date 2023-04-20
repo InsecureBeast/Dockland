@@ -4,8 +4,9 @@
   <table class='table table-hover mb-0' *ngIf="images">
     <thead class="table-light">
       <tr>
-        <th>Name</th>
-        <th class="cw-s">Tag</th>
+        <th >Name</th>
+        <th class="cw-xs">Tag</th>
+        <th>Id</th>
         <th class="cw-s">Created</th>
         <th class="cw-xs">Size</th>
       </tr>
@@ -13,7 +14,8 @@
     <tbody>
       <tr *ngFor="let image of images">
         <td class="text-truncate">{{ getImageTagName(image.repoTags).name }}</td>
-        <td class="text-truncate">{{ getImageTagName(image.repoTags).tag }}</td>
+        <td class="text-truncate"> <span class="badge bg-secondary">{{ getImageTagName(image.repoTags).tag }}</span></td>
+        <td class="text-truncate">{{ image.id }}</td>
         <td class="text-truncate">{{ image.created | date:'medium' }}</td>
         <td class="text-truncate">{{ image.size | formatFileSize: false }} </td>
       </tr>

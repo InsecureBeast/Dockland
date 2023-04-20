@@ -22,7 +22,7 @@ namespace DockerW.Controllers
         public async Task<IEnumerable<Stack>> Get(string env)
         {
             var stacks = new Dictionary<string, Stack>();
-            var containersRespose = await _dockerService.GetContainersInStackAsync(env);
+            var containersRespose = await _dockerService.GetContainersAsync(env);
 
             foreach (var response in containersRespose.FilterStackContsiners(null))
             {

@@ -6,7 +6,7 @@ namespace DockerW.Utils
 {
     public static class StackExtensions
     {
-        public static Task<IList<ContainerListResponse>> GetContainersInStackAsync(this IDockerService service, string env)
+        public static Task<IList<ContainerListResponse>> GetContainersAsync(this IDockerService service, string env)
         {
             var client = service.GetService(env);
             if (client == null)

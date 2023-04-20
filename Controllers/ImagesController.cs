@@ -1,5 +1,4 @@
-﻿using DockerW.DataModels;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Docker.DotNet.Models;
 using DockerW.Services;
 using DockerW.Utils;

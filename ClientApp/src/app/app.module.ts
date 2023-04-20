@@ -8,12 +8,11 @@ import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './pages/home/home.component';
 import { CounterComponent } from './pages/counter/counter.component';
-import { FormatFileSizePipe } from './pipes/format-file-size.pipe';
 import { ContainersModule } from './pages/containers/containers.module';
-import { ContainersComponent } from './pages/containers/containers.component';
 import { StacksModule } from './pages/stacks/stacks.module';
 import { VolumesModule } from './pages/volumes/volumes.module';
 import { ImagesModule } from './pages/images/images.module';
+import { ContainersComponent } from './pages/containers/containers/containers.component';
 
 @NgModule({
   declarations: [

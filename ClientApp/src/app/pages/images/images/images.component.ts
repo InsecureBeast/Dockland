@@ -10,25 +10,14 @@ import { Observable, of, Subject, takeUntil } from 'rxjs';
 })
 export class ImagesComponent implements OnInit, OnDestroy {
   private _destroy: Subject<void> = new Subject();
-  //public images: Image[] = [];
+  
   images: Observable<Image[]> = of([]);
 
   constructor(private _remoteService: RemoteService) {
-    
   }
 
   ngOnInit(): void {
     this.images = this._remoteService.getImages(TEST_ENV);
-    // this._remoteService.getImages(TEST_ENV).pipe(takeUntil(this._destroy)).subscribe({
-    //   next: (result) => { this.images = result.map(i => {
-    //     const tag = this.getImageTagName(i.repoTags);
-    //     i.name = tag.name;
-    //     i.tag = tag.tag;
-    //     return i;
-    //   });
-    //   },
-    //   error: (e) => console.error(e)
-    // });
   }
 
   ngOnDestroy(): void {

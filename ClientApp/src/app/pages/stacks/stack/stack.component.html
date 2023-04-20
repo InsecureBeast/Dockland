@@ -6,7 +6,8 @@
 <ng-container *ngTemplateOutlet="buttonsTemplate"></ng-container>
 
 <div class="mt-4 mb-2 fs-5"><i class="bi bi-box me-2"></i><span>Containers</span></div>
-<div class="card">
+<app-container-list [containers]="containers | async"></app-container-list>
+<!-- <div class="card">
   <table class='table table-hover mb-0' *ngIf="containers">
     <thead class="table-light">
       <tr>
@@ -29,7 +30,7 @@
       </tr>
     </tbody>
   </table>
-</div>
+</div> -->
 
 <div class="mt-4 mb-2 fs-5"><i class="bi bi-collection me-2"></i>Images</div>
 <app-image-list [images]="images | async" *ngIf="images"></app-image-list>
@@ -56,7 +57,7 @@
   </table>
 </div>
 
-<div class="mt-4 mb-2 fs-5"><i class="bi bi-hdd-network me-2"></i>Volumes</div>
+<div class="mt-4 mb-2 fs-5"><i class="bi bi-hdd-network me-2"></i>Networks</div>
 <div class="card mb-4">
   <table class='table table-hover mb-0' aria-labelledby="tableLabel" *ngIf="networks">
     <thead class="table-light">

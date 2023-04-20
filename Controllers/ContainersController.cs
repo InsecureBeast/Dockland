@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using DockerW.DataModels;
 using DockerW.Services;
+using DockerW.Utils;
 
 namespace DockerW.Controllers
 {
@@ -24,21 +25,10 @@ namespace DockerW.Controllers
             var containers = new List<Container>();
             var param = new ContainersListParameters();
             param.All = true;
-            var client = _dockerService.GetService(env);
-            var imagesRespose = await client.Containers.ListContainersAsync(param);
-
-            foreach (var response in imagesRespose)
+            var containerssRespose = await _dockerService.GetContainersAsync(env);
+            foreach (var response in containerssRespose)
             {
-                var container = new Container();
-                container.Names = response.Names;
-                container.Id = response.ID;
-                container.Created = response.Created;
-                container.State = response.State;
-                container.Status = response.Status;
-                container.Command = response.Command;
-                container.Image = response.Image;
-                container.ImageId = response.ImageID;
-                container.Labels = response.Labels;
+                var container = response.ToContainer();
                 containers.Add(container);
             }
             return containers;

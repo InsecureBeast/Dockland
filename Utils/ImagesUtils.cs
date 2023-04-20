@@ -37,11 +37,13 @@ namespace DockerW.Utils
             if (list == null)
                 return Enumerable.Empty<ImagesListResponse>();
 
+            var alive = list.Where(i => !i.RepoTags.Contains("<none>:<none>"));
             if (string.IsNullOrEmpty(stack))
-                return list;
+                return alive;
 
-            var imagesList = list.Where(c => c.Labels != null && c.Labels.ContainsKey(DockerComposeLabels.PROJECT));
+            var imagesList = alive.Where(c => c.Labels != null && c.Labels.ContainsKey(DockerComposeLabels.PROJECT));
             return imagesList.Where(c => c.Labels[DockerComposeLabels.PROJECT] == stack);
         }
+
     }
 }

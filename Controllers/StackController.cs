@@ -24,7 +24,7 @@ namespace DockerW.Controllers
         public async Task<IEnumerable<Container>> Get(string env, string stack)
         {
             var containers = new List<Container>();
-            var containersRespose = await _dockerService.GetContainersInStackAsync(env);
+            var containersRespose = await _dockerService.GetContainersAsync(env);
             foreach (var response in containersRespose.FilterStackContsiners(stack))
             {
                 var container = response.ToContainer();
@@ -33,14 +33,14 @@ namespace DockerW.Controllers
             return containers;
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete]
         public async Task<bool> Remove(string env, string stack)
         {
             var client = _dockerService.GetService(env);
             if (client == null)
                 return false;
 
-            var containersRespose = await _dockerService.GetContainersInStackAsync(env);
+            var containersRespose = await _dockerService.GetContainersAsync(env);
             var containers = containersRespose.FilterStackContsiners(stack).ToList();
             foreach (var container in containers)
             {
