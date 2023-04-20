@@ -1,61 +1,16 @@
 <h3 id="tableLabel"><i class="bi bi-layers me-2"></i>Stack details</h3>
 <span>Name: {{stack}}</span>
 
-<p *ngIf="!containers"><em>Loading...</em></p>
-
 <ng-container *ngTemplateOutlet="buttonsTemplate"></ng-container>
 
 <div class="mt-4 mb-2 fs-5"><i class="bi bi-box me-2"></i><span>Containers</span></div>
 <app-container-list [containers]="containers | async"></app-container-list>
-<!-- <div class="card">
-  <table class='table table-hover mb-0' *ngIf="containers">
-    <thead class="table-light">
-      <tr>
-        <th>Name</th>
-        <th style="width: 100px;">State</th>
-        <th>Port</th>
-        <th>Image</th>
-        <th>Created</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let container of containers | async">
-        <td class="text-truncate">{{ container.names[0] | slice:1 }}</td>
-        <td>
-          <ng-container *ngTemplateOutlet="stateTemplate;context:{cState:container.state}"></ng-container>
-        </td>
-        <td class="text-truncate"><a [href]="getUrl(container.ports)" target="_blank">{{getUrl(container.ports)}}</a></td>
-        <td class="text-truncate">{{ container.image }} </td>
-        <td class="text-truncate">{{ container.created | date:'medium' }} </td>
-      </tr>
-    </tbody>
-  </table>
-</div> -->
 
 <div class="mt-4 mb-2 fs-5"><i class="bi bi-collection me-2"></i>Images</div>
 <app-image-list [images]="images | async" *ngIf="images"></app-image-list>
 
 <div class="mt-4 mb-2 fs-5"><i class="bi bi-database me-2"></i>Volumes</div>
-<div class="card">
-  <table class='table table-hover mb-0' aria-labelledby="tableLabel" *ngIf="volumes">
-    <thead class="table-light">
-      <tr>
-        <th>Name</th>
-        <th style="width: 100px;">Driver</th>
-        <th>Mount point</th>
-        <th>Created</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let volume of volumes | async">
-        <td class="text-truncate">{{ volume.name }}</td>
-        <td class="text-truncate">{{ volume.driver }}</td>
-        <td class="text-truncate">{{ volume.mountpoint }} </td>
-        <td class="text-truncate">{{ volume.createdAt | date:'medium' }} </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<app-volume-list [volumes]="volumes | async" *ngIf="images"></app-volume-list>
 
 <div class="mt-4 mb-2 fs-5"><i class="bi bi-hdd-network me-2"></i>Networks</div>
 <div class="card mb-4">

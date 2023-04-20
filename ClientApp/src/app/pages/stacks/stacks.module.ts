@@ -4,6 +4,7 @@ import { RouterModule } from "@angular/router";
 import { PipesModule } from "src/app/pipes/pipes.module";
 import { ContainersModule } from "../containers/containers.module";
 import { ImagesModule } from "../images/images.module";
+import { VolumesModule } from "../volumes/volumes.module";
 import { StackComponent } from "./stack/stack.component";
 import { StacksComponent } from "./stacks/stacks.component";
 
@@ -20,7 +21,8 @@ import { StacksComponent } from "./stacks/stacks.component";
     ]),
     PipesModule,
     ImagesModule,
-    ContainersModule
+    ContainersModule,
+    VolumesModule
   ],
   exports: [RouterModule],
   providers: [],

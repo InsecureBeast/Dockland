@@ -3,11 +3,13 @@ import { CommonModule } from '@angular/common';
 import { VolumeComponent } from './volume/volume.component';
 import { VolumesComponent } from './volumes/volumes.component';
 import { RouterModule } from '@angular/router';
+import { VolumeListComponent } from './components/volume-list/volume-list.component';
 
 @NgModule({
   declarations: [
     VolumeComponent,
-    VolumesComponent
+    VolumesComponent,
+    VolumeListComponent
   ],
   imports: [
     CommonModule,
@@ -18,7 +20,8 @@ import { RouterModule } from '@angular/router';
   ],
   exports: [
     VolumeComponent, 
-    VolumesComponent
+    VolumesComponent,
+    VolumeListComponent
   ]
 })
 export class VolumesModule { }
