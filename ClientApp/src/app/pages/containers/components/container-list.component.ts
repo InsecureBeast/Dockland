@@ -9,7 +9,7 @@ import { Container, IPort } from 'src/app/core/data-classes';
 export class ContainerListComponent {
 
   @Input() public containers: Container[] | null = [];
-  @Input() public url: string  = "http://0.0.0.0";
+  @Input() public url: string | undefined;
 
   constructor() {
   }
@@ -19,6 +19,9 @@ export class ContainerListComponent {
       return "";
     
     const port = ports[0];
+    if (!this.url)
+      this.url = "http://0.0.0.0";
+
     return `${this.url}:${port.publicPort}`;
   }
   
