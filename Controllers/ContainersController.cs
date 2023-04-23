@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using DockerW.DataModels;
-using DockerW.Services;
-using DockerW.Utils;
+using Dockland.DataModels;
+using Dockland.Services;
+using Dockland.Utils;
 
-namespace DockerW.Controllers
+namespace Dockland.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

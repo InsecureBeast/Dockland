@@ -1,12 +1,12 @@
 {
-  "name": "dockerw",
+  "name": "Dockland",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --port 44405",
     "serve": "ng serve",
     "build": "ng build",
-    "build:ssr": "ng run DockerW:server:dev",
+    "build:ssr": "ng run Dockland:server:dev",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },

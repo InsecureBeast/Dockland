@@ -1,4 +1,4 @@
-﻿namespace DockerW.DataModels
+﻿namespace Dockland.DataModels
 {
     public class Container
     {

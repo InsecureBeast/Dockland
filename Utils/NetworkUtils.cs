@@ -1,8 +1,8 @@
 ﻿using Docker.DotNet.Models;
-using DockerW.DataModels;
-using DockerW.Services;
+using Dockland.DataModels;
+using Dockland.Services;
 
-namespace DockerW.Utils
+namespace Dockland.Utils
 {
     public class NetworkUtils
     {

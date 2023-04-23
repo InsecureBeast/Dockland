@@ -2,7 +2,7 @@
 using System.Runtime.Serialization;
 using System.Xml.Linq;
 
-namespace DockerW.DataModels
+namespace Dockland.DataModels
 {
     public class Network
     {

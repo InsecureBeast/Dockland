@@ -1,6 +1,6 @@
 ﻿using Docker.DotNet;
 
-namespace DockerW.Services
+namespace Dockland.Services
 {
     public interface IDockerService
     {

@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "DockerW": {
+    "Dockland": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:application": {
@@ -69,10 +69,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "DockerW:build:production"
+              "browserTarget": "Dockland:build:production"
             },
             "development": {
-              "browserTarget": "DockerW:build:development",
+              "browserTarget": "Dockland:build:development",
               "proxyConfig": "proxy.conf.js"
             }
           },
@@ -81,7 +81,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "DockerW:build"
+            "browserTarget": "Dockland:build"
           }
         },
         "test": {
@@ -129,7 +129,7 @@
       }
     }
   },
-  "defaultProject": "DockerW",
+  "defaultProject": "Dockland",
   "cli": {
     "analytics": false
   }

@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "DockerW": {
+    "Dockland": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {

@@ -1,7 +1,7 @@
 ﻿using Docker.DotNet.Models;
-using DockerW.DataModels;
+using Dockland.DataModels;
 
-namespace DockerW.Utils
+namespace Dockland.Utils
 {
     public static class ContainerExtensions
     {

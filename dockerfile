@@ -5,4 +5,4 @@ COPY ./bin/Release/net6.0/publish/linux-x64 /app/
 WORKDIR /app
 ENV ASPNETCORE_URLS=http://+:5443
 EXPOSE 5443
-ENTRYPOINT ["dotnet", "DockerW.dll"]
+ENTRYPOINT ["dotnet", "Dockland.dll"]
