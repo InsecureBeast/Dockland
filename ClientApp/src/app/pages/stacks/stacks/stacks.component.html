@@ -13,7 +13,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let stack of stacks">
-        <td class="text-truncate"><a href="/stacks/{{stack.name}}">{{ stack.name }}</a></td>
+        <td class="text-truncate"><a [routerLink]="['/stacks', stack.name]">{{ stack.name }}</a></td>
         <td class="text-truncate">{{ stack.type }} </td>
         <td class="text-truncate">{{ stack.created | date:'medium' }} </td>
       </tr>

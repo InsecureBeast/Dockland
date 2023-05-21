@@ -1,0 +1,47 @@
+<h1><i class="bi bi-hdd me-2"></i>{{ title }}</h1>
+
+<form class="mt-4 col-lg-8" [formGroup]="environmentForm" (ngSubmit)="onSubmit()"
+      [class.was-validated]="environmentForm.errors?.length > 0">
+  <div class="mb-3">
+    <label for="envName" class="form-label">Name</label>
+    <input type="text" 
+           class="form-control" 
+           id="envName" 
+           aria-describedby="nameHelp" 
+           placeholder="e.g. kubernetes-cluster01 / docker-prod01"
+           formControlName="envName"
+           [class.is-invalid]="!isValid('envName')"
+           required>
+    <div id="nameHelp" class="form-text" *ngIf="isValid('envName')">Enter environment name.</div>
+    <div id="nameHelp" class="form-text invalid-feedback" *ngIf="!isValid('envName')">Environment name must not be empty.</div>
+  </div>
+  <div class="mb-3">
+    <label for="envUrl" class="form-label">Environment URL</label>
+    <input type="text" 
+           class="form-control" 
+           id="envUrl" 
+           aria-describedby="urlHelp" 
+           placeholder="e.g. 10.0.0.10:2375 or mydocker.mydomain.com:2375" 
+           formControlName="envUrl"
+           [class.is-invalid]="!isValid('envUrl')"
+           required>
+    <div id="urlHelp" class="form-text" *ngIf="isValid('envUrl')">URL or IP address of a Docker host. The Docker API must be exposed over a TCP port. Please refer to the Docker documentation to configure it.</div>
+    <div id="urlHelp" class="form-text invalid-feedback" *ngIf="!isValid('envUrl')">Environment url must not be empty.</div>
+  </div>
+  <!-- <div class="mb-3">
+    <label for="envPublicUrl" class="form-label">Public IP</label>
+    <input type="text" class="form-control" id="envPublicUrl" aria-describedby="envPublicUrlHelp" placeholder="e.g. 10.0.0.10 or mydocker.mydomain.com">
+    <div id="envPublicUrlHelp" class="form-text">URL or IP address where exposed containers will be reachable. This field is optional and will default to the environment URL.</div>
+  </div> -->
+  <div class="mb-3">
+    <label for="envTag" class="form-label">Tag</label>
+    <input type="text" 
+           class="form-control" 
+           id="envTag" 
+           aria-describedby="envTagHelp" 
+           placeholder=""
+           formControlName="envTag">
+    <div id="envTagHelp" class="form-text"></div>
+  </div>
+  <button type="submit" class="btn btn-primary w-25 mt-3" [disabled]="environmentForm.invalid">{{buttonTitle}}</button>
+</form>

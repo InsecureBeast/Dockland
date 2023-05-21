@@ -12,12 +12,13 @@ import { StacksModule } from './pages/stacks/stacks.module';
 import { VolumesModule } from './pages/volumes/volumes.module';
 import { ImagesModule } from './pages/images/images.module';
 import { NetworksModule } from './pages/networks/networks.module';
+import { EnvironmentsModule } from './pages/environments/environments.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
-    HomeComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -25,12 +26,14 @@ import { NetworksModule } from './pages/networks/networks.module';
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
+      { path: 's', redirectTo: '/stacks/3-522-transition-by-sketch-52345?hide=true&env=pilot-saturn&url=http://10.128.2.20'}
       // {
       //   path: "stacks",
       //   loadChildren: () =>
       //     import('./pages/stacks/stacks.module').then((x) => x.StacksModule),
       // },
     ]),
+    EnvironmentsModule,
     ContainersModule,
     StacksModule,
     VolumesModule,

@@ -1,3 +1,4 @@
+using Dockland.Model;
 using Dockland.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -5,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddSingleton<IDatabaseService>(new LiteDatabaseService("D:\\temp"));
 builder.Services.AddSingleton<IDockerService, DockerService>();
 
 var app = builder.Build();
@@ -22,5 +24,6 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller}/{action=Index}/{id?}");
 app.MapFallbackToFile("index.html"); ;
+app.UseApplicationInitialization();
 
 app.Run();

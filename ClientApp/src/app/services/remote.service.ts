@@ -5,6 +5,7 @@ import { Container, Image } from "../core/data-classes";
 import { INetwork } from "../core/network";
 import { IVolume } from "../core/volume";
 import { Stack } from "../pages/stacks/stack";
+import { IEnvironment } from "../pages/environments/environment";
 
 @Injectable({ providedIn: 'root' })
 export class  RemoteService {
@@ -45,5 +46,21 @@ export class  RemoteService {
   getNetworks(environment: string, stack?: string): Observable<INetwork[]> {
     let stackRequest = stack ? `/${stack}` : "";
     return this._http.get<INetwork[]>(`${this._baseUrl}api/networks/${environment}` + stackRequest).pipe(first());
+  }
+
+  getEnvironments(): Observable<IEnvironment[]> {
+    return this._http.get<IEnvironment[]>(`${this._baseUrl}api/environments`).pipe(first());
+  }
+
+  getEnvironment(name: string): Observable<IEnvironment> {
+    return this._http.get<IEnvironment>(`${this._baseUrl}api/environments/${name}`).pipe(first());
+  }
+
+  setEnvironment(env: IEnvironment): Observable<boolean> {
+    return this._http.put<boolean>(`${this._baseUrl}api/environments`, env).pipe(first());
+  }
+
+  deleteEnvironment(name: string): Observable<boolean> {
+    return this._http.delete<boolean>(`${this._baseUrl}api/environments/${name}`).pipe(first());
   }
 }

@@ -15,7 +15,8 @@ const PROXY_CONFIG = [
       "/api/stack",
       "/api/volumes",
       "/api/volume",
-      "/api/networks"
+      "/api/networks",
+      "/api/environments"
 
    ],
     target: target,

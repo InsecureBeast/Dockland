@@ -234,3 +234,4 @@ _Pvt_Extensions
 /ClientApp/.vscode/*
 /.config/dotnet-tools.json
 /.vscode/*
+/publish-to-docker.cmd
