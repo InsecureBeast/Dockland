@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Image } from '../../../core/data-classes';
+import { Image } from '../../../core/image';
 import { RemoteService } from '../../../services/remote.service';
-import { TEST_ENV } from '../../../core/const';
-import { Observable, of, Subject, takeUntil } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
+import { EnvironmentService } from 'src/app/services/environment.service';
 
 @Component({
   selector: 'app-images',
@@ -13,27 +13,18 @@ export class ImagesComponent implements OnInit, OnDestroy {
   
   images: Observable<Image[]> = of([]);
 
-  constructor(private _remoteService: RemoteService) {
+  constructor(
+    private _remoteService: RemoteService, 
+    private readonly _envService: EnvironmentService) {
   }
 
   ngOnInit(): void {
-    this.images = this._remoteService.getImages(TEST_ENV);
+    if (this._envService.currentEnv)
+      this.images = this._remoteService.getImages(this._envService.currentEnv?.name);
   }
 
   ngOnDestroy(): void {
     this._destroy.next();
     this._destroy.complete();
-  }
-
-  private getImageTagName(imageTags: string[]): {name:string, tag: string} {
-    if (imageTags.length === 0)
-      return {name: "", tag: "" };
-    
-    const imageTag = imageTags[0];
-    const split = imageTag.split(":");
-    if (split.length === 2)
-      return { name: split[0], tag: split[1] };
-
-    return { name: imageTag, tag: "" };
   }
 }

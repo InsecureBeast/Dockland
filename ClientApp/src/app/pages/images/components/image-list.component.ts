@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Image } from '../../../core/data-classes';
+import { Image } from '../../../core/image';
 
 @Component({
   selector: 'app-image-list',

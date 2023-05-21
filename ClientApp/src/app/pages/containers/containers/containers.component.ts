@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { TEST_ENV } from 'src/app/core/const';
-import { Container } from 'src/app/core/data-classes';
+import { Container } from 'src/app/core/container';
+import { EnvironmentService } from 'src/app/services/environment.service';
 import { RemoteService } from 'src/app/services/remote.service';
 
 @Component({
@@ -13,8 +13,11 @@ export class ContainersComponent {
 
   public containers: Observable<Container[]> = of([]);
 
-  constructor(private readonly _remoteService: RemoteService) {
-    this.containers = this._remoteService.getContainers(TEST_ENV);
+  constructor(
+    private readonly _remoteService: RemoteService,
+    envService: EnvironmentService) {
+      if (envService.currentEnv)
+        this.containers = this._remoteService.getContainers(envService.currentEnv.name);
   }
 
   toString(map: Map<string, string>): string {

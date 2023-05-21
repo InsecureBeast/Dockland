@@ -1,0 +1,66 @@
+<h1><i class="bi bi-kanban me-2"></i>Dashboard</h1>
+
+<div class="row gap-3 pt-4">
+  <ng-container *ngTemplateOutlet="dashboardItemTemplate;context: { inItem: stacks }"></ng-container>
+  <ng-container *ngTemplateOutlet="dashboardItemTemplate;context: { inItem: containers }"></ng-container>
+  <ng-container *ngTemplateOutlet="dashboardItemTemplate;context: { inItem: images }"></ng-container>
+  <ng-container *ngTemplateOutlet="dashboardItemTemplate;context: { inItem: volumes }"></ng-container>
+  <ng-container *ngTemplateOutlet="dashboardItemTemplate;context: { inItem: networks }"></ng-container>
+</div>
+
+<ng-template #dashboardItemTemplate let-item="inItem" >
+  <div class="card col-lg-5 col-12">
+    <div class="d-flex">
+      <div class="" style="width: 80px;">
+        <ng-container *ngTemplateOutlet="iconTemplate; context:{ inType: item.type }"></ng-container>
+      </div>
+      <div class="col-4">
+        <div class="card-body">
+          <h5 class="card-title">{{item.count}}</h5>
+          <ng-container *ngTemplateOutlet="typeTemplate; context:{ inType: item.type }"></ng-container>
+        </div>
+      </div>
+
+      <div class="col-4 m-auto">
+        <button type="button" class="btn btn-primary w-100" (click)="open(item)" >Open</button>
+      </div>
+
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #iconTemplate let-type="inType">
+  <ng-container *ngIf="type === 1">
+    <i class="bi bi-layers dashboard-img"></i>
+  </ng-container>
+  <ng-container *ngIf="type === 3">
+    <i class="bi bi-collection dashboard-img"></i>
+  </ng-container>
+  <ng-container *ngIf="type === 2">
+    <i class="bi bi-box dashboard-img"></i>
+  </ng-container>
+  <ng-container *ngIf="type === 4">
+    <i class="bi bi-database dashboard-img"></i>
+  </ng-container>
+  <ng-container *ngIf="type === 5">
+    <i class="bi bi-hdd-network dashboard-img"></i>
+  </ng-container>
+</ng-template>
+
+<ng-template #typeTemplate let-type="inType">
+  <ng-container *ngIf="type === 1">
+    <p class="card-text">Stacks</p>
+  </ng-container>
+  <ng-container *ngIf="type === 3">
+    <p class="card-text">Images</p>
+  </ng-container>
+  <ng-container *ngIf="type === 2">
+    <p class="card-text">Containers</p>
+  </ng-container>
+  <ng-container *ngIf="type === 4">
+    <p class="card-text">Volumes</p>
+  </ng-container>
+  <ng-container *ngIf="type === 5">
+    <p class="card-text">Networks</p>
+  </ng-container>
+</ng-template>

@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, of, Subject } from 'rxjs';
-import { TEST_ENV } from 'src/app/core/const';
 import { IVolume } from 'src/app/core/volume';
+import { EnvironmentService } from 'src/app/services/environment.service';
 import { RemoteService } from 'src/app/services/remote.service';
 
 @Component({
@@ -14,11 +14,14 @@ export class VolumesComponent implements OnInit, OnDestroy {
   
   volumes: Observable<IVolume[]> = of([]);
 
-  constructor(private _remoteService: RemoteService) {
+  constructor(
+    private _remoteService: RemoteService, 
+    private readonly _envService: EnvironmentService) {
   }
 
   ngOnInit(): void {
-    this.volumes = this._remoteService.getVolumes(TEST_ENV);
+    if (this._envService.currentEnv)
+      this.volumes = this._remoteService.getVolumes(this._envService.currentEnv.name);
   }
 
   ngOnDestroy(): void {

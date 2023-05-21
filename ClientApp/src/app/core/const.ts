@@ -1,6 +1,4 @@
 
-export const TEST_ENV = "pilot-saturn";
-
 // docker compose 
 export class DockerComposeLabels {
   static PROJECT: string = "com.docker.compose.project";

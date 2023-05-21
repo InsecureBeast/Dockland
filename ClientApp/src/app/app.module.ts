@@ -13,6 +13,7 @@ import { VolumesModule } from './pages/volumes/volumes.module';
 import { ImagesModule } from './pages/images/images.module';
 import { NetworksModule } from './pages/networks/networks.module';
 import { EnvironmentsModule } from './pages/environments/environments.module';
+import { DashboardModule } from './pages/dashboard/dashboard.module';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { EnvironmentsModule } from './pages/environments/environments.module';
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 's', redirectTo: '/stacks/3-522-transition-by-sketch-52345?hide=true&env=pilot-saturn&url=http://10.128.2.20'}
+      { path: 'test', redirectTo: '/stacks/3-522-transition-by-sketch-52345?hide=true&env=pilot-saturn&url=http://10.128.2.20'}
+
       // {
       //   path: "stacks",
       //   loadChildren: () =>
@@ -38,7 +40,8 @@ import { EnvironmentsModule } from './pages/environments/environments.module';
     StacksModule,
     VolumesModule,
     ImagesModule,
-    NetworksModule
+    NetworksModule,
+    DashboardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

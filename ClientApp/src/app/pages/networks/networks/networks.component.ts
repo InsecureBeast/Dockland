@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, of, Subject } from 'rxjs';
-import { TEST_ENV } from 'src/app/core/const';
 import { INetwork } from 'src/app/core/network';
+import { EnvironmentService } from 'src/app/services/environment.service';
 import { RemoteService } from 'src/app/services/remote.service';
 
 @Component({
@@ -14,11 +14,12 @@ export class NetworksComponent implements OnInit, OnDestroy {
   
   networks: Observable<INetwork[]> = of([]);
 
-  constructor(private readonly _remoteService: RemoteService) {
+  constructor(private readonly _remoteService: RemoteService, private readonly _envService: EnvironmentService) {
   }
 
   ngOnInit(): void {
-    this.networks = this._remoteService.getNetworks(TEST_ENV);
+    if (this._envService.currentEnv)
+      this.networks = this._remoteService.getNetworks(this._envService.currentEnv.name);
   }
 
   ngOnDestroy(): void {

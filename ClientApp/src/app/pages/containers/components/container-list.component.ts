@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Container, IPort } from 'src/app/core/data-classes';
+import { Container, IPort } from 'src/app/core/container';
 
 @Component({
   selector: 'app-container-list',

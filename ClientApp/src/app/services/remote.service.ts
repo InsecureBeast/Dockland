@@ -1,11 +1,12 @@
 import { HttpClient } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
 import { first, Observable } from "rxjs";
-import { Container, Image } from "../core/data-classes";
 import { INetwork } from "../core/network";
 import { IVolume } from "../core/volume";
 import { Stack } from "../pages/stacks/stack";
 import { IEnvironment } from "../pages/environments/environment";
+import { Image } from "../core/image";
+import { Container } from "../core/container";
 
 @Injectable({ providedIn: 'root' })
 export class  RemoteService {
