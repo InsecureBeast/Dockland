@@ -39,6 +39,9 @@ export class StackComponent implements OnInit {
       .subscribe(params => {
         this.stack = params.name as string;
         this._route.queryParams.subscribe(params => {
+          if (params.env && params.url) 
+            this.initEnvironment(params.env, params.url);
+            
           this._env = params.env ? params.env : this._envService.currentEnv?.name;
           this.url = params.url ? params.url as string : undefined;
           this.updateInfo();
@@ -57,6 +60,12 @@ export class StackComponent implements OnInit {
 
   isDisabled(): boolean {
     return this._containersCount == 0;
+  }
+
+  private initEnvironment(name: string, url: string): void {
+    if (!this._envService.currentEnv) {
+      this._envService.openEnvironment({name: name, url: url});
+    }
   }
 
   private updateInfo() : void {
