@@ -35,12 +35,16 @@ namespace Dockland.Controllers
         [HttpPut]
         public bool Put(EnvironmentData data)
         {
+            var uri = Uri.IsWellFormedUriString(data.Url, UriKind.Absolute);
+            if (!uri)
+                return false;
+            
             _databaseService.Set(data);
             _dockerService.RegisterService(data.Name, data.Url);
             return true;
         }
 
-        [HttpDelete]
+        [HttpDelete("{name}")]
         public bool Delete(string name)
         {
             return _databaseService.Delete(name);

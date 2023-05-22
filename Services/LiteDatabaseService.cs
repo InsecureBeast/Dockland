@@ -14,8 +14,8 @@ namespace Dockland.Services
 
         public bool Delete(string name)
         {
-            var count = GetEnvironmentCollection().Delete(name);
-            return count;
+            var count = GetEnvironmentCollection().DeleteMany(Query.EQ("Name", name));
+            return count > 0;
         }
 
         public void Dispose()

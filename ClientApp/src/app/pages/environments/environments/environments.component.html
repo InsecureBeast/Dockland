@@ -20,13 +20,14 @@
           <div class="card-body row gap-1 justify-content-between">
             <div class="col-12 col-md-5">
               <h5 class="card-title">{{environment.name}}</h5>
-              <p class="card-text text-secondary">Standalone</p>
+              <div class="card-text text-secondary">Standalone</div>
+              <div class="card-text text-secondary">{{environment.url}}</div>
+              <div class="card-text text-secondary">{{environment.tag}}</div>
             </div>
-            <!-- <p class="card-text"><small class="text-body-secondary">Standalone.</small></p> -->
             <div class="row gap-1 col-12 col-md-5 m-0">
               <button type="button" class="btn btn-primary col-12" (click)="open(environment)" >Open</button>
               <button type="button" class="btn btn-outline-secondary col-12">Edit</button>
-              <button type="button" class="btn btn-outline-danger col-12">Delete</button>
+              <button type="button" class="btn btn-outline-danger col-12" (click)="delete(environment)">Delete</button>
             </div>
           </div>
         </div>

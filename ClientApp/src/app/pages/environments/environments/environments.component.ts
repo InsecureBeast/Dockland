@@ -28,4 +28,16 @@ export class EnvironmentsComponent implements OnInit {
     this._envService.openEnvironment(env);
     this._router.navigateByUrl('/dashboard');
   }
+
+  delete(env: IEnvironment): void {
+    const self = this;
+    this._remoteService.deleteEnvironment(env.name).subscribe({
+      next(value) {
+        self.environments = self._remoteService.getEnvironments();
+      },
+      error(err) {
+        alert(err.message);
+      },
+    });
+  }
 }
