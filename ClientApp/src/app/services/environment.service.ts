@@ -7,6 +7,14 @@ export class EnvironmentService {
 
   private readonly _current$ = new Subject<IEnvironment>();
   private _current: IEnvironment | undefined;
+
+  constructor() {
+    const envString = localStorage.getItem("env");   
+    if (envString) {
+      const env = JSON.parse(envString) as IEnvironment;
+      this.setEnvironment(env);
+    }
+  }
   
   get current(): Observable<IEnvironment> {
     return this._current$.asObservable();
@@ -17,7 +25,12 @@ export class EnvironmentService {
   }
 
   openEnvironment(env: IEnvironment): void {
-    this._current$.next(env);
+    this.setEnvironment(env);
+    localStorage.setItem("env", JSON.stringify(env));
+  }
+
+  private setEnvironment(env: IEnvironment): void {
     this._current = env;
+    this._current$.next(env);
   }
 }

@@ -43,7 +43,7 @@ export class StackComponent implements OnInit {
             this.initEnvironment(params.env, params.url);
             
           this._env = params.env ? params.env : this._envService.currentEnv?.name;
-          this.url = params.url ? params.url as string : undefined;
+          this.url = params.url ? params.url as string : this._envService.currentEnv?.url;
           this.updateInfo();
           this._toolbarService.changeVisibility(!getBoolean(params.hide));
         });

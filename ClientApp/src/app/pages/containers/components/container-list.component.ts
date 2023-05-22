@@ -18,10 +18,13 @@ export class ContainerListComponent {
     if (ports.length === 0)
       return "";
     
-    const port = ports[0];
+    let port = ports.find(p => p.ip === '0.0.0.0');
+    if (!port)
+      port = ports[0];
+      
     if (!this.url)
       this.url = "http://0.0.0.0";
-
+    
     return `${this.url}:${port.publicPort}`;
   }
   
