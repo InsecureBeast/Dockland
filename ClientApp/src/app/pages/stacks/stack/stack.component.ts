@@ -9,6 +9,7 @@ import { IVolume } from 'src/app/core/volume';
 import { EnvironmentService } from 'src/app/services/environment.service';
 import { RemoteService } from 'src/app/services/remote.service';
 import { ToolbarService } from 'src/app/services/toolbar.service';
+import { IEnvironment } from '../../environments/environment';
 
 @Component({
   selector: 'app-stack',
@@ -39,13 +40,12 @@ export class StackComponent implements OnInit {
       .subscribe(params => {
         this.stack = params.name as string;
         this._route.queryParams.subscribe(params => {
-          if (params.env && params.url) 
-            this.initEnvironment(params.env, params.url);
-            
-          this._env = params.env ? params.env : this._envService.currentEnv?.name;
-          this.url = params.url ? params.url as string : this._envService.currentEnv?.url;
-          this.updateInfo();
-          this._toolbarService.changeVisibility(!getBoolean(params.hide));
+          this.initEnvironment(params.env).subscribe(env => {
+            this._env = env.name;
+            this.url = env.url;
+            this.updateInfo();
+            this._toolbarService.changeVisibility(!getBoolean(params.hide));
+          });
         });
       }
     );
@@ -62,10 +62,12 @@ export class StackComponent implements OnInit {
     return this._containersCount == 0;
   }
 
-  private initEnvironment(name: string, url: string): void {
-    if (!this._envService.currentEnv) {
-      this._envService.openEnvironment({name: name, url: url});
+  private initEnvironment(name: string): Observable<IEnvironment> {
+    if (!this._envService.currentEnv || name) {
+      return this._remoteService.findEnvironment(name).pipe(tap(env => {this._envService.openEnvironment(env);}));
     }
+
+    return of(this._envService.currentEnv);
   }
 
   private updateInfo() : void {

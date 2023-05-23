@@ -1,5 +1,4 @@
-﻿using Docker.DotNet.Models;
-using Dockland.DataModels;
+﻿using Dockland.DataModels;
 using Dockland.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,10 +24,10 @@ namespace Dockland.Controllers
             return environments;
         }
 
-        [HttpGet("{name}")]
-        public EnvironmentData? Get(string name)
+        [HttpGet("{id}")]
+        public EnvironmentData? Get(string id)
         {
-            var environment = _databaseService.Get(name);
+            var environment = _databaseService.Get(id);
             return environment;
         }
 
@@ -39,15 +38,23 @@ namespace Dockland.Controllers
             if (!uri)
                 return false;
             
-            _databaseService.Set(data);
+            var updated = _databaseService.Set(data);
             _dockerService.RegisterService(data.Name, data.Url);
-            return true;
+            return updated;
         }
 
-        [HttpDelete("{name}")]
-        public bool Delete(string name)
+        [HttpDelete("{id}")]
+        public bool Delete(string id)
         {
-            return _databaseService.Delete(name);
+            return _databaseService.Delete(id);
+        }
+
+        [HttpGet]
+        [Route("find/name/{name}")]
+        public EnvironmentData? Find(string name)
+        {
+            var environment = _databaseService.Find(name);
+            return environment;
         }
     }
 }

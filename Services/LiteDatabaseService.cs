@@ -23,11 +23,17 @@ namespace Dockland.Services
             _db.Dispose();
         }
 
-        public EnvironmentData? Get(string key)
+        public EnvironmentData? Find(string name)
+        {
+            var col = GetEnvironmentCollection();
+            return col.FindOne(Query.EQ("Name", name));
+        }
+
+        public EnvironmentData? Get(string id)
         {
             // Get environment collection
             var col = GetEnvironmentCollection();
-            var results = col.Find(x => x.Name == key);
+            var results = col.Find(x => x.Id == id);
             return results.FirstOrDefault();
         }
 
@@ -36,13 +42,19 @@ namespace Dockland.Services
             return GetEnvironmentCollection().FindAll();
         }
 
-        public void Set(EnvironmentData data)
+        public bool Set(EnvironmentData data)
         {
             var col = GetEnvironmentCollection();
+            var existing = col.FindById(data.Id);
+            if (existing != null)
+                return col.Update(data);
+
             // Create unique index in Name field
-            col.EnsureIndex(x => x.Name, true);
+            col.EnsureIndex(x => x.Id, true);
+
             // Insert new customer document (Id will be auto-incremented)
             col.Insert(data);
+            return true;
         }
 
         private ILiteCollection<EnvironmentData> GetEnvironmentCollection()

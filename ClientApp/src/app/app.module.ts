@@ -27,7 +27,7 @@ import { DashboardModule } from './pages/dashboard/dashboard.module';
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'test', redirectTo: '/stacks/3-522-transition-by-sketch-52345?hide=true&env=pilot-saturn&url=http://10.128.2.20'}
+      { path: 'test', redirectTo: '/stacks/nalivka-5743?hide=true&env=pilot-saturn'}
 
       // {
       //   path: "stacks",

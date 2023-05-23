@@ -53,15 +53,19 @@ export class  RemoteService {
     return this._http.get<IEnvironment[]>(`${this._baseUrl}api/environments`).pipe(first());
   }
 
-  getEnvironment(name: string): Observable<IEnvironment> {
-    return this._http.get<IEnvironment>(`${this._baseUrl}api/environments/${name}`).pipe(first());
+  getEnvironment(id: string): Observable<IEnvironment> {
+    return this._http.get<IEnvironment>(`${this._baseUrl}api/environments/${id}`).pipe(first());
   }
 
   setEnvironment(env: IEnvironment): Observable<boolean> {
     return this._http.put<boolean>(`${this._baseUrl}api/environments`, env).pipe(first());
   }
 
-  deleteEnvironment(name: string): Observable<boolean> {
-    return this._http.delete<boolean>(`${this._baseUrl}api/environments/${name}`).pipe(first());
+  deleteEnvironment(id: string): Observable<boolean> {
+    return this._http.delete<boolean>(`${this._baseUrl}api/environments/${id}`).pipe(first());
+  }
+
+  findEnvironment(name: string): Observable<IEnvironment> {
+    return this._http.get<IEnvironment>(`${this._baseUrl}api/environments/find/name/${name}`).pipe(first());
   }
 }
