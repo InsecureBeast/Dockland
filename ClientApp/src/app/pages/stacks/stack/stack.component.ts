@@ -10,6 +10,7 @@ import { EnvironmentService } from 'src/app/services/environment.service';
 import { RemoteService } from 'src/app/services/remote.service';
 import { ToolbarService } from 'src/app/services/toolbar.service';
 import { IEnvironment } from '../../environments/environment';
+import { getHostFromUrl } from 'src/app/utils/url.utils';
 
 @Component({
   selector: 'app-stack',
@@ -42,7 +43,7 @@ export class StackComponent implements OnInit {
         this._route.queryParams.subscribe(params => {
           this.initEnvironment(params.env).subscribe(env => {
             this._env = env.name;
-            this.url = env.url;
+            this.url = getHostFromUrl(env.url);
             this.updateInfo();
             this._toolbarService.changeVisibility(!getBoolean(params.hide));
           });
