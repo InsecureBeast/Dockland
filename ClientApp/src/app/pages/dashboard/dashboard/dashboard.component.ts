@@ -22,6 +22,7 @@ export class DashboardComponent implements OnInit {
   images: DashboardItem = new DashboardItem();
   volumes: DashboardItem = new DashboardItem();
   networks: DashboardItem = new DashboardItem();
+  environment: string | undefined;
 
   constructor(
     private readonly _remoteService: RemoteService, 
@@ -30,27 +31,27 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const env = this._envService.currentEnv?.name;
-    if (!env)
+    this.environment = this._envService.currentEnv?.name;
+    if (!this.environment)
       return;
 
-    this._remoteService.getStacks(env)
+    this._remoteService.getStacks(this.environment)
       .pipe(first(), map(s => this.toDashboardItem(s, ElementType.Stack)))
       .subscribe(item => this.stacks = item);
     
-    this._remoteService.getContainers(env)
+    this._remoteService.getContainers(this.environment)
       .pipe(first(), map(s => this.toDashboardItem(s, ElementType.Container)))
       .subscribe(item => this.containers = item);
 
-    this._remoteService.getImages(env)
+    this._remoteService.getImages(this.environment)
       .pipe(first(), map(s => this.toDashboardItem(s, ElementType.Image)))
       .subscribe(item => this.images = item);
 
-    this._remoteService.getVolumes(env)
+    this._remoteService.getVolumes(this.environment)
       .pipe(first(), map(s => this.toDashboardItem(s, ElementType.Volume)))
       .subscribe(item => this.volumes = item);
     
-    this._remoteService.getNetworks(env)
+    this._remoteService.getNetworks(this.environment)
       .pipe(first(), map(s => this.toDashboardItem(s, ElementType.Network)))
       .subscribe(item => this.networks = item);
 

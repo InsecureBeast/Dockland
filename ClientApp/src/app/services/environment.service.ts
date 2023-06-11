@@ -1,11 +1,11 @@
 import { Injectable } from "@angular/core";
-import { Observable, Subject } from "rxjs";
+import { Observable, ReplaySubject, Subject } from "rxjs";
 import { IEnvironment } from "../pages/environments/environment";
 
 @Injectable({ providedIn: "root"})
 export class EnvironmentService {
 
-  private readonly _current$ = new Subject<IEnvironment>();
+  private readonly _current$ = new ReplaySubject<IEnvironment>();
   private _current: IEnvironment | undefined;
 
   constructor() {

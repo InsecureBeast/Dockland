@@ -4,6 +4,7 @@ import { RouterModule } from "@angular/router";
 import { PipesModule } from "src/app/pipes/pipes.module";
 import { ImageListComponent } from "./components/image-list.component";
 import { ImagesComponent } from "./images/images.component";
+import { TitleModule } from "src/app/components/title/title.module";
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { ImagesComponent } from "./images/images.component";
     RouterModule.forRoot([
       { path: 'images', component: ImagesComponent },
     ]),
-    PipesModule
+    PipesModule,
+    TitleModule
   ],
   exports: [RouterModule, ImageListComponent],
   providers: [],

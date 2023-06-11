@@ -4,6 +4,7 @@ import { ContainersComponent } from './containers/containers.component';
 import { ContainerListComponent } from './components/container-list.component';
 import { RouterModule } from '@angular/router';
 import { ContainerComponent } from './container/container.component';
+import { TitleModule } from 'src/app/components/title/title.module';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { ContainerComponent } from './container/container.component';
       { path: 'containers', component: ContainersComponent },
       { path: 'containers/:name', component: ContainerComponent }, 
     ]),
+    TitleModule
   ],
   exports: [
     ContainerListComponent
