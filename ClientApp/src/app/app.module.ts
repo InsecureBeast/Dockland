@@ -28,7 +28,7 @@ import { SidebarModule } from './components/sidebar/sidebar.module';
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'test', redirectTo: '/stacks/nalivka-5743?hide=true&env=pilot-saturn'}
+      { path: 'test', redirectTo: '/stacks/3-390-load-extensions-51863?hide=true&env=pilot-saturn'}
 
       // {
       //   path: "stacks",

@@ -7,7 +7,7 @@
         <th class="cw-xs">STATE</th>
         <th>PORT</th>
         <th>IMAGE</th>
-        <th class="d-none d-lg-block cw-m">CREATED</th>
+        <th class="d-none d-lg-block">CREATED</th>
       </tr>
     </thead>
     <tbody [fluidHeightEnabled]="fluentHeightEnabled"
@@ -20,7 +20,7 @@
         </td>
         <td class="text-truncate"><a [href]="getUrl(container.ports)" target="_blank">{{getUrl(container.ports)}}</a></td>
         <td class="text-truncate">{{ container.image }} </td>
-        <td class="text-truncate d-none d-lg-block cw-m">{{ container.created | date:'medium' }} </td>
+        <td class="text-truncate d-none d-lg-block">{{ container.created | date:'medium' }} </td>
       </tr>
     </tbody>
     
