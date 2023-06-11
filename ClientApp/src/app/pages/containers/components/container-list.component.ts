@@ -8,9 +8,10 @@ import { Container, IPort } from 'src/app/core/container';
 })
 export class ContainerListComponent {
 
-  @Input() public containers: Container[] | null = [];
-  @Input() public url: string | undefined;
-
+  @Input() containers: Container[] | null = [];
+  @Input() url: string | undefined;
+  @Input() fluentHeightEnabled: boolean = true;
+  
   constructor() {
   }
 

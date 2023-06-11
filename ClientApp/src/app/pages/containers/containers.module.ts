@@ -5,6 +5,7 @@ import { ContainerListComponent } from './components/container-list.component';
 import { RouterModule } from '@angular/router';
 import { ContainerComponent } from './container/container.component';
 import { TitleModule } from 'src/app/components/title/title.module';
+import { DirectivesModule } from 'src/app/directives/directives.module';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { TitleModule } from 'src/app/components/title/title.module';
       { path: 'containers', component: ContainersComponent },
       { path: 'containers/:name', component: ContainerComponent }, 
     ]),
-    TitleModule
+    TitleModule,
+    DirectivesModule
   ],
   exports: [
     ContainerListComponent

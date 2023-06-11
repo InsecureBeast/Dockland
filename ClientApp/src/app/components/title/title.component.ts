@@ -9,10 +9,10 @@ import { EnvironmentService } from 'src/app/services/environment.service';
 export class TitleComponent {
 
   @Input() iconClassName: string | undefined;
-  @Input() moduleName: string | undefined;
-  environment: string | undefined;
+  @Input() title: string | undefined;
+  @Input() subtitle: string | undefined;
 
   constructor(envService: EnvironmentService) {
-    this.environment = envService.currentEnv?.name;
+    this.subtitle = envService.currentEnv?.name;
   }
 }

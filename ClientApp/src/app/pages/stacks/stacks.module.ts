@@ -9,6 +9,7 @@ import { VolumesModule } from "../volumes/volumes.module";
 import { StackComponent } from "./stack/stack.component";
 import { StacksComponent } from "./stacks/stacks.component";
 import { TitleModule } from "src/app/components/title/title.module";
+import { DirectivesModule } from "src/app/directives/directives.module";
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { TitleModule } from "src/app/components/title/title.module";
     ContainersModule,
     VolumesModule,
     NetworksModule,
-    TitleModule
+    TitleModule,
+    DirectivesModule
   ],
   exports: [RouterModule],
   providers: [],

@@ -1,20 +1,23 @@
-<h3 id="tableLabel"><i class="bi bi-layers me-2"></i>Stack details</h3>
-<span>Name: {{stack}}</span>
+<app-title [iconClassName]="'bi-layers'" [title]="'Stack details'" [subtitle]="stack"></app-title>
 
 <ng-container *ngTemplateOutlet="buttonsTemplate"></ng-container>
 
-<div class="mt-4 mb-2 fs-5"><i class="bi bi-box me-2"></i><span>Containers</span></div>
-<app-container-list [containers]="containers | async" [url]="url"></app-container-list>
+<div [fluidHeight]
+     [fluidHeightBottomPadding]="0"
+     [fluidHeightEnabled]="true"
+     class="overflow-auto mt-4">
+  <div class="mb-2 fs-5"><i class="bi bi-box me-2"></i><span>Containers</span></div>
+  <app-container-list [containers]="containers | async" [url]="url" [fluentHeightEnabled]="false"></app-container-list>
 
-<div class="mt-4 mb-2 fs-5"><i class="bi bi-collection me-2"></i>Images</div>
-<app-image-list [images]="images | async" *ngIf="images"></app-image-list>
+  <div class="mt-4 mb-2 fs-5"><i class="bi bi-collection me-2"></i>Images</div>
+  <app-image-list [images]="images | async" [fluentHeightEnabled]="false" *ngIf="images"></app-image-list>
 
-<div class="mt-4 mb-2 fs-5"><i class="bi bi-database me-2"></i>Volumes</div>
-<app-volume-list [volumes]="volumes | async" *ngIf="images"></app-volume-list>
+  <div class="mt-4 mb-2 fs-5"><i class="bi bi-database me-2"></i>Volumes</div>
+  <app-volume-list [volumes]="volumes | async" [fluentHeightEnabled]="false" *ngIf="images"></app-volume-list>
 
-<div class="mt-4 mb-2 fs-5"><i class="bi bi-hdd-network me-2"></i>Networks</div>
-<app-network-list [networks]="networks | async"></app-network-list>
-
+  <div class="mt-4 mb-2 fs-5"><i class="bi bi-hdd-network me-2"></i>Networks</div>
+  <app-network-list [networks]="networks | async" [fluentHeightEnabled]="false"></app-network-list>
+</div>
 <ng-template #buttonsTemplate>
   <div class="d-flex justify-content-end">
     <button type="button" class="btn btn-outline-danger" [disabled]="isDisabled()" (click)="remove()">

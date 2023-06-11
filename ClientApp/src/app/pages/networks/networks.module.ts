@@ -5,6 +5,7 @@ import { NetworksComponent } from './networks/networks.component';
 import { NetworkComponent } from './network/network.component';
 import { NetworkListComponent } from './components/network-list/network-list.component';
 import { TitleModule } from 'src/app/components/title/title.module';
+import { DirectivesModule } from 'src/app/directives/directives.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { TitleModule } from 'src/app/components/title/title.module';
       { path: 'networks', component: NetworksComponent },
       { path: 'networks/:name', component: NetworkComponent },
     ]),
-    TitleModule
+    TitleModule,
+    DirectivesModule
   ],
   exports: [
     NetworkListComponent

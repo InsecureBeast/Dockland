@@ -1,20 +1,22 @@
 <p *ngIf="!volumes"><em>Loading...</em></p>
-<div class="card">
+<div class="">
   <table class='table table-hover mb-0' *ngIf="volumes">
     <thead class="table-light">
       <tr>
         <th>Name</th>
-        <th style="width: 100px;">Driver</th>
+        <th class="cw-s">Driver</th>
         <th>Mount point</th>
-        <th>Created</th>
+        <th class="cw-m">Created</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody [fluidHeight] 
+           [fluidHeightEnabled]="fluentHeightEnabled"
+           [fluidHeightBottomPadding]="1">
       <tr *ngFor="let volume of volumes">
         <td class="text-truncate">{{ volume.name }}</td>
-        <td class="text-truncate">{{ volume.driver }}</td>
+        <td class="text-truncate cw-s">{{ volume.driver }}</td>
         <td class="text-truncate">{{ volume.mountpoint }} </td>
-        <td class="text-truncate">{{ volume.createdAt | date:'medium' }} </td>
+        <td class="text-truncate cw-m">{{ volume.createdAt | date:'medium' }} </td>
       </tr>
     </tbody>
   </table>

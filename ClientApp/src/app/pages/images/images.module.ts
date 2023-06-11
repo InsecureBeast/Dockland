@@ -5,6 +5,7 @@ import { PipesModule } from "src/app/pipes/pipes.module";
 import { ImageListComponent } from "./components/image-list.component";
 import { ImagesComponent } from "./images/images.component";
 import { TitleModule } from "src/app/components/title/title.module";
+import { DirectivesModule } from "src/app/directives/directives.module";
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { TitleModule } from "src/app/components/title/title.module";
       { path: 'images', component: ImagesComponent },
     ]),
     PipesModule,
-    TitleModule
+    TitleModule,
+    DirectivesModule
   ],
   exports: [RouterModule, ImageListComponent],
   providers: [],

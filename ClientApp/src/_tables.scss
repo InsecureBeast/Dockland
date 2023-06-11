@@ -1,4 +1,13 @@
-.table {
+
+table tbody {
+  display: block;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+table thead, table tbody tr {
+  display: table;
+  width: 100%;
   table-layout: fixed;
 }
 
@@ -11,13 +20,13 @@
 }
 
 .table .cw-xs {
-  width: 100px;
+  width: 80px;
 }
 
 .table .cw-s {
-  width: 220px;
+  width: 120px;
 }
 
 .table .cw-m {
-  width: 350px;
+  width: 250px;
 }

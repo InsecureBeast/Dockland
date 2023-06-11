@@ -7,10 +7,10 @@ import { Image } from '../../../core/image';
 })
 export class ImageListComponent {
   
-  @Input() public images: Image[] | null = [];
+  @Input() images: Image[] | null = [];
+  @Input() fluentHeightEnabled: boolean = true;
 
-  constructor() {
-    
+  constructor() {   
   }
 
   getImageTagName(imageTags: string[]): {name:string, tag: string} {

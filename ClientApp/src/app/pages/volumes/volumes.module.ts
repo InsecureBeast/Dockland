@@ -5,6 +5,7 @@ import { VolumesComponent } from './volumes/volumes.component';
 import { RouterModule } from '@angular/router';
 import { VolumeListComponent } from './components/volume-list/volume-list.component';
 import { TitleModule } from 'src/app/components/title/title.module';
+import { DirectivesModule } from 'src/app/directives/directives.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { TitleModule } from 'src/app/components/title/title.module';
       { path: 'volumes', component: VolumesComponent },
       { path: 'volumes/:name', component: VolumeComponent }, 
     ]),
-    TitleModule
+    TitleModule,
+    DirectivesModule
   ],
   exports: [
     VolumeComponent, 

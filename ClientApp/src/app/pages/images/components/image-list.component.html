@@ -1,23 +1,25 @@
 <p *ngIf="!images"><em>Loading...</em></p>
 
-<div class="card mt-3">
+<div class="mt-4">
   <table class='table table-hover mb-0' *ngIf="images">
     <thead class="table-light">
       <tr>
-        <th >Name</th>
+        <th>Name</th>
         <th class="cw-xs">Tag</th>
         <th>Id</th>
-        <th class="cw-s">Created</th>
-        <th class="cw-xs">Size</th>
+        <th class="cw-m">Created</th>
+        <th class="cw-s">Size</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody [fluidHeight] 
+           [fluidHeightEnabled]="fluentHeightEnabled"
+           [fluidHeightBottomPadding]="1">
       <tr *ngFor="let image of images">
         <td class="text-truncate">{{ getImageTagName(image.repoTags).name }}</td>
-        <td class="text-truncate"> <span class="badge bg-secondary">{{ getImageTagName(image.repoTags).tag }}</span></td>
+        <td class="text-truncate cw-xs"> <span class="badge bg-secondary">{{ getImageTagName(image.repoTags).tag }}</span></td>
         <td class="text-truncate">{{ image.id }}</td>
-        <td class="text-truncate">{{ image.created | date:'medium' }}</td>
-        <td class="text-truncate">{{ image.size | formatFileSize: false }} </td>
+        <td class="text-truncate cw-m">{{ image.created | date:'medium' }}</td>
+        <td class="text-truncate cw-s">{{ image.size | formatFileSize: false }} </td>
       </tr>
     </tbody>
   </table>
