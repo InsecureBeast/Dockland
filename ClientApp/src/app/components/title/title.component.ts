@@ -13,6 +13,6 @@ export class TitleComponent {
   @Input() subtitle: string | undefined;
 
   constructor(envService: EnvironmentService) {
-    this.subtitle = envService.currentEnv?.name;
+    this.subtitle = `Environment: ${envService.currentEnv?.name}`;
   }
 }

@@ -1,7 +1,7 @@
 <div class="d-flex flex-column flex-shrink-0 p-3 bg-light vh-100"
      *ngIf="isVisible | async">
-  <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-    <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+  <a href="/" class="d-flex align-items-center link-dark text-decoration-none ms-3">
+    <i class="bi-box-seam-fill me-2 fs-4 brand-color"></i>
     <span class="fs-4">Dockland</span>
   </a>
   <hr>
@@ -11,7 +11,7 @@
          [routerLinkActive]="['active', 'text-white']" 
          [routerLinkActiveOptions]="{ exact: true }"
          class="nav-link text-dark">
-        <i class="bi bi-hdd me-2" width="16" height="16"></i>
+        <i class="bi-hdd me-2"></i>
         Environments
       </a>
     </li>
@@ -21,8 +21,15 @@
            [routerLink]="['/dashboard']"
            [routerLinkActive]="['active', 'text-white']" 
            [routerLinkActiveOptions]="{ exact: true }">
-          <i class="bi bi-kanban me-2" width="16" height="16"></i>
+           <div class="d-flex">
+          <i class="bi-kanban me-2"></i>
             {{environment}}
+            <div class="m-auto"></div>
+            <button type="button" class="btn btn-close-env" aria-label="Close environment">
+              <span class="bi-x-lg dt" [routerLinkActive]="['text-white']" (click)="disconnect()"></span>
+            </button>
+          </div>
+
         </a>
       </li>
       <li class="nav-item">
@@ -30,7 +37,7 @@
            [routerLink]="['/containers']"
            [routerLinkActive]="['active', 'text-white']" 
            [routerLinkActiveOptions]="{ exact: true }">
-          <i class="bi bi-box me-2" width="16" height="16"></i>
+          <i class="bi bi-box me-2"></i>
           Containers
         </a>
       </li>
@@ -39,7 +46,7 @@
            [routerLink]="['/images']"
            [routerLinkActive]="['active', 'text-white']" 
            [routerLinkActiveOptions]="{ exact: true }">
-          <i class="bi bi-collection me-2" width="16" height="16"></i>
+          <i class="bi bi-collection me-2"></i>
           Images
         </a>
       </li>
@@ -48,7 +55,7 @@
            [routerLink]="['/stacks']"
            [routerLinkActive]="['active', 'text-white']" 
            [routerLinkActiveOptions]="{ exact: true }">
-          <i class="bi bi-layers me-2" width="16" height="16"></i>
+          <i class="bi bi-layers me-2"></i>
           Stacks
         </a>
       </li>
@@ -57,7 +64,7 @@
            [routerLink]="['/volumes']"
            [routerLinkActive]="['active', 'text-white']" 
            [routerLinkActiveOptions]="{ exact: true }">
-          <i class="bi bi-database me-2" width="16" height="16"></i>
+          <i class="bi bi-database me-2"></i>
           Volumes
         </a>
       </li>
@@ -66,7 +73,7 @@
            [routerLink]="['/networks']"
            [routerLinkActive]="['active', 'text-white']" 
            [routerLinkActiveOptions]="{ exact: true }">
-          <i class="bi bi-hdd-network me-2" width="16" height="16"></i>
+          <i class="bi bi-hdd-network me-2"></i>
           Networks
         </a>
       </li>

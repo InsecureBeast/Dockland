@@ -11,12 +11,8 @@ table thead, table tbody tr {
   table-layout: fixed;
 }
 
-.table>:not(:first-child) {
-  border-top: 0px;
-}
-
-.table>tbody tr:last-child {
-  border-bottom: 0px solid transparent;
+.table>:not(:first-child)  {
+  border-top: 0 !important;
 }
 
 .table .cw-xs {

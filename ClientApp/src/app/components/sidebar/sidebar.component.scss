@@ -18,4 +18,19 @@
   .active {
     background-color: $gray-900;
   }
+  
+  .brand-color {
+    color: var(--bs-blue);
+  }
+
+  .btn-close-env {
+    box-sizing: content-box;
+    width: 1em;
+    height: 1.5em;
+    padding: 0.1em 0.5em;
+    color: #000;
+    border: 0;
+    border-radius: 0.25rem;
+    opacity: 0.5;
+  }
 }

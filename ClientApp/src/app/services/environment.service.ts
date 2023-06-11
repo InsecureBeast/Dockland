@@ -5,7 +5,7 @@ import { IEnvironment } from "../pages/environments/environment";
 @Injectable({ providedIn: "root"})
 export class EnvironmentService {
 
-  private readonly _current$ = new ReplaySubject<IEnvironment>();
+  private readonly _current$ = new ReplaySubject<IEnvironment | undefined>();
   private _current: IEnvironment | undefined;
 
   constructor() {
@@ -16,7 +16,7 @@ export class EnvironmentService {
     }
   }
   
-  get current(): Observable<IEnvironment> {
+  get current(): Observable<IEnvironment | undefined> {
     return this._current$.asObservable();
   }
 
@@ -29,7 +29,12 @@ export class EnvironmentService {
     localStorage.setItem("env", JSON.stringify(env));
   }
 
-  private setEnvironment(env: IEnvironment): void {
+  closeEnvironment(): void {
+    this.setEnvironment(undefined);
+    localStorage.removeItem("env");
+  }
+
+  private setEnvironment(env: IEnvironment | undefined): void {
     this._current = env;
     this._current$.next(env);
   }

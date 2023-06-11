@@ -12,7 +12,7 @@ import { IEnvironment } from '../pages/environments/environment';
 export class NavMenuComponent {
   isExpanded = false;
   isVisible: Observable<boolean>;
-  isOpened: Observable<IEnvironment>;
+  isOpened: Observable<IEnvironment | undefined>;
 
   constructor(toolbarService: ToolbarService, envService: EnvironmentService) {
     this.isOpened = envService.current;
