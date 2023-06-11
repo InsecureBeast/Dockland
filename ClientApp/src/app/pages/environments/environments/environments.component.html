@@ -1,4 +1,4 @@
-<h1><i class="bi bi-hdd me-2"></i>Environments</h1>
+<h3><i class="bi bi-hdd me-2"></i>Environments</h3>
 
 <p *ngIf="!(environments | async)"><em>Loading...</em></p>
 
@@ -10,7 +10,8 @@
     </a>
   </div>
   
-  <div class="mt-3" *ngFor="let environment of environments | async">
+  <div class="env-content mt-3">
+    <div class="mb-3" *ngFor="let environment of environments | async">
     <div class="card col" >
       <div class="row g-0">
         <div class="col-md-4 p-3 env-logo">
@@ -32,6 +33,7 @@
           </div>
         </div>
       </div>
+    </div>
     </div>
   </div>
 

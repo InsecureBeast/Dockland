@@ -8,7 +8,7 @@ import { EnvironmentService } from 'src/app/services/environment.service';
 @Component({
   selector: 'app-stacks',
   templateUrl: './stacks.component.html',
-  styleUrls: ['./stacks.component.css']
+  styleUrls: ['./stacks.component.scss']
 })
 export class StacksComponent implements OnInit {
 

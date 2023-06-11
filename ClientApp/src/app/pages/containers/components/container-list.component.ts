@@ -4,7 +4,7 @@ import { Container, IPort } from 'src/app/core/container';
 @Component({
   selector: 'app-container-list',
   templateUrl: './container-list.component.html',
-  styleUrls: ['./container-list.component.css']
+  styleUrls: ['./container-list.component.scss']
 })
 export class ContainerListComponent {
 

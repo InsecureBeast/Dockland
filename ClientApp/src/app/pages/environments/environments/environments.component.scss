@@ -1,0 +1,10 @@
+.env-logo {
+  display: flex;
+  justify-content: center;
+}
+
+.env-content {
+  height: calc(100vh - 109px);
+  overflow-x: hidden;
+  overflow-y: scroll;
+}

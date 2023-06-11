@@ -1,0 +1,21 @@
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins";
+
+:host {
+  .nav-pills > .nav-item {
+    margin-top: 4px;
+  }
+
+  .nav-link:hover {
+    background-color: $gray-300;
+  }
+
+  .active:hover {
+    background-color: $gray-700;
+  }
+
+  .active {
+    background-color: $gray-900;
+  }
+}

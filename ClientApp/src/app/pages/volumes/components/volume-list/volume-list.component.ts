@@ -4,7 +4,7 @@ import { IVolume } from 'src/app/core/volume';
 @Component({
   selector: 'app-volume-list',
   templateUrl: './volume-list.component.html',
-  styleUrls: ['./volume-list.component.css']
+  styleUrls: ['./volume-list.component.scss']
 })
 export class VolumeListComponent {
 

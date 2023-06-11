@@ -1,0 +1,89 @@
+<div class="d-flex flex-column flex-shrink-0 p-3 bg-light vh-100"
+     *ngIf="isVisible | async">
+  <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+    <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+    <span class="fs-4">Dockland</span>
+  </a>
+  <hr>
+  <ul class="nav nav-pills flex-column mb-auto">
+    <li class="nav-item" >
+      <a [routerLink]="['/']" 
+         [routerLinkActive]="['active', 'text-white']" 
+         [routerLinkActiveOptions]="{ exact: true }"
+         class="nav-link text-dark">
+        <i class="bi bi-hdd me-2" width="16" height="16"></i>
+        Environments
+      </a>
+    </li>
+    <ng-container *ngIf="isOpened | async">
+      <li class="nav-item" >
+        <a class="nav-link text-dark" 
+           [routerLink]="['/dashboard']"
+           [routerLinkActive]="['active', 'text-white']" 
+           [routerLinkActiveOptions]="{ exact: true }">
+          <i class="bi bi-kanban me-2" width="16" height="16"></i>
+            {{environment}}
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-dark" 
+           [routerLink]="['/containers']"
+           [routerLinkActive]="['active', 'text-white']" 
+           [routerLinkActiveOptions]="{ exact: true }">
+          <i class="bi bi-box me-2" width="16" height="16"></i>
+          Containers
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-dark" 
+           [routerLink]="['/images']"
+           [routerLinkActive]="['active', 'text-white']" 
+           [routerLinkActiveOptions]="{ exact: true }">
+          <i class="bi bi-collection me-2" width="16" height="16"></i>
+          Images
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-dark" 
+           [routerLink]="['/stacks']"
+           [routerLinkActive]="['active', 'text-white']" 
+           [routerLinkActiveOptions]="{ exact: true }">
+          <i class="bi bi-layers me-2" width="16" height="16"></i>
+          Stacks
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-dark" 
+           [routerLink]="['/volumes']"
+           [routerLinkActive]="['active', 'text-white']" 
+           [routerLinkActiveOptions]="{ exact: true }">
+          <i class="bi bi-database me-2" width="16" height="16"></i>
+          Volumes
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-dark" 
+           [routerLink]="['/networks']"
+           [routerLinkActive]="['active', 'text-white']" 
+           [routerLinkActiveOptions]="{ exact: true }">
+          <i class="bi bi-hdd-network me-2" width="16" height="16"></i>
+          Networks
+        </a>
+      </li>
+    </ng-container>
+  </ul>
+  <hr>
+  <div class="dropdown">
+    <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+      <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+      <strong>mdo</strong>
+    </a>
+    <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
+      <li><a class="dropdown-item" href="#">New project...</a></li>
+      <li><a class="dropdown-item" href="#">Settings</a></li>
+      <li><a class="dropdown-item" href="#">Profile</a></li>
+      <li><hr class="dropdown-divider"></li>
+      <li><a class="dropdown-item" href="#">Sign out</a></li>
+    </ul>
+  </div>
+</div>

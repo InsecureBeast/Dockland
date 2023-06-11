@@ -14,6 +14,7 @@ import { ImagesModule } from './pages/images/images.module';
 import { NetworksModule } from './pages/networks/networks.module';
 import { EnvironmentsModule } from './pages/environments/environments.module';
 import { DashboardModule } from './pages/dashboard/dashboard.module';
+import { SidebarModule } from './components/sidebar/sidebar.module';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { DashboardModule } from './pages/dashboard/dashboard.module';
     VolumesModule,
     ImagesModule,
     NetworksModule,
-    DashboardModule
+    DashboardModule,
+    SidebarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -7,7 +7,7 @@ import { RemoteService } from 'src/app/services/remote.service';
 @Component({
   selector: 'app-networks',
   templateUrl: './networks.component.html',
-  styleUrls: ['./networks.component.css']
+  styleUrls: ['./networks.component.scss']
 })
 export class NetworksComponent implements OnInit, OnDestroy {
   private _destroy: Subject<void> = new Subject();

@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-environments',
   templateUrl: './environments.component.html',
-  styleUrls: ['./environments.component.css']
+  styleUrls: ['./environments.component.scss']
 })
 export class EnvironmentsComponent implements OnInit {
   environments: Observable<IEnvironment[]> = of([]);

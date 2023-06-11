@@ -4,7 +4,7 @@ import { INetwork } from 'src/app/core/network';
 @Component({
   selector: 'app-network-list',
   templateUrl: './network-list.component.html',
-  styleUrls: ['./network-list.component.css']
+  styleUrls: ['./network-list.component.scss']
 })
 export class NetworkListComponent {
   
