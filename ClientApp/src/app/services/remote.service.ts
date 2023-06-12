@@ -6,7 +6,7 @@ import { IVolume } from "../core/volume";
 import { Stack } from "../pages/stacks/stack";
 import { IEnvironment } from "../pages/environments/environment";
 import { Image } from "../core/image";
-import { Container } from "../core/container";
+import { IContainer } from "../core/container";
 
 @Injectable({ providedIn: 'root' })
 export class  RemoteService {
@@ -23,16 +23,16 @@ export class  RemoteService {
     return this._http.get<Image[]>(`${this._baseUrl}api/images/${environment}` + stackRequest).pipe(first());
   }
   
-  getContainers(environment: string): Observable<Container[]> {
-    return this._http.get<Container[]>(`${this._baseUrl}api/containers/${environment}`).pipe(first());
+  getContainers(environment: string): Observable<IContainer[]> {
+    return this._http.get<IContainer[]>(`${this._baseUrl}api/containers/${environment}`).pipe(first());
   }
   
   getStacks(environment: string): Observable<Stack[]> {
     return this._http.get<Stack[]>(`${this._baseUrl}api/stacks/${environment}`).pipe(first());
   }
 
-  getStackContainers(environment: string, stack: string): Observable<Container[]> {
-    return this._http.get<Container[]>(`${this._baseUrl}api/containers/${environment}/${stack}`).pipe(first());
+  getStackContainers(environment: string, stack: string): Observable<IContainer[]> {
+    return this._http.get<IContainer[]>(`${this._baseUrl}api/containers/${environment}/${stack}`).pipe(first());
   }
 
   deleteStack(environment: string, stack: string): Observable<boolean> {

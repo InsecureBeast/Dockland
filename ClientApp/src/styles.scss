@@ -20,27 +20,30 @@ $dark:        $gray-900 !default;
 
 // merge with existing $theme-colors map
 $theme-colors: map-merge($theme-colors, (
-  "primary": $primary
+  "primary": $primary,
 ));
-
-// @each $color, $value in $theme-colors {
-//   .btn-#{$color} {
-//     @include button-variant($value, $value,
-//     // modify
-//     $hover-background: lighten($value, 7.5%),
-//     $hover-border: lighten($value, 10%),
-//     $active-background: lighten($value, 10%),
-//     $active-border: lighten($value, 12.5%)
-//     // /modify
-//     );
-//   }
-// }
 
 // set changes
 @import "../node_modules/bootstrap/scss/bootstrap.scss";
 
 .btn-primary:hover {
   background: $gray-700;
+}
+
+.form-check-input:checked {
+  background-color: $primary;
+  border-color: $primary;
+}
+
+.form-check-input[type=checkbox]:indeterminate {
+  background-color: $primary;
+  border-color: $primary;
+}
+
+.form-check-input:focus {
+  border-color: lighten($color: $primary, $amount: 40);
+  // outline: 0;
+  box-shadow: 0 0 0 0.25rem lighten($color: $primary, $amount: 59) 
 }
 /* Provide sufficient contrast against white background */
 // a {

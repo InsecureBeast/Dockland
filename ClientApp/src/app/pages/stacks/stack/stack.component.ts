@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, of, tap } from 'rxjs';
-import { Container } from 'src/app/core/container';
+import { Observable, map, of, tap } from 'rxjs';
+import { IContainer } from 'src/app/core/container';
 import { Image } from 'src/app/core/image';
 import { INetwork } from 'src/app/core/network';
 import { getBoolean } from 'src/app/core/utils';
@@ -11,6 +11,7 @@ import { RemoteService } from 'src/app/services/remote.service';
 import { ToolbarService } from 'src/app/services/toolbar.service';
 import { IEnvironment } from '../../environments/environment';
 import { getHostFromUrl } from 'src/app/utils/url.utils';
+import { ContainerModel } from '../../containers/components/container.model';
 
 @Component({
   selector: 'app-stack',
@@ -23,7 +24,7 @@ export class StackComponent implements OnInit {
   
   url: string | undefined;
   stack: string = '';
-  containers: Observable<Container[]> = of([]);
+  containers: Observable<ContainerModel[]> = of([]);
   volumes: Observable<IVolume[]> = of([]);
   networks: Observable<INetwork[]> = of([]);
   images: Observable<Image[]> = of([]);
@@ -80,7 +81,7 @@ export class StackComponent implements OnInit {
 
   private getStackInfo(): void {
     this.containers = this._remoteService.getStackContainers(this._env, this.stack)
-      .pipe(tap(c => this._containersCount = c.length));
+      .pipe(tap(c => this._containersCount = c.length), map(c => c.map(x => new ContainerModel(x))));
   }
 
   private getVolumesInfo(): void {

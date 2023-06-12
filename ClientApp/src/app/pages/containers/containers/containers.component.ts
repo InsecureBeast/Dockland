@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { Container } from 'src/app/core/container';
+import { Observable, map, of } from 'rxjs';
 import { EnvironmentService } from 'src/app/services/environment.service';
 import { RemoteService } from 'src/app/services/remote.service';
 import { getHostFromUrl } from 'src/app/utils/url.utils';
+import { ContainerModel } from '../components/container.model';
 
 @Component({
   selector: 'app-containers',
@@ -12,14 +12,16 @@ import { getHostFromUrl } from 'src/app/utils/url.utils';
 })
 export class ContainersComponent {
 
-  containers: Observable<Container[]> = of([]);
+  containers: Observable<ContainerModel[]> = of([]);
   url: string | undefined;
   
   constructor(
     private readonly _remoteService: RemoteService,
     envService: EnvironmentService) {
       if (envService.currentEnv) {
-        this.containers = this._remoteService.getContainers(envService.currentEnv.name);
+        this.containers = this._remoteService.getContainers(envService.currentEnv.name)
+          .pipe(map(c => c.map(x => new ContainerModel(x))));
+
         this.url = getHostFromUrl(envService.currentEnv.url);
       }
   }
