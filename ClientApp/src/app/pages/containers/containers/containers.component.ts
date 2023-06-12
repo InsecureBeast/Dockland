@@ -19,7 +19,7 @@ export class ContainersComponent {
     private readonly _remoteService: RemoteService,
     envService: EnvironmentService) {
       if (envService.currentEnv) {
-        this.containers = this._remoteService.getContainers(envService.currentEnv.name)
+        this.containers = this._remoteService.containers.getContainers(envService.currentEnv.name)
           .pipe(map(c => c.map(x => new ContainerModel(x))));
 
         this.url = getHostFromUrl(envService.currentEnv.url);

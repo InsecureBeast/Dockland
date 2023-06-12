@@ -7,15 +7,22 @@ import { Stack } from "../pages/stacks/stack";
 import { IEnvironment } from "../pages/environments/environment";
 import { Image } from "../core/image";
 import { IContainer } from "../core/container";
+import { IRemoteContainers, RemoteContainers } from "./remote-containers.interface";
 
 @Injectable({ providedIn: 'root' })
 export class  RemoteService {
-  
-  
+  private _remoteContainers: IRemoteContainers;
+
   constructor(
     private _http: HttpClient, 
     @Inject('BASE_URL') private _baseUrl: string) {
-    
+      
+      this._remoteContainers = new RemoteContainers(_http, _baseUrl);
+
+  }
+
+  get containers(): IRemoteContainers {
+    return this._remoteContainers;
   }
 
   getImages(environment: string, stack?: string):Observable<Image[]> {
@@ -23,16 +30,8 @@ export class  RemoteService {
     return this._http.get<Image[]>(`${this._baseUrl}api/images/${environment}` + stackRequest).pipe(first());
   }
   
-  getContainers(environment: string): Observable<IContainer[]> {
-    return this._http.get<IContainer[]>(`${this._baseUrl}api/containers/${environment}`).pipe(first());
-  }
-  
   getStacks(environment: string): Observable<Stack[]> {
     return this._http.get<Stack[]>(`${this._baseUrl}api/stacks/${environment}`).pipe(first());
-  }
-
-  getStackContainers(environment: string, stack: string): Observable<IContainer[]> {
-    return this._http.get<IContainer[]>(`${this._baseUrl}api/containers/${environment}/${stack}`).pipe(first());
   }
 
   deleteStack(environment: string, stack: string): Observable<boolean> {

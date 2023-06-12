@@ -1,5 +1,6 @@
 ﻿using Docker.DotNet.Models;
 using Dockland.DataModels;
+using Dockland.Services;
 
 namespace Dockland.Utils
 {
@@ -56,6 +57,27 @@ namespace Dockland.Utils
 
             var stackList = list.Where(c => c.Labels != null && c.Labels.ContainsKey(DockerComposeLabels.PROJECT));
             return stackList;
+        }
+
+        public static async Task<ContainerListResponse?> GetContainerAsync(this IDockerService service, string env, string containerId)
+        {
+            var client = service.GetService(env);
+            if (client == null)
+                return null;
+
+            var parameters = new ContainersListParameters();
+            parameters.All = true;
+            parameters.Filters = new Dictionary<string, IDictionary<string, bool>>
+            {
+                ["id"] = new Dictionary<string, bool>
+                {
+                    [containerId] = true
+                }
+            };
+
+
+            var list = await client.Containers.ListContainersAsync(parameters);
+            return list.FirstOrDefault();
         }
     }
 }

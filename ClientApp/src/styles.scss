@@ -10,7 +10,7 @@
 @import "../node_modules/bootstrap/scss/mixins/gradients"; 
 
 $primary:     $gray-900; // set the $primary variable
-$secondary:   $gray-600 !default;
+$secondary:   $gray-100 !default;
 //$success:   $green !default;
 //$info:      $cyan !default;
 //$warning:   $yellow !default;
@@ -21,6 +21,7 @@ $dark:        $gray-900 !default;
 // merge with existing $theme-colors map
 $theme-colors: map-merge($theme-colors, (
   "primary": $primary,
+  "secondary": $secondary
 ));
 
 // set changes

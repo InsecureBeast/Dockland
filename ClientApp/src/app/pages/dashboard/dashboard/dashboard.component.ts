@@ -39,7 +39,7 @@ export class DashboardComponent implements OnInit {
       .pipe(first(), map(s => this.toDashboardItem(s, ElementType.Stack)))
       .subscribe(item => this.stacks = item);
     
-    this._remoteService.getContainers(this.environment)
+    this._remoteService.containers.getContainers(this.environment)
       .pipe(first(), map(s => this.toDashboardItem(s, ElementType.Container)))
       .subscribe(item => this.containers = item);
 

@@ -7,7 +7,11 @@
      [fluidHeightEnabled]="true"
      class="overflow-auto mt-4">
   <div class="mb-2 fs-5"><i class="bi bi-box me-2"></i><span>Containers</span></div>
-  <app-container-list [containers]="containers | async" [url]="url" [fluentHeightEnabled]="false"></app-container-list>
+  <app-container-list [containers]="containers | async" 
+                      [url]="url" 
+                      [fluentHeightEnabled]="false"
+                      [isInteractive]="false">
+  </app-container-list>
 
   <div class="mt-4 mb-2 fs-5"><i class="bi bi-collection me-2"></i>Images</div>
   <app-image-list [images]="images | async" [fluentHeightEnabled]="false" *ngIf="images"></app-image-list>

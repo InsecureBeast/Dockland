@@ -80,7 +80,7 @@ export class StackComponent implements OnInit {
   }
 
   private getStackInfo(): void {
-    this.containers = this._remoteService.getStackContainers(this._env, this.stack)
+    this.containers = this._remoteService.containers.getStackContainers(this._env, this.stack)
       .pipe(tap(c => this._containersCount = c.length), map(c => c.map(x => new ContainerModel(x))));
   }
 
