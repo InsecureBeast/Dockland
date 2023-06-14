@@ -1,6 +1,77 @@
+@import "../../../../colors";
+
 :host {
   .dashboard-card {
     padding: 12px;
+  }
+
+  .dashboard-item {
+    cursor: pointer;
+
+    &-1 {
+      background: $stacks-background;
+      border-color: darken($color: $stacks-background, $amount: 5);
+
+      &:hover {
+        background: lighten($color: $stacks-background, $amount: 4);
+      }
+
+      h3 {
+        color: darken($color: $stacks-background, $amount: 40);
+      }
+    }
+
+    &-2 {
+      background: $containers-background;
+      border-color: darken($color: $containers-background, $amount: 5);
+
+      &:hover {
+        background: lighten($color: $containers-background, $amount: 4);
+      }
+
+      h3 {
+        color: darken($color: $containers-background, $amount: 40);
+      }
+    }
+
+    &-3 {
+      background: $images-background;
+      border-color: darken($color: $images-background, $amount: 5);
+
+      &:hover {
+        background: lighten($color: $images-background, $amount: 4);
+      }
+
+      h3 {
+        color: darken($color: $images-background, $amount: 40);
+      }
+    }
+
+    &-4 {
+      background: $volumes-background;
+      border-color: darken($color: $volumes-background, $amount: 5);
+
+      &:hover {
+        background: lighten($color: $volumes-background, $amount: 4);
+      }
+
+      h3 {
+        color: darken($color: $volumes-background, $amount: 40);
+      }
+    }
+
+    &-5 {
+      background: $networks-background;
+      border-color: darken($color: $networks-background, $amount: 5);
+
+      &:hover {
+        background: lighten($color: $networks-background, $amount: 4);
+      }
+
+      h3 {
+        color: darken($color: $networks-background, $amount: 40);
+      }
+    }
   }
 }
 

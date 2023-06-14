@@ -11,22 +11,15 @@
 </div>
 
 <ng-template #dashboardItemTemplate let-item="inItem" >
-  <div class="card col-lg-5 col-12">
+  <div class="card col-lg-5 col-12 dashboard-item" 
+       (click)="open(item)"
+       [ngClass]="['dashboard-item-' + item.type]">
     <div class="d-flex justify-content-between align-items-center">
-      <div class="" style="width: 80px;">
+      <div class="d-flex align-items-center" >
         <ng-container *ngTemplateOutlet="iconTemplate; context:{ inType: item.type }"></ng-container>
+        <ng-container *ngTemplateOutlet="typeTemplate; context:{ inType: item.type }"></ng-container>
       </div>
-      <div class="col-4">
-        <div class="card-body">
-          <h5 class="card-title">{{item.count}}</h5>
-          <ng-container *ngTemplateOutlet="typeTemplate; context:{ inType: item.type }"></ng-container>
-        </div>
-      </div>
-
-      <div class="col-4">
-        <button type="button" class="btn btn-primary w-100" (click)="open(item)" >Open</button>
-      </div>
-
+      <h3 class="me-3">{{item.count}}</h3>
     </div>
   </div>
 </ng-template>
