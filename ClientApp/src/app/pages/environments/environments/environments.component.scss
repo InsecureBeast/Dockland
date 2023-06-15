@@ -1,10 +1,41 @@
-.env-logo {
-  display: flex;
-  justify-content: center;
-}
+@import "../../../../styles.scss";
+@import "../../../../colors";
 
-.env-content {
-  height: calc(100vh - 109px);
-  overflow-x: hidden;
-  overflow-y: scroll;
+:host {
+
+  .env-logo {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .env-content {
+    height: calc(100vh - 109px);
+    overflow-x: hidden;
+  }
+
+  .card {
+    cursor: pointer;
+    
+    &:hover {
+      background-color: $gray-100;
+    }
+    
+    &.connected {
+      background-color: $containers-background;
+      border-color: darken($color: $containers-background, $amount: 5);
+      color: darken($color: $containers-background, $amount: 40);
+      &:hover {
+        background-color: lighten($color: $containers-background, $amount: 4)
+      }
+    }
+
+    .btn {
+      border-color: transparent;
+      width: 42px;
+      height: 42px;
+    }
+  }
+
+  
+
 }

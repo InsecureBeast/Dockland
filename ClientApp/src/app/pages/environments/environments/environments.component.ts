@@ -29,7 +29,13 @@ export class EnvironmentsComponent implements OnInit {
     this._router.navigateByUrl('/dashboard');
   }
 
-  delete(env: IEnvironment): void {
+  close($event: Event): boolean {
+    this._envService.closeEnvironment();
+    $event.stopPropagation();
+    return true;
+  }
+
+  delete(env: IEnvironment, event: Event): boolean {
     const self = this;
     this._remoteService.deleteEnvironment(env.name).subscribe({
       next(value) {
@@ -39,5 +45,12 @@ export class EnvironmentsComponent implements OnInit {
         alert(err.message);
       },
     });
+    
+    event.stopPropagation();
+    return true;
+  }
+
+  isOpen(env: IEnvironment): boolean {
+    return this._envService.currentEnv?.id === env.id;
   }
 }

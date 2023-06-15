@@ -4,7 +4,7 @@
 
 <div *ngIf="(environments | async)">
   <div class="d-flex justify-content-end">
-    <a class="btn btn-outline-primary" [routerLink]="'/environment'">
+    <a class="btn btn-primary" [routerLink]="'/environment'">
       <i class="bi bi-plus me-1"></i>
       Add environment
     </a>
@@ -12,28 +12,34 @@
   
   <div class="env-content mt-3">
     <div class="mb-3" *ngFor="let environment of environments | async">
-    <div class="card col" >
-      <div class="row g-0">
-        <div class="col-md-4 p-3 env-logo">
-          <img src="assets/docker-logo.webp" class="img-fluid rounded-start " style="max-width: 130px;" alt="Docker logo">
-        </div>
-        <div class="col-md-8">
-          <div class="card-body row gap-1 justify-content-between">
-            <div class="col-12 col-md-5">
-              <h5 class="card-title">{{environment.name}}</h5>
-              <div class="card-text text-secondary">Standalone</div>
-              <div class="card-text text-secondary">{{environment.url}}</div>
-              <div class="card-text text-secondary">{{environment.tag}}</div>
-            </div>
-            <div class="row gap-1 col-12 col-md-5 m-0">
-              <button type="button" class="btn btn-primary col-12" (click)="open(environment)" >Open</button>
-              <a class="btn btn-outline-secondary col-12" [routerLink]= "['/environment', environment.id]">Edit</a>
-              <button type="button" class="btn btn-outline-danger col-12" (click)="delete(environment)">Delete</button>
-            </div>
+      <div class="card p-4" 
+           [ngClass]="[isOpen(environment) ? 'connected' : '']"
+           (click)="open(environment)">
+        <div class="d-flex align-items-center justify-content-between">
+          <div class="env-logo">
+            <img src="assets/docker-logo.webp" class="img-fluid rounded-start " style="max-width: 130px;" alt="Docker logo">
           </div>
+
+          <div class="ms-3">
+            <h5 class="card-title">{{environment.name}}</h5>
+            <div class="card-text text-secondary">Standalone</div>
+            <div class="card-text text-secondary">{{environment.url}}</div>
+            <div class="card-text text-secondary">{{environment.tag}}</div>
+          </div>
+          <div class="flex-fill"></div>
+          <div class="d-flex gap-1 flex-row align-self-start">
+            <button type="button" 
+                    class="btn btn-outline-primary rounded-5" 
+                    *ngIf="isOpen(environment)"
+                    (click)="close($event)">
+              <i class="bi-x-lg"></i>
+            </button>
+            <a class="btn btn-outline-secondary rounded-5" [routerLink]= "['/environment', environment.id]"><i class="bi-pencil"></i></a>
+            <button type="button" class="btn btn-outline-danger rounded-5" (click)="delete(environment, $event)"><i class="bi-trash2"></i></button>
+          </div>
+
         </div>
       </div>
-    </div>
     </div>
   </div>
 
