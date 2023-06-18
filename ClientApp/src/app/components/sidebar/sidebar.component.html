@@ -1,8 +1,8 @@
-<div class="d-flex flex-column flex-shrink-0 p-3 bg-light vh-100"
+<div class="d-flex flex-column pt-3 bg-light vh-100 side-nav"
      *ngIf="isVisible | async">
-  <a href="/" class="d-flex align-items-center link-dark text-decoration-none ms-3">
-    <i class="bi-box-seam-fill me-2 fs-4 brand-color"></i>
-    <span class="fs-4">Dockland</span>
+  <a href="/" class="d-flex align-items-center link-dark text-decoration-none ms-3 brand">
+    <i class="bi-box-seam-fill fs-4 brand-color"></i>
+    <span class="fs-4 ms-2 d-none d-xl-block">Dockland</span>
   </a>
   <hr>
   <ul class="nav nav-pills flex-column mb-auto">
@@ -11,8 +11,10 @@
          [routerLinkActive]="['active', 'text-white']" 
          [routerLinkActiveOptions]="{ exact: true }"
          class="nav-link text-dark">
-        <i class="bi-hdd me-2"></i>
-        Environments
+        <div class="d-flex">
+          <i class="bi-hdd"></i>
+          <span class="ms-2 d-none d-xl-block">Environments</span>
+        </div> 
       </a>
     </li>
     <ng-container *ngIf="isOpened | async">
@@ -21,15 +23,14 @@
            [routerLink]="['/dashboard']"
            [routerLinkActive]="['active', 'text-white']" 
            [routerLinkActiveOptions]="{ exact: true }">
-           <div class="d-flex">
-          <i class="bi-kanban" style="margin-right: 0.8rem;"></i>
-            {{environment}}
-            <div class="m-auto"></div>
-            <button type="button" class="btn btn-close-env" aria-label="Close environment">
+          <div class="d-flex">
+            <i class="bi-kanban" style="margin-right: 0.8rem;"></i>
+            <span class="d-none d-xl-block">{{environment}}</span>
+            <div class="m-auto d-none d-xl-block"></div>
+            <button type="button" class="btn btn-close-env d-none d-xl-block" aria-label="Close environment">
               <span class="bi-x-lg dt" [routerLinkActive]="['text-white']" (click)="disconnect()"></span>
             </button>
           </div>
-
         </a>
       </li>
       <li class="nav-item">
@@ -37,8 +38,10 @@
            [routerLink]="['/containers']"
            [routerLinkActive]="['active', 'text-white']" 
            [routerLinkActiveOptions]="{ exact: true }">
-          <i class="bi bi-box me-2"></i>
-          Containers
+          <div class="d-flex">
+            <i class="bi bi-box"></i>
+            <span class="ms-2 d-none d-xl-block">Containers</span>
+          </div>
         </a>
       </li>
       <li class="nav-item">
@@ -46,8 +49,10 @@
            [routerLink]="['/images']"
            [routerLinkActive]="['active', 'text-white']" 
            [routerLinkActiveOptions]="{ exact: true }">
-          <i class="bi bi-collection me-2"></i>
-          Images
+          <div class="d-flex">
+            <i class="bi bi-collection"></i>
+            <span class="ms-2 d-none d-xl-block">Images</span>
+          </div>
         </a>
       </li>
       <li class="nav-item">
@@ -55,8 +60,10 @@
            [routerLink]="['/stacks']"
            [routerLinkActive]="['active', 'text-white']" 
            [routerLinkActiveOptions]="{ exact: true }">
-          <i class="bi bi-layers me-2"></i>
-          Stacks
+          <div class="d-flex">
+            <i class="bi bi-layers"></i>
+            <span class="ms-2 d-none d-xl-block">Stacks</span>
+          </div>
         </a>
       </li>
       <li class="nav-item">
@@ -64,8 +71,10 @@
            [routerLink]="['/volumes']"
            [routerLinkActive]="['active', 'text-white']" 
            [routerLinkActiveOptions]="{ exact: true }">
-          <i class="bi bi-database me-2"></i>
-          Volumes
+          <div class="d-flex">
+            <i class="bi bi-database"></i>
+            <span class="ms-2 d-none d-xl-block">Volumes</span>
+          </div>
         </a>
       </li>
       <li class="nav-item">
@@ -73,14 +82,16 @@
            [routerLink]="['/networks']"
            [routerLinkActive]="['active', 'text-white']" 
            [routerLinkActiveOptions]="{ exact: true }">
-          <i class="bi bi-hdd-network me-2"></i>
-          Networks
+          <div class="d-flex">
+            <i class="bi bi-hdd-network"></i>
+            <span class="ms-2 d-none d-xl-block">Networks</span>
+          </div>
         </a>
       </li>
     </ng-container>
   </ul>
   <hr>
-  <div>
-    <span>Version: 1.0.0</span>
+  <div class="p-3 pt-0">
+    <span class="d-none d-xl-block">Version: 1.0.0</span>
   </div>
 </div>

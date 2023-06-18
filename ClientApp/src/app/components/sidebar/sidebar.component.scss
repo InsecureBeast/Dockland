@@ -33,4 +33,25 @@
     border-radius: 0.25rem;
     opacity: 0.5;
   }
+
+  
 }
+
+@media ( max-width: #{map-get($grid-breakpoints, "xl")}) { 
+  .side-nav {
+    width: 4.0rem;
+    font-size: 18pt;
+  }
+
+  .brand {
+    margin-left: 1.2rem !important;
+  }
+
+  .nav-link {
+    width: 4rem;
+    padding-left: 1.1rem;
+  }
+}
+
+
+  
