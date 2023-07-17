@@ -1,0 +1,37 @@
+<app-title [iconClassName]="'bi-layers'" 
+           [title]="'Create stack'" 
+           [subtitle]="'This stack will be deployed using docker compose.'">
+</app-title>
+
+<div [fluidHeight]
+     [fluidHeightEnabled]="true"
+     [fluidHeightBottomPadding]="12">
+  <form class="mt-4 col-lg-8" 
+        [formGroup]="stackForm"
+        [class.was-validated]="stackForm.errors?.length > 0"
+        (ngSubmit)="onSubmit()">
+    
+    <div class="mb-3">
+      <label for="stackName" class="form-label">Name</label>
+      <input type="text" 
+            class="form-control" 
+            id="stackName" 
+            aria-describedby="nameHelp" 
+            placeholder="mystack"
+            formControlName="stackName"
+            [class.is-invalid]="!isValid('stackName')"
+            required>
+      <div id="nameHelp" class="form-text" *ngIf="isValid('stackName')">Enter stack name.</div>
+      <div id="nameHelp" class="form-text invalid-feedback" *ngIf="!isValid('stackName')">Stack name must not be empty.</div>
+    </div>
+
+
+    <tabset type="pills">
+      <tab heading="Web editor"><app-web-editor class="mt-3 d-block"></app-web-editor></tab>
+      <tab heading="Upload"><app-upload class="mt-3 d-block"></app-upload></tab>
+      <tab heading="Repository"><app-git-repository class="mt-3 d-block p-1"></app-git-repository></tab>
+    </tabset>
+
+    <button type="submit" class="btn btn-primary w-25 mt-3">Deploy the stack</button>
+  </form>
+</div>

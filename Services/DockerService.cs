@@ -10,13 +10,10 @@ namespace Dockland.Services
 
     class DockerService : IDockerService
     {
-        private readonly Dictionary<string, IDockerClient> _dockerServices = new Dictionary<string, IDockerClient>();
+        private readonly Dictionary<string, IDockerClient> _dockerServices = new();
 
         public DockerService()
         {
-            //Временно, пока не реализована регистрация окружений
-            //RegisterService("pilot-saturn", "http://10.128.2.20:2375");
-            //RegisterService("pilot-moon", "http://10.128.2.21:2375");
         }
 
         public void RegisterService(string name, string? url)

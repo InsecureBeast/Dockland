@@ -2,12 +2,14 @@
            [title]="'Dashboard'">
 </app-title>
 
-<div class="row gap-3 pt-4 dashboard-card">
+<div [fluidHeight] [fluidHeightEnabled]="true">
+  <div class="row gap-3 pt-4 dashboard-card">
   <ng-container *ngTemplateOutlet="dashboardItemTemplate;context: { inItem: stacks }"></ng-container>
   <ng-container *ngTemplateOutlet="dashboardItemTemplate;context: { inItem: containers }"></ng-container>
   <ng-container *ngTemplateOutlet="dashboardItemTemplate;context: { inItem: images }"></ng-container>
   <ng-container *ngTemplateOutlet="dashboardItemTemplate;context: { inItem: volumes }"></ng-container>
   <ng-container *ngTemplateOutlet="dashboardItemTemplate;context: { inItem: networks }"></ng-container>
+  </div>
 </div>
 
 <ng-template #dashboardItemTemplate let-item="inItem" >
@@ -44,18 +46,18 @@
 
 <ng-template #typeTemplate let-type="inType">
   <ng-container *ngIf="type === 1">
-    <p class="card-text">Stacks</p>
+    <h4 class="card-text">Stacks</h4>
   </ng-container>
   <ng-container *ngIf="type === 3">
-    <p class="card-text">Images</p>
+    <h4 class="card-text">Images</h4>
   </ng-container>
   <ng-container *ngIf="type === 2">
-    <p class="card-text">Containers</p>
+    <h4 class="card-text">Containers</h4>
   </ng-container>
   <ng-container *ngIf="type === 4">
-    <p class="card-text">Volumes</p>
+    <h4 class="card-text">Volumes</h4>
   </ng-container>
   <ng-container *ngIf="type === 5">
-    <p class="card-text">Networks</p>
+    <h4 class="card-text">Networks</h4>
   </ng-container>
 </ng-template>

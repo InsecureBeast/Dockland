@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RouterModule } from '@angular/router';
 import { TitleModule } from 'src/app/components/title/title.module';
+import { DirectivesModule } from 'src/app/directives/directives.module';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { TitleModule } from 'src/app/components/title/title.module';
     RouterModule.forRoot([
       { path: 'dashboard', component: DashboardComponent },
     ]),
-    TitleModule
+    TitleModule,
+    DirectivesModule
   ]
 })
 export class DashboardModule { }

@@ -7,6 +7,9 @@
 
   .dashboard-item {
     cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 
     $types: (
       "1": $stacks-background, 

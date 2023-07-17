@@ -22,7 +22,10 @@
         <a class="nav-link text-dark" 
            [routerLink]="['/dashboard']"
            [routerLinkActive]="['active', 'text-white']" 
-           [routerLinkActiveOptions]="{ exact: true }">
+           [routerLinkActiveOptions]="{ exact: true }"
+           data-bs-toggle="tooltip" 
+           data-bs-placement="right" 
+           data-bs-title="Tooltip on right">
           <div class="d-flex">
             <i class="bi-kanban" style="margin-right: 0.8rem;"></i>
             <span class="d-none d-xl-block">{{environment}}</span>

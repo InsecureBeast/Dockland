@@ -2,13 +2,13 @@
 <div class="">
   <div class="d-flex justify-content-end" *ngIf="isInteractive">
     <div class="d-flex gap-2" role="group" aria-label="Containers group">
-      <button type="button" class="btn btn-secondary" [disabled]="!isStopped()" (click)="start()"><i class="bi-play me-1"></i>Start</button>
-      <button type="button" class="btn btn-secondary" [disabled]="!isStarted()" (click)="stop()"><i class="bi-stop me-1"></i>Stop</button>
+      <button type="button" class="btn btn-light" [disabled]="!isStopped()" (click)="start()"><i class="bi-play me-1"></i>Start</button>
+      <button type="button" class="btn btn-light" [disabled]="!isStarted()" (click)="stop()"><i class="bi-stop me-1"></i>Stop</button>
       <button type="button" class="btn btn-danger" [disabled]="!isAnyChecked()"><i class="bi-trash2 me-1"></i>Remove</button>
     </div>
   </div>
 
-  <table class='table table-hover mb-0' *ngIf="containers">
+  <table class='table table-hover mb-0 align-middle' *ngIf="containers">
     <thead class="">
       <tr>
         <th class="cw-check" *ngIf="isInteractive">
@@ -35,13 +35,15 @@
                  (change)="check(model, $event)" 
                  [checked]="model.checked">
         </td>
-        <td class="text-truncate">{{ model.container.names[0] | slice:1 }}</td>
+        <td class="text-truncate">
+          <ng-container *ngTemplateOutlet="nameTemplate;context: { model:model }"></ng-container>
+        </td>
         <td class="cw-xs">
           <ng-container *ngTemplateOutlet="stateTemplate;context:{cState:model.container.state}"></ng-container>
         </td>
         <td class="text-truncate"><a [href]="getUrl(model.container.ports)" target="_blank">{{getUrl(model.container.ports)}}</a></td>
         <td class="text-truncate">{{ model.container.image }} </td>
-        <td class="text-truncate d-none d-lg-block">{{ model.container.created | date:'medium' }} </td>
+        <td class="text-truncate">{{ model.container.created | date:'medium' }} </td>
       </tr>
     </tbody>
   </table>
@@ -57,4 +59,15 @@
   <ng-container *ngIf="state === 'paused'">
     <span class="badge bg-secondary">{{state}}</span>
   </ng-container>
+</ng-template>
+
+<ng-template #nameTemplate let-model="model">
+  <div>
+    <span> {{ model.container.names[0] | slice:1 }} </span>
+    <div>
+      <a class="bi-terminal btn btn-light btn-circle rounded-circle me-1" [routerLink]= "['/containers', model.container.id, 'terminal']"></a>
+      <i class="bi-file-text btn btn-light btn-circle rounded-circle me-1"></i>
+      <i class="bi-terminal btn btn-light btn-circle rounded-circle me-1"></i>
+    </div>
+  </div>
 </ng-template>

@@ -1,0 +1,93 @@
+<form class="" 
+      [formGroup]="gitForm"
+      [class.was-validated]="gitForm.errors?.length > 0">
+  
+  <div class="mb-3">
+    <div class="form-check form-switch">
+      <input class="form-check-input" 
+             type="checkbox" 
+             role="switch" 
+             id="flexSwitchCheckDefault"
+             (change)="toggleAuth()"
+             checked="hasAuth">
+      <label class="form-check-label" 
+             for="flexSwitchCheckDefault">
+        Use authentication
+      </label>
+    </div>
+
+    <ng-container *ngIf="hasAuth">
+      <div class="mt-3">
+        <label for="username" class="form-label">Username</label>
+        <input type="text" 
+           class="form-control" 
+           id="username" 
+           aria-describedby="nameHelp" 
+           placeholder="git username"
+           formControlName="username"
+           [class.is-invalid]="!isValid('username')"
+           required>
+        <!-- <div id="nameHelp" class="form-text" *ngIf="isValid('username')">Enter git username.</div> -->
+        <div id="nameHelp" class="form-text invalid-feedback" *ngIf="!isValid('username')">Git username must not be empty.</div>
+      </div>
+
+      <div class="mt-3">
+        <label for="pswd" class="form-label">Password</label>
+        <input type="password" 
+               class="form-control" 
+               id="pswd" 
+               aria-describedby="nameHelp" 
+               placeholder="*******"
+               formControlName="pswd"
+               [class.is-invalid]="!isValid('pswd')"
+               required>
+        <!-- <div id="nameHelp" class="form-text" *ngIf="isValid('pswd')">Enter git password.</div> -->
+        <div id="nameHelp" class="form-text invalid-feedback" *ngIf="!isValid('pswd')">Git username must not be empty.</div>
+      </div>
+
+    </ng-container>
+    
+    <div class="mt-3">
+      <label for="urlRepo" class="form-label">Repositpry URL</label>
+      <input type="text" 
+         class="form-control" 
+         id="urlRepo" 
+         aria-describedby="nameHelp" 
+         placeholder="https://github.com/InsecureBeast/Dockland.git"
+         formControlName="url"
+         [class.is-invalid]="!isValid('url')"
+         required>
+      <!-- <div id="nameHelp" class="form-text" *ngIf="isValid('url')">Enter git repository name.</div> -->
+      <div id="nameHelp" class="form-text invalid-feedback" *ngIf="!isValid('url')">Git repositry name must not be empty.</div>
+    </div>
+
+    <div class="mt-3">
+      <label for="branchName" class="form-label">Repository branch name</label>
+      <input type="text" 
+         class="form-control" 
+         id="branchName" 
+         aria-describedby="nameHelp" 
+         placeholder="refs/heads/master"
+         formControlName="branch"
+         [class.is-invalid]="!isValid('branch')"
+         required>
+      <!-- <div id="nameHelp" class="form-text" *ngIf="isValid('url')">Enter git repository name.</div> -->
+      <div id="nameHelp" class="form-text invalid-feedback" *ngIf="!isValid('branch')">Git repositry branch name must not be empty.</div>
+    </div>
+
+    <div class="mt-3">
+      <label for="composePath" class="form-label">Docker compose file path</label>
+      <input type="text" 
+         class="form-control" 
+         id="composePath" 
+         aria-describedby="nameHelp" 
+         placeholder="docker-compose.yml"
+         formControlName="composePath"
+         [class.is-invalid]="!isValid('composePath')"
+         required>
+      <!-- <div id="nameHelp" class="form-text" *ngIf="isValid('url')">Enter git repository name.</div> -->
+      <div id="nameHelp" class="form-text invalid-feedback" *ngIf="!isValid('composePath')">Path to docker compose file must not be empty.</div>
+    </div>
+
+  </div>
+</form>

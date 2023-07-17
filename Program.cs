@@ -8,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<IDatabaseService>(new LiteDatabaseService("D:\\temp"));
 builder.Services.AddSingleton<IDockerService, DockerService>();
+builder.Services.AddScoped<IGitService, GitService>();
 
 var app = builder.Build();
 

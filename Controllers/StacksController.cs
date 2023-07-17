@@ -13,11 +13,13 @@ namespace Dockland.Controllers
     {
         private readonly ILogger<StacksController> _logger;
         private readonly IDockerService _dockerService;
+        private readonly IGitService _gitService;
 
-        public StacksController(ILogger<StacksController> logger, IDockerService dockerService)
+        public StacksController(ILogger<StacksController> logger, IDockerService dockerService, IGitService gitService)
         {
             _logger = logger;
             _dockerService = dockerService;
+            _gitService = gitService;
         }
 
         [HttpGet("{env}")]
@@ -76,6 +78,25 @@ namespace Dockland.Controllers
                 await RemoveImagesSafe(client, container);
             }
 
+            return true;
+        }
+
+        [HttpDelete("{env}")]
+        public bool Put(string env, [FromBody] StackCreationOptions options)
+        {
+            var client = _dockerService.GetService(env);
+            if (client == null)
+                return false;
+
+            var cloneOptions = new CloneOptions();
+            cloneOptions.IsSecure = options.GitOptions.IsSecure;
+            cloneOptions.BranchName = options.GitOptions.BranchName;
+            cloneOptions.UserName = options.GitOptions.Credentials.UserName;
+            cloneOptions.Password = options.GitOptions.Credentials.Password;
+            cloneOptions.Url = options.GitOptions.Url;
+            cloneOptions.DirectoryPath = "/temp!!!!!";
+
+            _gitService.Clone(cloneOptions);
             return true;
         }
 

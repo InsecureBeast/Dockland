@@ -1,29 +1,36 @@
-import { AfterViewInit, Directive, ElementRef, Input, Renderer2,} from "@angular/core";
-import { fromEvent } from "rxjs";
+import { AfterViewInit, Directive, ElementRef, HostBinding, Input, OnDestroy, Renderer2,} from "@angular/core";
+import { Subscription, fromEvent } from "rxjs";
 import { debounceTime, throttleTime } from "rxjs/operators";
 
 @Directive({
   selector: "[fluidHeight]",
 })
-export class FluidHeightDirective implements AfterViewInit {
+export class FluidHeightDirective implements AfterViewInit, OnDestroy {
   @Input() minHeight: number | undefined;
   @Input("fluidHeight") topOffset: number | undefined;
   @Input("fluidHeightBottomPadding") bottomPadding: number = 0;
   @Input("fluidHeightEnabled") enabled: boolean | undefined; 
+  @HostBinding('style.overflow-y') overflowY = 'auto';
+  @HostBinding('style.overflow-x') overflowX = 'hidden';
 
   private _domElement: HTMLElement;
+  private _resizeSub: Subscription;
 
   constructor(private renderer: Renderer2, private elementRef: ElementRef) {
     this._domElement = this.elementRef.nativeElement as HTMLElement;
 
     // register on window resize event
-    fromEvent(window, "resize")
+    this._resizeSub = fromEvent(window, "resize")
       .pipe(throttleTime(500), debounceTime(500))
       .subscribe(() => this.setHeight());
   }
 
   ngAfterViewInit() {
     this.setHeight();
+  }
+
+  ngOnDestroy(): void {
+    this._resizeSub.unsubscribe();
   }
 
   private setHeight() {

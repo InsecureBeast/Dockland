@@ -6,23 +6,27 @@ import { IVolume } from "../core/volume";
 import { Stack } from "../pages/stacks/stack";
 import { IEnvironment } from "../pages/environments/environment";
 import { Image } from "../core/image";
-import { IContainer } from "../core/container";
 import { IRemoteContainers, RemoteContainers } from "./remote-containers.interface";
+import { IRemoteStacks, RemoteStacks } from "./remote-stacks.interface";
 
 @Injectable({ providedIn: 'root' })
 export class  RemoteService {
   private _remoteContainers: IRemoteContainers;
+  private _remoteStacks: IRemoteStacks;
 
   constructor(
     private _http: HttpClient, 
     @Inject('BASE_URL') private _baseUrl: string) {
-      
       this._remoteContainers = new RemoteContainers(_http, _baseUrl);
-
+      this._remoteStacks = new RemoteStacks(_http, _baseUrl);
   }
 
   get containers(): IRemoteContainers {
     return this._remoteContainers;
+  }
+
+  get stacks(): IRemoteStacks {
+    return this._remoteStacks;
   }
 
   getImages(environment: string, stack?: string):Observable<Image[]> {
