@@ -1,5 +1,5 @@
 FROM mcr.microsoft.com/dotnet/aspnet:6.0
-COPY ./bin/Release/net6.0/publish/linux-x64 /app/
+COPY ./bin/Release/net7.0/publish/linux-x64 /app/
 
 # Run section
 WORKDIR /app
