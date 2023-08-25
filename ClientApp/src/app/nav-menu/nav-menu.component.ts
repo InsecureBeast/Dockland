@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ToolbarService } from '../services/toolbar.service';
+import { NavbarService } from '../services/navbar.service';
 import { EnvironmentService } from '../services/environment.service';
 import { IEnvironment } from '../pages/environments/environment';
 
@@ -14,7 +14,7 @@ export class NavMenuComponent {
   isVisible: Observable<boolean>;
   isOpened: Observable<IEnvironment | undefined>;
 
-  constructor(toolbarService: ToolbarService, envService: EnvironmentService) {
+  constructor(toolbarService: NavbarService, envService: EnvironmentService) {
     this.isOpened = envService.current;
     this.isVisible = toolbarService.visible;
   }

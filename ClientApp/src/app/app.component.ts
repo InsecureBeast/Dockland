@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ToolbarService } from './services/toolbar.service';
+import { NavbarService } from './services/navbar.service';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +10,7 @@ export class AppComponent {
   title = 'app';
   isVisible: Observable<boolean>;
 
-  constructor(toolbarService: ToolbarService) {
+  constructor(toolbarService: NavbarService) {
     this.isVisible = toolbarService.visible;
   }
 }

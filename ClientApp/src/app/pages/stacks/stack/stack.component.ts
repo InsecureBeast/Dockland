@@ -8,7 +8,7 @@ import { getBoolean } from 'src/app/core/utils';
 import { IVolume } from 'src/app/core/volume';
 import { EnvironmentService } from 'src/app/services/environment.service';
 import { RemoteService } from 'src/app/services/remote.service';
-import { ToolbarService } from 'src/app/services/toolbar.service';
+import { NavbarService } from 'src/app/services/navbar.service';
 import { IEnvironment } from '../../environments/environment';
 import { getHostFromUrl } from 'src/app/utils/url.utils';
 import { ContainerModel } from '../../containers/components/container.model';
@@ -32,7 +32,7 @@ export class StackComponent implements OnInit {
   constructor(
     private readonly _remoteService: RemoteService, 
     private readonly _route: ActivatedRoute, 
-    private readonly _toolbarService: ToolbarService,
+    private readonly _toolbarService: NavbarService,
     private readonly _envService: EnvironmentService) {
     
   }

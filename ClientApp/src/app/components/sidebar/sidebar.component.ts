@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { IEnvironment } from 'src/app/pages/environments/environment';
 import { EnvironmentService } from 'src/app/services/environment.service';
-import { ToolbarService } from 'src/app/services/toolbar.service';
+import { NavbarService } from 'src/app/services/navbar.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -16,7 +16,7 @@ export class SidebarComponent {
   isOpened: Observable<IEnvironment | undefined>;
   environment: string | undefined = "Dashboard";
 
-  constructor(toolbarService: ToolbarService, 
+  constructor(toolbarService: NavbarService, 
               private _envService: EnvironmentService,
               private _router: Router) {
     this.isOpened = _envService.current;

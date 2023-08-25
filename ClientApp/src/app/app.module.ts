@@ -28,8 +28,10 @@ import { SidebarModule } from './components/sidebar/sidebar.module';
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'test', redirectTo: '/stacks/3-390-load-extensions-51863?hide=true&env=pilot-saturn'}
-
+      { path: 'test', redirectTo: '/stacks/pilot-saturn-environment?hide=true&env=pilot-saturn'},
+      { path: 'cf', redirectTo: '/containers?name=pilot-web-nalivka' }, 
+      { path: 'cfh', redirectTo: '/containers?name=pilot-web-nalivka&hide=true&env=pilot-saturn' }, 
+      { path: 'cfhp', redirectTo: '/containers?name=e2e-tests-pilot-web&hide=true&env=pilot-moon' }, 
       // {
       //   path: "stacks",
       //   loadChildren: () =>
