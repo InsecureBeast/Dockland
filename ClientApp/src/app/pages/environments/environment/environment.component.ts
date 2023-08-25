@@ -12,7 +12,7 @@ import { first } from 'rxjs';
 })
 export class EnvironmentComponent implements OnInit {
   
-  private _id: string = crypto.randomUUID();
+  private _id: string = Date.now().toString();
 
   buttonTitle: string = "";
   title: string = "";
