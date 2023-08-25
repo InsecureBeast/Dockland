@@ -9,6 +9,9 @@ namespace Dockland.Services
 
         public LiteDatabaseService(string dbPath)
         {
+            if (!Directory.Exists(dbPath))
+                Directory.CreateDirectory(dbPath);
+            
             _db = new LiteDatabase(Path.Combine(dbPath, "data.dlndb"));
         }
 

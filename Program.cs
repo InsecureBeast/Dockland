@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
-builder.Services.AddSingleton<IDatabaseService>(new LiteDatabaseService("D:\\temp"));
+builder.Services.AddSingleton<IDatabaseService>(new LiteDatabaseService(DirectoryProvider.DatabaseFolder));
 builder.Services.AddSingleton<IDockerService, DockerService>();
 builder.Services.AddScoped<IGitService, GitService>();
 
