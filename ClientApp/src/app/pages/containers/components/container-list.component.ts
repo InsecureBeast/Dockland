@@ -3,11 +3,19 @@ import { IContainer, IPort } from 'src/app/core/container';
 import { ContainerModel } from './container.model';
 import { RemoteService } from 'src/app/services/remote.service';
 import { EnvironmentService } from 'src/app/services/environment.service';
+import { remove } from 'src/app/utils/array-utils';
+import { ProgressbarConfig } from 'ngx-bootstrap/progressbar';
+import { DialogService } from 'src/app/services/dialog.service';
+
+export function getProgressbarConfig(): ProgressbarConfig {
+  return Object.assign(new ProgressbarConfig(), { animate: true, striped: true,  max: 100 });
+}
 
 @Component({
   selector: 'app-container-list',
   templateUrl: './container-list.component.html',
-  styleUrls: ['./container-list.component.scss']
+  styleUrls: ['./container-list.component.scss'],
+  providers: [{ provide: ProgressbarConfig, useFactory: getProgressbarConfig }]
 })
 export class ContainerListComponent {
 
@@ -18,9 +26,12 @@ export class ContainerListComponent {
   
   indeterminate: boolean = false;
   allChecked: boolean = false;
+  processType: 'success' | 'info' | 'warning' | 'danger' = 'info';
   
-  constructor(private _remoteService: RemoteService, 
-              private _envService: EnvironmentService) {
+  constructor(private readonly _remoteService: RemoteService, 
+              private readonly _envService: EnvironmentService,
+              private readonly _dialogService: DialogService) {
+    this.processType = 'success';
   }
 
   getUrl(ports: IPort[]): string {
@@ -85,14 +96,18 @@ export class ContainerListComponent {
     if (!this.containers)
       return false;
 
-    const checked = this.containers.filter(c => c.checked);
-    checked.forEach(model => {
-      if (this._envService.currentEnv)
+    this.processType = "success";
+    const checked = this.containers?.filter(c => c.checked);
+    checked?.forEach(model => {
+      if (this._envService.currentEnv) {
+        model.inProgress = true;
         this._remoteService.containers.stop(this._envService.currentEnv?.name, model.container)
           .subscribe(container => {
             this.update(container, model);
         });
+      }
     });
+    
     return true;
   }
 
@@ -100,16 +115,43 @@ export class ContainerListComponent {
     if (!this.containers)
       return false;
 
+    this.processType = "success";
     const checked = this.containers.filter(c => c.checked);
     checked.forEach(model => {
-      if (this._envService.currentEnv)
+      if (this._envService.currentEnv) {
+        model.inProgress = true;
         this._remoteService.containers.start(this._envService.currentEnv?.name, model.container)
           .subscribe(container => {
             this.update(container, model);
         });
+      }
     });
 
     return true;
+  }
+
+  remove(): void {
+    if (!this.containers)
+      return;
+    
+    this._dialogService.openConfirmationDialog()?.subscribe(res => {
+      if (!res) 
+        return
+  
+      this.processType = "danger";
+      const checked = this.containers?.filter(c => c.checked);
+      checked?.forEach(model => {
+        if (this._envService.currentEnv) {
+          model.inProgress = true;
+          this._remoteService.containers.delete(this._envService.currentEnv?.name, model.container)
+            .subscribe(result => {
+              if (result && this.containers)
+                remove(this.containers, model);
+          });
+        }
+      });
+
+    });
   }
 
   private isAllChecked(): boolean {
@@ -130,6 +172,7 @@ export class ContainerListComponent {
       model.checked = false;
       this.allChecked = false;
       this.indeterminate = false;
+      model.inProgress = false;
     }
   }
 }

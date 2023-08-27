@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -15,12 +16,14 @@ import { NetworksModule } from './pages/networks/networks.module';
 import { EnvironmentsModule } from './pages/environments/environments.module';
 import { DashboardModule } from './pages/dashboard/dashboard.module';
 import { SidebarModule } from './components/sidebar/sidebar.module';
+import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
-    HomeComponent
+    HomeComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -38,6 +41,7 @@ import { SidebarModule } from './components/sidebar/sidebar.module';
       //     import('./pages/stacks/stacks.module').then((x) => x.StacksModule),
       // },
     ]),
+    ModalModule.forRoot(),
     EnvironmentsModule,
     ContainersModule,
     StacksModule,

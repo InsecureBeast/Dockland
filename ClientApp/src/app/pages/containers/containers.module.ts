@@ -8,6 +8,7 @@ import { TitleModule } from 'src/app/components/title/title.module';
 import { DirectivesModule } from 'src/app/directives/directives.module';
 import { TerminalComponent } from './terminal/terminal.component';
 import { NgTerminalModule } from 'ng-terminal';
+import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { NgTerminalModule } from 'ng-terminal';
       { path: 'containers/:name', component: ContainerComponent }, 
       { path: 'containers/:name/terminal', component: TerminalComponent }, 
     ]),
+    ProgressbarModule.forRoot(),
     TitleModule,
     DirectivesModule,
     NgTerminalModule

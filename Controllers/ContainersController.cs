@@ -57,5 +57,24 @@ namespace Dockland.Controllers
             var containersRespose = await _dockerService.GetContainerAsync(env, containerId);
             return containersRespose?.ToContainer();
         }
+
+        [HttpDelete("{env}/{containerId}")]
+        public async Task<bool> Delete(string env, string containerId)
+        {
+            var client = _dockerService.GetService(env);
+            if (client == null)
+                return false;
+
+            var containersRespose = await _dockerService.GetContainerAsync(env, containerId);
+            if (containersRespose == null)
+                return false;
+
+            var removeParameters = new ContainerRemoveParameters
+            {
+                Force = true
+            };
+            await client.Containers.RemoveContainerAsync(containersRespose.ID, removeParameters);
+            return true;
+        }
     }
  }
