@@ -4,7 +4,7 @@
     <div class="d-flex gap-2" role="group" aria-label="Containers group">
       <button type="button" class="btn btn-light" [disabled]="!isStopped()" (click)="start()"><i class="bi-play me-1"></i>Start</button>
       <button type="button" class="btn btn-light" [disabled]="!isStarted()" (click)="stop()"><i class="bi-stop me-1"></i>Stop</button>
-      <button type="button" class="btn btn-danger" [disabled]="!isAnyChecked()" (click)="remove()" ><i class="bi-trash2 me-1"></i>Remove</button>
+      <button type="button" class="btn btn-outline-danger" [disabled]="!isAnyChecked()" (click)="remove()" ><i class="bi-trash2 me-1"></i>Remove</button>
     </div>
   </div>
 
