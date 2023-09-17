@@ -1,12 +1,12 @@
 {
-  "name": "Dockland",
+  "name": "dockland",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --port 44405",
+    "start": "ng serve --port 44405 --host=127.0.0.1",
     "serve": "ng serve",
     "build": "ng build",
-    "build:ssr": "ng run Dockland:server:dev",
+    "build:ssr": "ng run dockland:server:dev",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },

@@ -35,19 +35,20 @@ export class ContainersComponent implements OnInit, OnDestroy {
       if (!envName)
         return;
 
-      if (!this._envService.currentEnv)
-        return;
+      this._navbarService.changeVisibility(!params.hide);
       
-      this.containers = this._remoteService.containers.getContainers(envName)
+      this._remoteService.findEnvironment(envName).subscribe(env => { 
+        this._envService.openEnvironment(env);
+        this.url = getHostFromUrl(env.url);
+
+        this.containers = this._remoteService.containers.getContainers(envName)
         .pipe(
           mergeMap(c => c),
           filter(c => this.filterContainer(c, params.name)), 
           map(c => new ContainerModel(c, !!params.name)),
           toArray()
         );
-
-      this.url = getHostFromUrl(this._envService.currentEnv.url);
-      this._navbarService.changeVisibility(!params.hide);
+      });
     });
   }
 
