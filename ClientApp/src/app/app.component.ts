@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { NavbarService } from './services/navbar.service';
 
@@ -6,11 +6,16 @@ import { NavbarService } from './services/navbar.service';
   selector: 'app-root',
   templateUrl: './app.component.html'
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'app';
-  isVisible: Observable<boolean>;
+  isVisible?: Observable<boolean>;
 
-  constructor(toolbarService: NavbarService) {
-    this.isVisible = toolbarService.visible;
+  constructor(private readonly _toolbarService: NavbarService) {
+  }
+
+  ngOnInit(): void {
+    setTimeout(() => {
+      this.isVisible = this._toolbarService.visible;
+    });
   }
 }
