@@ -2,8 +2,8 @@
 <div class="">
   <div class="d-flex justify-content-end" *ngIf="isInteractive">
     <div class="d-flex gap-2" role="group" aria-label="Containers group">
-      <button type="button" class="btn btn-light" [disabled]="!isStopped()" (click)="start()"><i class="bi-play me-1"></i>Start</button>
-      <button type="button" class="btn btn-light" [disabled]="!isStarted()" (click)="stop()"><i class="bi-stop me-1"></i>Stop</button>
+      <button type="button" class="btn btn-outline-secondary" [disabled]="!isStopped()" (click)="start()"><i class="bi-play me-1"></i>Start</button>
+      <button type="button" class="btn btn-outline-secondary" [disabled]="!isStarted()" (click)="stop()"><i class="bi-stop me-1"></i>Stop</button>
       <button type="button" class="btn btn-outline-danger" [disabled]="!isAnyChecked()" (click)="remove()" ><i class="bi-trash2 me-1"></i>Remove</button>
     </div>
   </div>
@@ -20,7 +20,7 @@
         </th>
         <th>NAME</th>
         <th class="cw-xs">STATE</th>
-        <th>PORT</th>
+        <th>PORTS</th>
         <th>IMAGE</th>
         <th class="d-none d-lg-block">CREATED</th>
       </tr>
@@ -33,6 +33,7 @@
           <input type="checkbox" 
                  class="form-check-input"
                  (change)="check(model, $event)" 
+                 [disabled]="isDisabled(model)"
                  [checked]="model.checked">
         </td>
         <td class="text-truncate"
@@ -43,7 +44,11 @@
         <td class="cw-xs">
           <ng-container *ngTemplateOutlet="stateTemplate;context:{cState:model.container.state}"></ng-container>
         </td>
-        <td class="text-truncate"><a [href]="getUrl(model.container.ports)" target="_blank">{{getUrl(model.container.ports)}}</a></td>
+        <td class="text-truncate">
+          <ng-container *ngFor="let port of getAcceptablePorts(model.container.ports)">
+            <a class="me-2" [href]="getUrl(port)" target="_blank">{{getPublishedPort(port)}}</a>
+          </ng-container>
+        </td>
         <td class="text-truncate">{{ model.container.image }} </td>
         <td class="text-truncate">{{ model.container.created | date:'medium' }} </td>
       </tr>

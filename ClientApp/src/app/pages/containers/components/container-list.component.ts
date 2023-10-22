@@ -34,18 +34,25 @@ export class ContainerListComponent {
     this.processType = 'success';
   }
 
-  getUrl(ports: IPort[]): string {
-    if (ports.length === 0)
+  getUrl(port: IPort): string {
+    if (!port)
       return "";
     
-    let port = ports.find(p => p.ip === '0.0.0.0');
-    if (!port)
-      port = ports[0];
-      
     if (!this.url)
       this.url = "http://0.0.0.0";
     
     return `${this.url}:${port.publicPort}`;
+  }
+
+  getPublishedPort(port: IPort): string {
+    if (!port || port.ip !== "0.0.0.0")
+      return "";
+    
+    return `${port.privatePort}:${port.publicPort}`;
+  }
+
+  getAcceptablePorts(ports: IPort[]): IPort[] {
+    return ports.filter(p => p.ip === '0.0.0.0');
   }
 
   check(model: ContainerModel, event: Event): boolean {
@@ -66,7 +73,7 @@ export class ContainerListComponent {
 
   checkAll(event: Event): void {
     const checked = this.getCheckboxValue(event);
-    this.containers?.forEach(m => m.checked = checked);
+    this.containers?.forEach(m => this.isDisabled(m) ? m.checked = false : m.checked = checked);
   }
 
   isAnyChecked(): boolean {
@@ -90,6 +97,10 @@ export class ContainerListComponent {
 
     const checked = this.containers.filter(c => c.checked);
     return checked.some(c => c.container.state === 'running');
+  }
+
+  isDisabled(model: ContainerModel): boolean {
+    return model.container.names.includes("/dockland");
   }
 
   stop(): boolean {
@@ -158,7 +169,7 @@ export class ContainerListComponent {
     if (!this.containers)
       return false;
 
-    return this.containers.every(c => c.checked);
+    return this.containers.filter(m => !this.isDisabled(m)).every(c => c.checked);
   }
 
   private getCheckboxValue(event: Event): boolean {

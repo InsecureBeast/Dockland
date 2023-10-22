@@ -13,7 +13,7 @@ export class DialogService {
     const initialState: ModalOptions = {
       initialState: {
         title: 'Сonfirmation of the delete operation',
-        message: `Are you sure that you want to permanently remove this items?`,
+        message: `Are you sure you want to permanently remove this items?`,
         yesCaption: "Delete",
         noCaption: "Cancel"
       }
