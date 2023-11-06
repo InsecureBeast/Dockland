@@ -66,6 +66,6 @@ export class ContainersComponent implements OnInit, OnDestroy {
     if (!name)
       return true;
     
-    return container.names[0].slice(1) === name;
+    return container.names[0].slice(1).toLocaleLowerCase() === name.toLocaleLowerCase();
   }
 }
