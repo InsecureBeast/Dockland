@@ -141,6 +141,10 @@ export class ContainerListComponent {
     return true;
   }
 
+  restart(): boolean {
+    return this.stop() && this.start();
+  }
+
   remove(): void {
     if (!this.containers)
       return;

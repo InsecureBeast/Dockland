@@ -4,16 +4,19 @@
 @import "./css/colors";
 @import "./css/layout";
 @import "./css/scrollbar";
-@import "./css//modal";
+@import "./css/modal";
 
 // required to get color variables
 @import "../node_modules/bootstrap/scss/functions"; 
+@import "../node_modules/bootstrap/scss/variables"; 
 
+$primary:                    #1b1b1b;
 $border-radius:               .25rem !default;
 $card-border-radius:          1.0rem !default;
+$font-size-root:              14px;
+$btn-disabled-opacity:        0.35;
 
 // change
-@import "../node_modules/bootstrap/scss/variables"; 
 @import "../node_modules/bootstrap/scss/bootstrap.scss";
 
 .btn-primary:hover {

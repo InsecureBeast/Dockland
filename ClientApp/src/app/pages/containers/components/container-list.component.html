@@ -1,10 +1,11 @@
 <p *ngIf="!containers"><em>Loading...</em></p>
 <div class="">
-  <div class="d-flex justify-content-end" *ngIf="isInteractive">
-    <div class="d-flex gap-2" role="group" aria-label="Containers group">
-      <button type="button" class="btn btn-outline-secondary" [disabled]="!isStopped()" (click)="start()"><i class="bi-play me-1"></i>Start</button>
-      <button type="button" class="btn btn-outline-secondary" [disabled]="!isStarted()" (click)="stop()"><i class="bi-stop me-1"></i>Stop</button>
-      <button type="button" class="btn btn-outline-danger" [disabled]="!isAnyChecked()" (click)="remove()" ><i class="bi-trash2 me-1"></i>Remove</button>
+  <div class="d-flex justify-content-start bg-light toolbar" *ngIf="isInteractive">
+    <div class="d-flex" role="group" aria-label="Containers group">
+      <button type="button" class="btn btn-light" [disabled]="!isStopped()"    (click)="start()"><i class="bi-play me-1"></i>Start</button>
+      <button type="button" class="btn btn-light" [disabled]="!isStarted()"    (click)="stop()"><i class="bi-stop me-1"></i>Stop</button>
+      <button type="button" class="btn btn-light" [disabled]="!isAnyChecked()" (click)="restart()"><i class="bi-arrow-clockwise me-1"></i>Restart</button>
+      <button type="button" class="btn btn-light" [disabled]="!isAnyChecked()" (click)="remove()" ><i class="bi-trash2 me-1"></i>Remove</button>
     </div>
   </div>
 
