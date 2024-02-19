@@ -3,7 +3,7 @@ using LiteDB;
 
 namespace Dockland.Services
 {
-    public class LiteDatabaseService : IDatabaseService
+    public class LiteDatabaseService : IDatabaseService, IStackDatabaseService
     {
         private readonly LiteDatabase _db;
 
@@ -60,9 +60,53 @@ namespace Dockland.Services
             return true;
         }
 
+
+        /**  ----  IStackDatabaseService ----  **/
+
+        public StackData? GetStack(string stackName)
+        {
+            // Get stacks collection
+            try
+            {
+                var col = GetStacksCollection();
+                var results = col.Find(x => x.Name == stackName);
+                return results.FirstOrDefault();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public bool SetStack(StackData data)
+        {
+            var col = GetStacksCollection();
+            var existing = col.FindById(data.Name);
+            if (existing != null)
+                return col.Update(data);
+
+            // Create unique index in Name field
+            col.EnsureIndex(x => x.Name, true);
+
+            // Insert new customer document (Id will be auto-incremented)
+            col.Insert(data);
+            return true;
+        }
+
+        public bool DeleteStack(string stackName)
+        {
+            var count = GetStacksCollection().DeleteMany(Query.EQ("Name", stackName));
+            return count > 0;
+        }
+
         private ILiteCollection<EnvironmentData> GetEnvironmentCollection()
         {
             return _db.GetCollection<EnvironmentData>("EnvironmentData");
+        }
+
+        private ILiteCollection<StackData> GetStacksCollection()
+        {
+            return _db.GetCollection<StackData>("StackDataQ");
         }
     }
 }

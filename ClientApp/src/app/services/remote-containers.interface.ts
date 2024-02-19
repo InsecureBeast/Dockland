@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Inject } from "@angular/core";
-import { Observable, first } from "rxjs";
+import { Observable } from "rxjs";
 import { IContainer } from "../core/container";
 
 export interface IRemoteContainers {
@@ -18,11 +18,11 @@ export class RemoteContainers implements IRemoteContainers{
   }
   
   getContainers(environment: string): Observable<IContainer[]> {
-    return this._http.get<IContainer[]>(`${this._baseUrl}api/containers/${environment}`).pipe(first());
+    return this._http.get<IContainer[]>(`${this._baseUrl}api/containers/${environment}`);
   }
 
   getStackContainers(environment: string, stack: string): Observable<IContainer[]> {
-    return this._http.get<IContainer[]>(`${this._baseUrl}api/containers/${environment}/${stack}`).pipe(first());
+    return this._http.get<IContainer[]>(`${this._baseUrl}api/containers/${environment}/${stack}`);
   }
 
   stop(environment: string, container: IContainer): Observable<IContainer> {
@@ -30,7 +30,7 @@ export class RemoteContainers implements IRemoteContainers{
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json'})
     };
-    return this._http.put<IContainer>(`${this._baseUrl}api/containers/${environment}/${container.id}`, body, httpOptions).pipe(first());
+    return this._http.put<IContainer>(`${this._baseUrl}api/containers/${environment}/${container.id}`, body, httpOptions);
   }
 
   start(environment: string, container: IContainer): Observable<IContainer> {
@@ -38,10 +38,10 @@ export class RemoteContainers implements IRemoteContainers{
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json'})
     };
-    return this._http.put<IContainer>(`${this._baseUrl}api/containers/${environment}/${container.id}`, body, httpOptions).pipe(first());
+    return this._http.put<IContainer>(`${this._baseUrl}api/containers/${environment}/${container.id}`, body, httpOptions);
   }
 
   delete(environment: string, container: IContainer): Observable<boolean> {
-    return this._http.delete<boolean>(`${this._baseUrl}api/containers/${environment}/${container.id}`).pipe(first());
+    return this._http.delete<boolean>(`${this._baseUrl}api/containers/${environment}/${container.id}`);
   }
 }

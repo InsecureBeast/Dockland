@@ -1,5 +1,4 @@
-﻿using Dockland.Services;
-
+﻿
 namespace Dockland.DataModels
 {
     public class Stack
@@ -11,9 +10,10 @@ namespace Dockland.DataModels
 
     public class StackCreationOptions
     {
+        public string StackName = "";
         public GitOptions? GitOptions;
         public string? Editor;
-        public string[]? Params;
+        public string[] Params = Array.Empty<string>();
     }
 
     public class GitOptions
@@ -30,5 +30,12 @@ namespace Dockland.DataModels
     {
         public string UserName = "";
         public string Password = "";
+    }
+
+    public class StackData
+    {
+        public string Name = "";
+        public string ComposeCode = "";
+        public string[] EnvironmentVariables = Array.Empty<string>();
     }
 }

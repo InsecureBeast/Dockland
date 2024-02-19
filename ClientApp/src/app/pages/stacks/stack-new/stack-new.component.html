@@ -38,6 +38,7 @@
         <app-web-editor class="d-block editor" 
                         [options]="composeEditorOptions" 
                         [code]="composeCode"
+                        (codeChange)="composeCodeChanged($event)"
                         (isEmpty)=" setIsComposeEditroEmpty($event) ">
         </app-web-editor>
       </div>

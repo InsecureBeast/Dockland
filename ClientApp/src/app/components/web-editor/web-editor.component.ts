@@ -25,14 +25,15 @@ export class WebEditorComponent {
     };
   }
 
-  @Input()
-  code: string = "";
+  @Input() code!: string;
+  @Output() codeChange = new EventEmitter<string>();
 
   onInit(editor: any): void {
     editor.onDidChangeModelContent = (changes: any) => {
       const content = editor.getValue();
       const isEmpty = /^\s*$/.test(content);
       this.isEmpty.emit(isEmpty);
+      this.codeChange.emit(content);
     }
   }
 }

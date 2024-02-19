@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
-import { first, Observable } from "rxjs";
+import { Observable } from "rxjs";
 import { INetwork } from "../core/network";
 import { IVolume } from "../core/volume";
 import { Stack } from "../pages/stacks/stack";
@@ -31,44 +31,44 @@ export class  RemoteService {
 
   getImages(environment: string, stack?: string):Observable<Image[]> {
     let stackRequest = stack ? `/${stack}` : "";
-    return this._http.get<Image[]>(`${this._baseUrl}api/images/${environment}` + stackRequest).pipe(first());
+    return this._http.get<Image[]>(`${this._baseUrl}api/images/${environment}` + stackRequest);
   }
   
   getStacks(environment: string): Observable<Stack[]> {
-    return this._http.get<Stack[]>(`${this._baseUrl}api/stacks/${environment}`).pipe(first());
+    return this._http.get<Stack[]>(`${this._baseUrl}api/stacks/${environment}`);
   }
 
   deleteStack(environment: string, stack: string): Observable<boolean> {
-    return this._http.delete<boolean>(`${this._baseUrl}api/stacks/${environment}/${stack}`).pipe(first());
+    return this._http.delete<boolean>(`${this._baseUrl}api/stacks/${environment}/${stack}`);
   }
 
   getVolumes(environment: string, stack?: string): Observable<IVolume[]> {
     let stackRequest = stack ? `/${stack}` : "";
-    return this._http.get<IVolume[]>(`${this._baseUrl}api/volumes/${environment}` + stackRequest).pipe(first());
+    return this._http.get<IVolume[]>(`${this._baseUrl}api/volumes/${environment}` + stackRequest);
   }
 
   getNetworks(environment: string, stack?: string): Observable<INetwork[]> {
     let stackRequest = stack ? `/${stack}` : "";
-    return this._http.get<INetwork[]>(`${this._baseUrl}api/networks/${environment}` + stackRequest).pipe(first());
+    return this._http.get<INetwork[]>(`${this._baseUrl}api/networks/${environment}` + stackRequest);
   }
 
   getEnvironments(): Observable<IEnvironment[]> {
-    return this._http.get<IEnvironment[]>(`${this._baseUrl}api/environments`).pipe(first());
+    return this._http.get<IEnvironment[]>(`${this._baseUrl}api/environments`);
   }
 
   getEnvironment(id: string): Observable<IEnvironment> {
-    return this._http.get<IEnvironment>(`${this._baseUrl}api/environments/${id}`).pipe(first());
+    return this._http.get<IEnvironment>(`${this._baseUrl}api/environments/${id}`);
   }
 
   setEnvironment(env: IEnvironment): Observable<boolean> {
-    return this._http.put<boolean>(`${this._baseUrl}api/environments`, env).pipe(first());
+    return this._http.put<boolean>(`${this._baseUrl}api/environments`, env);
   }
 
   deleteEnvironment(id: string): Observable<boolean> {
-    return this._http.delete<boolean>(`${this._baseUrl}api/environments/${id}`).pipe(first());
+    return this._http.delete<boolean>(`${this._baseUrl}api/environments/${id}`);
   }
 
   findEnvironment(name: string): Observable<IEnvironment> {
-    return this._http.get<IEnvironment>(`${this._baseUrl}api/environments/find/name/${name}`).pipe(first());
+    return this._http.get<IEnvironment>(`${this._baseUrl}api/environments/find/name/${name}`);
   }
 }
