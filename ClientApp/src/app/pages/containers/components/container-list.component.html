@@ -1,4 +1,3 @@
-<p *ngIf="!containers"><em>Loading...</em></p>
 <div class="">
   <div class="d-flex justify-content-start bg-light toolbar" *ngIf="isInteractive">
     <div class="d-flex" role="group" aria-label="Containers group">
@@ -9,6 +8,8 @@
     </div>
   </div>
 
+  <p *ngIf="!containers"><em>Loading...</em></p>
+  
   <table class='table table-hover mb-0 align-middle' *ngIf="containers">
     <thead class="">
       <tr>

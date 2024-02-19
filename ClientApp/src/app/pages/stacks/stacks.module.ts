@@ -34,6 +34,7 @@ import { GitRepositoryModule } from "src/app/components/git-repository/git-repos
       }, component: StackNewComponent }, 
       { path: 'stacks', component: StacksComponent },
       { path: 'stacks/:name', component: StackComponent }, 
+      { path: 'stacks/new', component: StackNewComponent }, 
     ]),
     TabsModule.forRoot(),
     ReactiveFormsModule,

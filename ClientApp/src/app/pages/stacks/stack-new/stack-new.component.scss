@@ -1,0 +1,18 @@
+:host {
+  .editor {
+    height: 500px;
+  }
+  .environments {
+    height: 200px;
+  }
+
+  .btn-deploy {
+    width: 25%;
+  }
+
+  @media screen and (max-width: 768px) {
+    .btn-deploy {
+      width: 100%;
+    }
+  }
+}

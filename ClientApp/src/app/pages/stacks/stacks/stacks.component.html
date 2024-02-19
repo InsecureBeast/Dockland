@@ -2,6 +2,13 @@
            [title]="'Stacks'">
 </app-title>
 
+<div class="d-flex justify-content-end">
+  <a class="btn btn-primary" [routerLink]="'/stacks/new'">
+    <i class="bi bi-plus me-1"></i>
+    Add stack
+  </a>
+</div>
+
 <p *ngIf="!stacks"><em>Loading...</em></p>
 
 <div class="mt-3">
