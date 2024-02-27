@@ -6,6 +6,11 @@ import { ImageListComponent } from "./components/image-list.component";
 import { ImagesComponent } from "./images/images.component";
 import { TitleModule } from "src/app/components/title/title.module";
 import { DirectivesModule } from "src/app/directives/directives.module";
+import { ProgressbarConfig, ProgressbarModule } from "ngx-bootstrap/progressbar";
+
+export function getProgressbarConfig(): ProgressbarConfig {
+  return Object.assign(new ProgressbarConfig(), { animate: true, striped: true,  max: 100 });
+}
 
 @NgModule({
   declarations: [
@@ -17,11 +22,14 @@ import { DirectivesModule } from "src/app/directives/directives.module";
     RouterModule.forRoot([
       { path: 'images', component: ImagesComponent },
     ]),
+    ProgressbarModule.forRoot(),
     PipesModule,
     TitleModule,
     DirectivesModule
   ],
   exports: [RouterModule, ImageListComponent],
-  providers: [],
+  providers: [
+    { provide: ProgressbarConfig, useFactory: getProgressbarConfig }
+  ],
 })
 export class ImagesModule {}

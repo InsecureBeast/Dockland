@@ -12,6 +12,7 @@ import { NavbarService } from 'src/app/services/navbar.service';
 import { IEnvironment } from '../../environments/environment';
 import { getHostFromUrl } from 'src/app/utils/url.utils';
 import { ContainerModel } from '../../containers/components/container.model';
+import { ImageModel } from '../../images/components/image.model';
 
 @Component({
   selector: 'app-stack',
@@ -27,7 +28,7 @@ export class StackComponent implements OnInit {
   containers: Observable<ContainerModel[]> = of([]);
   volumes: Observable<IVolume[]> = of([]);
   networks: Observable<INetwork[]> = of([]);
-  images: Observable<Image[]> = of([]);
+  images: Observable<ImageModel[]> = of([]);
 
   constructor(
     private readonly _remoteService: RemoteService, 
@@ -93,6 +94,7 @@ export class StackComponent implements OnInit {
   }
 
   private getImagesInfo(): void {
-    this.images = this._remoteService.getImages(this._env, this.stack);
+    this.images = this._remoteService.images.getImages(this._env, this.stack)
+      .pipe(map(i => i.map(x => new ImageModel(x))));
   }
 }

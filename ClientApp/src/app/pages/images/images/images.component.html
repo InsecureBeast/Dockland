@@ -4,4 +4,11 @@
 
 <p>An image is a read-only template with instructions for creating a Docker container. <a href="https://docs.docker.com/get-started/overview/#images" target="_blank" rel="noopener noreferrer">Learn more</a></p>
 
-<app-image-list [images]="images | async"></app-image-list>
+<div class="d-flex justify-content-start bg-light toolbar">
+  <div class="d-flex" role="group" aria-label="Containers group">
+    <button type="button" class="btn btn-light" [disabled]="!isAnyChecked()" (click)="remove()" ><i class="bi-trash2 me-1"></i>Remove</button>
+  </div>
+</div>
+
+<app-image-list [items]="images | async"
+                (onChecked)="onChecked($event)"></app-image-list>

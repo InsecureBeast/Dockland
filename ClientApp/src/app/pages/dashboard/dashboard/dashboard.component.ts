@@ -43,7 +43,7 @@ export class DashboardComponent implements OnInit {
       .pipe(first(), map(s => this.toDashboardItem(s, ElementType.Container)))
       .subscribe(item => this.containers = item);
 
-    this._remoteService.getImages(this.environment)
+    this._remoteService.images.getImages(this.environment)
       .pipe(first(), map(s => this.toDashboardItem(s, ElementType.Image)))
       .subscribe(item => this.images = item);
 

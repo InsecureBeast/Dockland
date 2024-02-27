@@ -1,9 +1,16 @@
-<p *ngIf="!images"><em>Loading...</em></p>
+<div>
+  <p *ngIf="!items"><em>Loading...</em></p>
 
-<div class="mt-4">
-  <table class='table table-hover mb-0' *ngIf="images">
+  <table class='table table-hover mb-0' *ngIf="items">
     <thead class="">
       <tr>
+        <th class="cw-check">
+          <input type="checkbox" 
+                 class="form-check-input"
+                 (change)="checkAll($event)"
+                 [checked]="allChecked"
+                 [indeterminate]="indeterminate">
+        </th>
         <th>NAME</th>
         <th class="cw-xs">TAG</th>
         <th>ID</th>
@@ -14,12 +21,25 @@
     <tbody [fluidHeight] 
            [fluidHeightEnabled]="fluentHeightEnabled"
            [fluidHeightBottomPadding]="1">
-      <tr *ngFor="let image of images">
-        <td class="text-truncate">{{ getImageTagName(image.repoTags).name }}</td>
-        <td class="text-truncate cw-xs"> <span class="badge bg-secondary">{{ getImageTagName(image.repoTags).tag }}</span></td>
-        <td class="text-truncate">{{ image.id }}</td>
-        <td class="text-truncate cw-m">{{ image.created | date:'medium' }}</td>
-        <td class="text-truncate cw-s">{{ image.size | formatFileSize: false }} </td>
+      <tr *ngFor="let imageModel of items">
+        <td class="cw-check">
+          <input type="checkbox" 
+                 class="form-check-input"
+                 (change)="check(imageModel, $event)" 
+                 [disabled]="isDisabled(imageModel)"
+                 [checked]="imageModel.checked">
+        </td>
+        <td class="text-truncate"
+            [ngClass]="[imageModel.inProgress ? 'progress-parent' : '']">
+          <span>{{ imageModel.name }}</span>
+          <progressbar *ngIf="imageModel.inProgress" class="progress-striped active progress-child" [value]="100" [max]="100" [type]="processType"></progressbar>
+        </td>
+
+        <!-- <td class="text-truncate">{{ imageModel.name }}</td> -->
+        <td class="text-truncate cw-xs"> <span class="badge bg-secondary">{{ imageModel.tag }}</span></td>
+        <td class="text-truncate">{{ imageModel.image.id }}</td>
+        <td class="text-truncate cw-m">{{ imageModel.image.created | date:'medium' }}</td>
+        <td class="text-truncate cw-s">{{ imageModel.image.size | formatFileSize: false }} </td>
       </tr>
     </tbody>
   </table>

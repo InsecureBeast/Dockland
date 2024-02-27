@@ -21,11 +21,33 @@ namespace Dockland.Controllers
         [HttpGet("{env}/{stack?}")]
         public async Task<IEnumerable<ImagesListResponse>> Get(string env, string? stack)
         {
-            var imagesRespose = await _dockerService.GetImagesAsync(env);
-            if (imagesRespose == null)
+            var imagesResponse = await _dockerService.GetImagesAsync(env);
+            if (imagesResponse == null)
                 return Enumerable.Empty<ImagesListResponse>();
 
-            return imagesRespose.FilterImagesAsync(stack);
+            return imagesResponse.FilterImagesAsync(stack);
+        }
+
+        [HttpDelete("{env}/{imageId}")]
+        public async Task<bool> Delete(string env, string imageId)
+        {
+            var client = _dockerService.GetService(env);
+            if (client == null)
+                return false;
+
+            var imagesResponse = await _dockerService.GetImagesAsync(env);
+            if (imagesResponse == null)
+                return false;
+
+            // TODO params from client
+            var removeParameters = new ImageDeleteParameters
+            {
+                Force = true,
+                NoPrune = true
+            };
+
+            await client.Images.DeleteImageAsync(imageId, removeParameters);
+            return true;
         }
     }
 }

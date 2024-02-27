@@ -1,27 +1,35 @@
-import { Component, Input } from '@angular/core';
-import { Image } from '../../../core/image';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { BaseListComponent, ProcessType } from 'src/app/components/base-list/base-list.component';
+import { ImageModel } from './image.model';
+import { remove } from 'src/app/utils/array-utils';
 
 @Component({
   selector: 'app-image-list',
   templateUrl: './image-list.component.html'
 })
-export class ImageListComponent {
-  
-  @Input() images: Image[] | null = [];
-  @Input() fluentHeightEnabled: boolean = true;
+export class ImageListComponent extends BaseListComponent<ImageModel> {
 
-  constructor() {   
+  @Input() fluentHeightEnabled: boolean = true;
+  @Output() onChecked = new EventEmitter<ImageModel[]>();
+
+  override isDisabled(model: ImageModel): boolean {
+    return model.name.includes("/dockland");
   }
 
-  getImageTagName(imageTags: string[]): {name:string, tag: string} {
-    if (imageTags.length === 0)
-      return {name: "", tag: "" };
-    
-    const imageTag = imageTags[0];
-    const split = imageTag.split(":");
-    if (split.length === 2)
-      return { name: split[0], tag: split[1] };
+  override check(model: ImageModel, event: Event): boolean {
+    super.check(model, event);
+    this.onChecked.emit(this.getSelected());
+    return true;
+  }
 
-    return { name: imageTag, tag: "" };
+  remove(model: ImageModel) {
+    if (this.items) {
+      this.processType = "danger";
+      remove(this.items, model);
+    }
+  }
+
+  setProcessType(type: ProcessType): void {
+    this.processType = type;
   }
 }

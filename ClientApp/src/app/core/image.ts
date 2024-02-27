@@ -9,4 +9,5 @@ export interface Image {
   virtualSize: number;
   repoDigests: string[];
   repoTags: string[];
+  labels: string[];
 }
