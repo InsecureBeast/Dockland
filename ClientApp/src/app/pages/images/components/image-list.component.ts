@@ -22,6 +22,11 @@ export class ImageListComponent extends BaseListComponent<ImageModel> {
     return true;
   }
 
+  override checkAll(event: Event): void {
+    super.checkAll(event);
+    this.onChecked.emit(this.getSelected());
+  }
+
   remove(model: ImageModel) {
     if (this.items) {
       this.processType = "danger";

@@ -10,5 +10,5 @@
   </div>
 </div>
 
-<app-image-list [items]="images | async"
+<app-image-list [items]="images | async | imagesSort"
                 (onChecked)="onChecked($event)"></app-image-list>

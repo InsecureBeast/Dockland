@@ -39,7 +39,7 @@ export class ImagesComponent implements OnInit, OnDestroy {
   onChecked(checked: ImageModel[]) {
     this._checked = checked;
   }
-    
+
   remove(): void {
     if (this._checked.length === 0)
       return;
