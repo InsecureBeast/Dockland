@@ -7,6 +7,7 @@ import { DialogService } from 'src/app/services/dialog.service';
 import { ImageListComponent } from '../components/image-list.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { parseDeleteImageErrorMessage } from './error.parser';
+import { remove } from '../../../utils/array-utils'; 
 
 @Component({
   selector: 'app-images',
@@ -59,7 +60,7 @@ export class ImagesComponent implements OnInit, OnDestroy {
               next : result => {
                 if (result && this._imageListComponent) {
                   this._imageListComponent.remove(model);
-                  //this._imageListComponent?.setProcessType("success");
+                  remove(this._checked, model);
                 }  
               },
               error(err: HttpErrorResponse) {
