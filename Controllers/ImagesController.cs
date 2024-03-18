@@ -43,7 +43,7 @@ namespace Dockland.Controllers
             var removeParameters = new ImageDeleteParameters
             {
                 Force = true,
-                NoPrune = true
+                //NoPrune = true
             };
 
             await client.Images.DeleteImageAsync(imageId, removeParameters);

@@ -11,6 +11,7 @@ import {
   ProgressbarModule,
 } from 'ngx-bootstrap/progressbar';
 import { FormatFileSizePipe } from '../../pipes/images.sort.pipe';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 export function getProgressbarConfig(): ProgressbarConfig {
   return Object.assign(new ProgressbarConfig(), {
@@ -32,6 +33,7 @@ export function getProgressbarConfig(): ProgressbarConfig {
     TitleModule,
     DirectivesModule,
     FormatFileSizePipe,
+    NgbTooltipModule
   ],
 })
 export class ImagesModule {}

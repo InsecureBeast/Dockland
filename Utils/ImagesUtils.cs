@@ -18,7 +18,7 @@ namespace Dockland.Utils
 
             var parameters = new ImagesListParameters
             {
-                All = true,
+                //All = true,
                 Digests = true
             };
             //parameters.Filters = new Dictionary<string, IDictionary<string, bool>>

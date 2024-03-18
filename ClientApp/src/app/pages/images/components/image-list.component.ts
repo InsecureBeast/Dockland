@@ -5,7 +5,8 @@ import { remove } from 'src/app/utils/array-utils';
 
 @Component({
   selector: 'app-image-list',
-  templateUrl: './image-list.component.html'
+  templateUrl: './image-list.component.html',
+  styleUrls: ['./image-list.component.scss']
 })
 export class ImageListComponent extends BaseListComponent<ImageModel> {
 

@@ -1,3 +1,4 @@
+using Dockland.Middleware;
 using Dockland.Model;
 using Dockland.Services;
 
@@ -14,6 +15,8 @@ builder.Services.AddSingleton<IGitService, GitService>();
 builder.Services.AddSingleton<IStackEditorService, StackEditorService>();
 
 var app = builder.Build();
+
+app.UseExceptionHandlerMiddleware();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

@@ -6,6 +6,7 @@ export class ImageModel implements ICheckableModel {
   public readonly tag: string;
   public checked: boolean = false;
   public inProgress: boolean = false;
+  public error?: string;
 
   constructor(public readonly image: Image) {
     const imageTags = this.getImageTagName(image.repoTags); 

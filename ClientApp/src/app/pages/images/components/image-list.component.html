@@ -29,10 +29,14 @@
                  [disabled]="isDisabled(imageModel)"
                  [checked]="imageModel.checked">
         </td>
-        <td class="text-truncate"
+        <td class="d-flex justify-content-between"
             [ngClass]="[imageModel.inProgress ? 'progress-parent' : '']">
-          <span>{{ imageModel.name }}</span>
+          <span class="text-truncate">{{ imageModel.name }}</span>
           <progressbar *ngIf="imageModel.inProgress" class="progress-striped active progress-child" [value]="100" [max]="100" [type]="processType"></progressbar>
+          <span *ngIf="imageModel.error" 
+                class="bi bi-exclamation-circle text-danger" 
+                [ngbTooltip] ="imageModel.error">
+          </span>
         </td>
 
         <!-- <td class="text-truncate">{{ imageModel.name }}</td> -->

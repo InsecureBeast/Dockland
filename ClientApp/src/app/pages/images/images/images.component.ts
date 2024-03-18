@@ -5,6 +5,8 @@ import { EnvironmentService } from 'src/app/services/environment.service';
 import { ImageModel } from '../components/image.model';
 import { DialogService } from 'src/app/services/dialog.service';
 import { ImageListComponent } from '../components/image-list.component';
+import { HttpErrorResponse } from '@angular/common/http';
+import { parseDeleteImageErrorMessage } from './error.parser';
 
 @Component({
   selector: 'app-images',
@@ -53,10 +55,16 @@ export class ImagesComponent implements OnInit, OnDestroy {
         if (this._envService.currentEnv) {
           model.inProgress = true;
           this._remoteService.images.delete(this._envService.currentEnv?.name, model.image)
-            .subscribe(result => {
-              if (result && this._imageListComponent) {
-                this._imageListComponent.remove(model);
-                this._imageListComponent?.setProcessType("success");
+            .subscribe({
+              next : result => {
+                if (result && this._imageListComponent) {
+                  this._imageListComponent.remove(model);
+                  //this._imageListComponent?.setProcessType("success");
+                }  
+              },
+              error(err: HttpErrorResponse) {
+                model.inProgress = false;
+                model.error = parseDeleteImageErrorMessage(err.error);
               }
           });
         }
