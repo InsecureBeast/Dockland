@@ -5,7 +5,7 @@ import { VolumesComponent } from './volumes/volumes.component';
 import { RouterModule } from '@angular/router';
 import { VolumeListComponent } from './components/volume-list/volume-list.component';
 import { TitleModule } from 'src/app/components/title/title.module';
-import { DirectivesModule } from 'src/app/directives/directives.module';
+import { FluidHeightDirective } from 'src/app/directives/fluid-height.directive';
 
 @NgModule({
   declarations: [
@@ -20,7 +20,7 @@ import { DirectivesModule } from 'src/app/directives/directives.module';
       { path: 'volumes/:name', component: VolumeComponent }, 
     ]),
     TitleModule,
-    DirectivesModule
+    FluidHeightDirective
   ],
   exports: [
     VolumeComponent, 

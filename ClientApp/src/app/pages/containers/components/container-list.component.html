@@ -8,9 +8,7 @@
     </div>
   </div>
 
-  <p *ngIf="!containers"><em>Loading...</em></p>
-  
-  <table class='table table-hover mb-0 align-middle' *ngIf="containers">
+  <table class='table table-hover mb-0 align-middle'>
     <thead class="">
       <tr>
         <th class="cw-check" *ngIf="isInteractive">
@@ -27,9 +25,11 @@
         <th class="d-none d-lg-block">CREATED</th>
       </tr>
     </thead>
+    <ng-container *ngTemplateOutlet="loader"></ng-container>
     <tbody [fluidHeightEnabled]="fluentHeightEnabled"
            [fluidHeight]
-           [fluidHeightBottomPadding]="1">
+           [fluidHeightBottomPadding]="1"
+           *ngIf="containers">
       <tr *ngFor="let model of containers">
         <td class="cw-check" *ngIf="isInteractive">
           <input type="checkbox" 
@@ -79,4 +79,23 @@
       <i class="bi-terminal btn btn-light btn-circle rounded-circle me-1"></i>
     </div> -->
   </div>
+</ng-template>
+
+<ng-template #loader>
+  <tbody [fluidHeightEnabled]="fluentHeightEnabled"
+         [fluidHeight]
+         [fluidHeightBottomPadding]="1"
+          *ngIf="!containers">
+    <tr *ngFor="let number of [0,1,2,3,4]">
+      <td class="cw-check" *ngIf="isInteractive">
+        <div class="ssc-circle ssc-circle-loader"></div>
+      </td>
+      <td><div class="ssc-head-line"></div></td>
+      <td class="cw-xs"><div class="ssc-head-line"></div></td>
+      <td><div class="ssc-head-line"></div></td>
+      <td><div class="ssc-head-line"></div></td>
+      <td><div class="ssc-head-line"></div></td>
+    </tr>
+  </tbody>
+  
 </ng-template>

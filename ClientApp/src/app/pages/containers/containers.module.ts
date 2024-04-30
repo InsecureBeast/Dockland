@@ -5,10 +5,10 @@ import { ContainerListComponent } from './components/container-list.component';
 import { RouterModule } from '@angular/router';
 import { ContainerComponent } from './container/container.component';
 import { TitleModule } from 'src/app/components/title/title.module';
-import { DirectivesModule } from 'src/app/directives/directives.module';
 import { TerminalComponent } from './terminal/terminal.component';
 import { NgTerminalModule } from 'ng-terminal';
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
+import { FluidHeightDirective } from 'src/app/directives/fluid-height.directive';
 
 @NgModule({
   declarations: [
@@ -25,8 +25,8 @@ import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
     ]),
     ProgressbarModule.forRoot(),
     TitleModule,
-    DirectivesModule,
-    NgTerminalModule
+    NgTerminalModule,
+    FluidHeightDirective
   ],
   exports: [
     ContainerListComponent

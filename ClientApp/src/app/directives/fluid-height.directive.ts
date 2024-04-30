@@ -4,6 +4,7 @@ import { debounceTime, throttleTime } from "rxjs/operators";
 
 @Directive({
   selector: "[fluidHeight]",
+  standalone: true
 })
 export class FluidHeightDirective implements AfterViewInit, OnDestroy {
   @Input() minHeight: number | undefined;

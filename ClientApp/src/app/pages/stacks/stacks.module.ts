@@ -10,12 +10,12 @@ import { VolumesModule } from "../volumes/volumes.module";
 import { StackComponent } from "./stack/stack.component";
 import { StacksComponent } from "./stacks/stacks.component";
 import { TitleModule } from "src/app/components/title/title.module";
-import { DirectivesModule } from "src/app/directives/directives.module";
 import { StackNewComponent } from './stack-new/stack-new.component';
 import { ReactiveFormsModule } from "@angular/forms";
 import { WebEditorModule } from "src/app/components/web-editor/web-editor.module";
 import { UploadModule } from "src/app/components/upload/upload.module";
 import { GitRepositoryModule } from "src/app/components/git-repository/git-repository.module";
+import { FluidHeightDirective } from "src/app/directives/fluid-height.directive";
 
 @NgModule({
   declarations: [
@@ -44,7 +44,7 @@ import { GitRepositoryModule } from "src/app/components/git-repository/git-repos
     VolumesModule,
     NetworksModule,
     TitleModule,
-    DirectivesModule,
+    FluidHeightDirective,
     WebEditorModule,
     UploadModule,
     GitRepositoryModule

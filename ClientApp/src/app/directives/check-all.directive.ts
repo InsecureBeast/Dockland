@@ -6,6 +6,7 @@ export interface IChecked {
 
 @Directive({
   selector: "[checkAll]",
+  standalone: true
 })
 export class CheckAllDirective implements AfterViewInit {
   @Input("checkAllItems") items: IChecked[] = [];

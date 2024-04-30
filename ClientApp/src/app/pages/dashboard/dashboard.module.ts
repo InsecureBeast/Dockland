@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RouterModule } from '@angular/router';
 import { TitleModule } from 'src/app/components/title/title.module';
-import { DirectivesModule } from 'src/app/directives/directives.module';
+import { FluidHeightDirective } from 'src/app/directives/fluid-height.directive';
 
 @NgModule({
   declarations: [
@@ -15,7 +15,7 @@ import { DirectivesModule } from 'src/app/directives/directives.module';
       { path: 'dashboard', component: DashboardComponent },
     ]),
     TitleModule,
-    DirectivesModule
+    FluidHeightDirective
   ]
 })
 export class DashboardModule { }
