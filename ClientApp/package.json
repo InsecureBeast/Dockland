@@ -33,6 +33,7 @@
     "popper.js": "^1.16.0",
     "run-script-os": "^1.1.6",
     "rxjs": "^7.6.0",
+    "skeleton-screen-css": "^1.1.0",
     "tslib": "^2.4.0",
     "xterm": "^5.2.1",
     "zone.js": "~0.11.6"

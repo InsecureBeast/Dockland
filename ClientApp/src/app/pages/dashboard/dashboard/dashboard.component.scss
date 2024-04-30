@@ -35,13 +35,19 @@
       }
     }
   }
-}
 
-.min-w {
-  min-width: 500px;
-}
+  .loader {
+    width: 30px;
+    height: 30px;
+    border-radius: 6px;
+  }
 
-.dashboard-img {
-  font-size: 300%;
-  margin: 1rem;
+  .min-w {
+    min-width: 500px;
+  }
+  
+  .dashboard-img {
+    font-size: 300%;
+    margin: 1rem;
+  }
 }

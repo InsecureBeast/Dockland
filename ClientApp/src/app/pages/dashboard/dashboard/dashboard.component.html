@@ -21,7 +21,8 @@
         <ng-container *ngTemplateOutlet="iconTemplate; context:{ inType: item.type }"></ng-container>
         <ng-container *ngTemplateOutlet="typeTemplate; context:{ inType: item.type }"></ng-container>
       </div>
-      <h3 class="me-3">{{item.count}}</h3>
+      <div *ngIf="item.count === -1" class=" me-3 ssc-square loader"></div>
+      <h3 *ngIf="item.count >= 0" class="m-0 me-3">{{item.count}}</h3>
     </div>
   </div>
 </ng-template>
@@ -60,4 +61,8 @@
   <ng-container *ngIf="type === 5">
     <h4 class="card-text">Networks</h4>
   </ng-container>
+</ng-template>
+
+<ng-template #loadingCount>
+  <div class="ssc-circle"></div>
 </ng-template>

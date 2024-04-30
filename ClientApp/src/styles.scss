@@ -8,6 +8,9 @@
 @import "./css/toolbar";
 @import "./css/imline-progress";
 
+// import external libs
+@import "skeleton-screen-css";
+
 // required to get color variables
 @import "../node_modules/bootstrap/scss/functions"; 
 @import "../node_modules/bootstrap/scss/variables"; 

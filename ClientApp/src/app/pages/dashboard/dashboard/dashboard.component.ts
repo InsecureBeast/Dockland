@@ -6,8 +6,21 @@ import { ElementType } from 'src/app/core/element.type';
 import { NavigationService } from 'src/app/services/navigation.service';
 
 class DashboardItem {
-  count: number = 0;
-  type: ElementType = ElementType.None;
+  private readonly _type: ElementType;
+  private readonly _count: number;
+  
+  constructor(type: ElementType, count: number = -1) {
+    this._type = type;
+    this._count = count;
+  }
+
+  get type(): ElementType {
+    return this._type;
+  }
+
+  get count(): number {
+    return this._count;
+  }
 }
 
 @Component({
@@ -17,11 +30,11 @@ class DashboardItem {
 })
 export class DashboardComponent implements OnInit {
   
-  stacks: DashboardItem = new DashboardItem();
-  containers: DashboardItem = new DashboardItem();
-  images: DashboardItem = new DashboardItem();
-  volumes: DashboardItem = new DashboardItem();
-  networks: DashboardItem = new DashboardItem();
+  stacks: DashboardItem = new DashboardItem(ElementType.Stack);
+  containers: DashboardItem = new DashboardItem(ElementType.Container);
+  images: DashboardItem = new DashboardItem(ElementType.Image);
+  volumes: DashboardItem = new DashboardItem(ElementType.Volume);
+  networks: DashboardItem = new DashboardItem(ElementType.Network);
   environment: string | undefined;
 
   constructor(
@@ -62,9 +75,7 @@ export class DashboardComponent implements OnInit {
   }
 
   private toDashboardItem(stacks: any[], type: ElementType): DashboardItem {
-    const item = new DashboardItem();
-    item.count = stacks.length;
-    item.type = type;
+    const item = new DashboardItem(type, stacks.length);
     return item;
   }
   
