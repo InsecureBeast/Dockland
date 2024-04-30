@@ -9,6 +9,8 @@ import { ProgressbarConfig, ProgressbarModule } from 'ngx-bootstrap/progressbar'
 import { FormatFileSizePipe } from '../../pipes/images.sort.pipe';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { FluidHeightDirective } from 'src/app/directives/fluid-height.directive';
+import { LoaderCountPipe } from "../../pipes/loader-count.pipe";
+import { LoaderComponent } from "../../components/loader/loader.component";
 
 export function getProgressbarConfig(): ProgressbarConfig {
   return Object.assign(new ProgressbarConfig(), {
@@ -19,18 +21,20 @@ export function getProgressbarConfig(): ProgressbarConfig {
 }
 
 @NgModule({
-  declarations: [ImagesComponent, ImageListComponent],
-  exports: [RouterModule, ImageListComponent],
-  providers: [{ provide: ProgressbarConfig, useFactory: getProgressbarConfig }],
-  imports: [
-    CommonModule,
-    RouterModule.forRoot([{ path: 'images', component: ImagesComponent }]),
-    ProgressbarModule.forRoot(),
-    PipesModule,
-    TitleModule,
-    FormatFileSizePipe,
-    FluidHeightDirective,
-    NgbTooltipModule
-  ],
+    declarations: [ImagesComponent, ImageListComponent],
+    exports: [RouterModule, ImageListComponent],
+    providers: [{ provide: ProgressbarConfig, useFactory: getProgressbarConfig }],
+    imports: [
+      CommonModule,
+      RouterModule.forRoot([{ path: 'images', component: ImagesComponent }]),
+      ProgressbarModule.forRoot(),
+      PipesModule,
+      TitleModule,
+      FormatFileSizePipe,
+      FluidHeightDirective,
+      NgbTooltipModule,
+      LoaderCountPipe,
+      LoaderComponent
+    ]
 })
 export class ImagesModule {}

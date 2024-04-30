@@ -1,7 +1,5 @@
 <div>
-  <p *ngIf="!items"><em>Loading...</em></p>
-
-  <table class='table table-hover mb-0' *ngIf="items">
+  <table class='table table-hover mb-0'>
     <thead class="">
       <tr>
         <th class="cw-check">
@@ -14,13 +12,15 @@
         <th>NAME</th>
         <th class="cw-xs">TAG</th>
         <th>ID</th>
-        <th class="cw-m">CREATED</th>
+        <th class="cw-sm">CREATED</th>
         <th class="cw-s">SIZE</th>
       </tr>
     </thead>
+    <ng-container *ngTemplateOutlet="loader"></ng-container>
     <tbody [fluidHeight] 
            [fluidHeightEnabled]="fluentHeightEnabled"
-           [fluidHeightBottomPadding]="1">
+           [fluidHeightBottomPadding]="1"
+           *ngIf="items">
       <tr *ngFor="let imageModel of items">
         <td class="cw-check">
           <input type="checkbox" 
@@ -38,13 +38,24 @@
                 [ngbTooltip] ="imageModel.error">
           </span>
         </td>
-
-        <!-- <td class="text-truncate">{{ imageModel.name }}</td> -->
         <td class="text-truncate cw-xs"> <span class="badge bg-secondary">{{ imageModel.tag }}</span></td>
         <td class="text-truncate">{{ imageModel.image.id }}</td>
-        <td class="text-truncate cw-m">{{ imageModel.image.created | date:'medium' }}</td>
+        <td class="text-truncate cw-sm">{{ imageModel.image.created | date:'medium' }}</td>
         <td class="text-truncate cw-s">{{ imageModel.image.size | formatFileSize: false }} </td>
       </tr>
     </tbody>
   </table>
 </div>
+
+<ng-template #loader>
+  <tbody *ngIf="!items" class="loader">
+    <tr *ngFor="let number of [0,1,2,3,4,5,6,7,8,9] | loaderCount">
+      <td class="cw-check"><div class="ssc-circle ssc-circle-loader"></div></td>
+      <td><div class="ssc-head-line"></div></td>
+      <td class="cw-xs"><div class="ssc-head-line"></div></td>
+      <td><div class="ssc-head-line"></div></td>
+      <td class="cw-sm"><div class="ssc-head-line"></div></td>
+      <td class="cw-s"><div class="ssc-head-line"></div></td>
+    </tr>
+  </tbody>
+</ng-template>

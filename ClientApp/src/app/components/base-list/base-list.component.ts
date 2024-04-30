@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Directive, Input } from "@angular/core";
 
 export type ProcessType = "success" | "info" | "warning" | "danger";
 
@@ -6,9 +6,8 @@ export interface ICheckableModel {
   checked: boolean;
 }
 
-@Component({
+@Directive({
   selector: 'app-image-base-list',
-  template: ''
 })
 export class BaseListComponent<T extends ICheckableModel> {
   @Input() items: T[] | null = [];
