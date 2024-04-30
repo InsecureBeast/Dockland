@@ -9,6 +9,7 @@ import { TerminalComponent } from './terminal/terminal.component';
 import { NgTerminalModule } from 'ng-terminal';
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 import { FluidHeightDirective } from 'src/app/directives/fluid-height.directive';
+import { LoaderCountPipe } from 'src/app/pipes/loader-count.pipe';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { FluidHeightDirective } from 'src/app/directives/fluid-height.directive'
     ProgressbarModule.forRoot(),
     TitleModule,
     NgTerminalModule,
-    FluidHeightDirective
+    FluidHeightDirective,
+    LoaderCountPipe
   ],
   exports: [
     ContainerListComponent

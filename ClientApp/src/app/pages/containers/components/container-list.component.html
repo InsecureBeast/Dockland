@@ -85,8 +85,8 @@
   <tbody [fluidHeightEnabled]="fluentHeightEnabled"
          [fluidHeight]
          [fluidHeightBottomPadding]="1"
-          *ngIf="!containers">
-    <tr *ngFor="let number of [0,1,2,3,4]">
+        *ngIf="!containers">
+    <tr *ngFor="let number of [0,1,2,3,4] | loaderCount">
       <td class="cw-check" *ngIf="isInteractive">
         <div class="ssc-circle ssc-circle-loader"></div>
       </td>
@@ -97,5 +97,4 @@
       <td><div class="ssc-head-line"></div></td>
     </tr>
   </tbody>
-  
 </ng-template>
