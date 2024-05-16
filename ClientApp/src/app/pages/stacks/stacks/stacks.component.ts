@@ -14,7 +14,7 @@ export class StacksComponent implements OnInit {
 
   private _env: string = "";
 
-  stacks: Stack[] = [];
+  stacks!: Stack[];
   checked: Stack[] = [];
 
   constructor(

@@ -16,11 +16,12 @@
         <th class="cw-s">SIZE</th>
       </tr>
     </thead>
-    <ng-container *ngTemplateOutlet="loader"></ng-container>
+    
     <tbody [fluidHeight] 
            [fluidHeightEnabled]="fluentHeightEnabled"
            [fluidHeightBottomPadding]="1"
-           *ngIf="items">
+           >
+      <ng-container *ngTemplateOutlet="loader"></ng-container>
       <tr *ngFor="let imageModel of items">
         <td class="cw-check">
           <input type="checkbox" 
@@ -47,8 +48,8 @@
   </table>
 </div>
  
-<ng-template #loader>
-  <tbody *ngIf="!items">
+<ng-template #loader >
+  <ng-container *ngIf="!items" >
     <app-table-loader [rowsCount]="5"></app-table-loader>
-  </tbody>
+  </ng-container>
 </ng-template>

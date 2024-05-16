@@ -8,7 +8,7 @@ import { INetwork } from 'src/app/core/network';
 })
 export class NetworkListComponent {
   
-  @Input() networks: INetwork[] | null = [];
+  @Input() networks!: INetwork[] | null;
   @Input() fluentHeightEnabled: boolean = true;
 
   constructor() {

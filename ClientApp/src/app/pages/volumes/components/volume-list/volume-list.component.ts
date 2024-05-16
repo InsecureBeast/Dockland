@@ -8,7 +8,7 @@ import { IVolume } from 'src/app/core/volume';
 })
 export class VolumeListComponent {
 
-  @Input() volumes: IVolume[] | null = [];
+  @Input() volumes!: IVolume[] | null;
   @Input() fluentHeightEnabled: boolean = true;
 
   constructor() {

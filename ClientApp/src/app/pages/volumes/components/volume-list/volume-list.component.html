@@ -1,6 +1,5 @@
-<p *ngIf="!volumes"><em>Loading...</em></p>
 <div class="">
-  <table class='table table-hover mb-0' *ngIf="volumes">
+  <table class='table table-hover mb-0'>
     <thead class="">
       <tr>
         <th>NAME</th>
@@ -12,6 +11,7 @@
     <tbody [fluidHeight] 
            [fluidHeightEnabled]="fluentHeightEnabled"
            [fluidHeightBottomPadding]="1">
+      <ng-container *ngTemplateOutlet="loader"></ng-container>
       <tr *ngFor="let volume of volumes">
         <td class="text-truncate">{{ volume.name }}</td>
         <td class="text-truncate cw-s">{{ volume.driver }}</td>
@@ -21,3 +21,9 @@
     </tbody>
   </table>
 </div>
+
+<ng-template #loader>
+  <ng-container *ngIf="!volumes" >
+    <app-table-loader [rowsCount]="5"></app-table-loader>
+  </ng-container>
+</ng-template>

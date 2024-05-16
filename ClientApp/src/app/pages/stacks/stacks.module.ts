@@ -16,41 +16,43 @@ import { WebEditorModule } from "src/app/components/web-editor/web-editor.module
 import { UploadModule } from "src/app/components/upload/upload.module";
 import { GitRepositoryModule } from "src/app/components/git-repository/git-repository.module";
 import { FluidHeightDirective } from "src/app/directives/fluid-height.directive";
+import { LoaderComponent } from "../../components/loader/loader.component";
 
 @NgModule({
-  declarations: [
-    StacksComponent,
-    StackComponent,
-    StackNewComponent
-  ],
-  imports: [
-    CommonModule,
-    RouterModule.forRoot([
-      { matcher: (url) => {
-        if (url.length === 2 && url[1].path === "new") {
-          return { consumed: url };
-        }
-        return null;
-      }, component: StackNewComponent }, 
-      { path: 'stacks', component: StacksComponent },
-      { path: 'stacks/:name', component: StackComponent }, 
-      { path: 'stacks/new', component: StackNewComponent }, 
-    ]),
-    TabsModule.forRoot(),
-    ReactiveFormsModule,
-    PipesModule,
-    ImagesModule,
-    ContainersModule,
-    VolumesModule,
-    NetworksModule,
-    TitleModule,
-    FluidHeightDirective,
-    WebEditorModule,
-    UploadModule,
-    GitRepositoryModule
-  ],
-  exports: [RouterModule],
-  providers: [],
-  bootstrap: [StacksComponent, StackComponent]
+    declarations: [
+        StacksComponent,
+        StackComponent,
+        StackNewComponent
+    ],
+    exports: [RouterModule],
+    providers: [],
+    bootstrap: [StacksComponent, StackComponent],
+    imports: [
+        CommonModule,
+        RouterModule.forRoot([
+            { matcher: (url) => {
+                    if (url.length === 2 && url[1].path === "new") {
+                        return { consumed: url };
+                    }
+                    return null;
+                }, component: StackNewComponent },
+            { path: 'stacks', component: StacksComponent },
+            { path: 'stacks/:name', component: StackComponent },
+            { path: 'stacks/new', component: StackNewComponent },
+        ]),
+        TabsModule.forRoot(),
+        ReactiveFormsModule,
+        PipesModule,
+        ImagesModule,
+        ContainersModule,
+        VolumesModule,
+        NetworksModule,
+        TitleModule,
+        FluidHeightDirective,
+        WebEditorModule,
+        UploadModule,
+        GitRepositoryModule,
+        LoaderComponent
+    ]
 })
 export class StacksModule {}
