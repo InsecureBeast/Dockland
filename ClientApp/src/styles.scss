@@ -9,14 +9,12 @@
 @import "./css/imline-progress";
 @import "./css/loader";
 
-// import external libs
-@import "skeleton-screen-css";
-
 // required to get color variables
 @import "../node_modules/bootstrap/scss/functions"; 
 @import "../node_modules/bootstrap/scss/variables"; 
 
 $primary:                    #1b1b1b;
+$light:                       $gray-200 !default;
 $border-radius:               .25rem !default;
 $card-border-radius:          1.0rem !default;
 $font-size-root:              14px;
@@ -24,6 +22,14 @@ $btn-disabled-opacity:        0.35;
 
 // change
 @import "../node_modules/bootstrap/scss/bootstrap.scss";
+
+// import external libs
+$skeleton-element-color: #dee2e6;
+$skeleton-line-border-radius: 5px;
+
+/* Then import scss source file */
+@import "skeleton-screen-css/dist/index.scss";
+
 
 .btn-primary:hover {
   background: $primary-hover;

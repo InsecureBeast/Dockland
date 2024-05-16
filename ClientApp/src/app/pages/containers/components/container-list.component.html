@@ -82,16 +82,7 @@
 </ng-template>
 
 <ng-template #loader>
-  <tbody *ngIf="!containers" class="loader">
-    <tr *ngFor="let number of [0,1,2,3,4,5,6,7,8,9] | loaderCount">
-      <td class="cw-check" *ngIf="isInteractive">
-        <div class="ssc-circle ssc-circle-loader"></div>
-      </td>
-      <td><div class="ssc-head-line"></div></td>
-      <td class="cw-xs"><div class="ssc-head-line"></div></td>
-      <td><div class="ssc-head-line"></div></td>
-      <td><div class="ssc-head-line"></div></td>
-      <td><div class="ssc-head-line"></div></td>
-    </tr>
+  <tbody *ngIf="!containers">
+    <app-table-loader [rowsCount]="5"></app-table-loader>
   </tbody>
 </ng-template>

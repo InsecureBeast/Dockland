@@ -3,13 +3,13 @@
   height: 24px !important;
 }
 
-.loader::after {
-  position: absolute;
-  content: "";
-  left: 0px;
-  top: 0px;
-  height: 100%;
-  width: 100%;
-  background: linear-gradient(transparent, #fff);
-  pointer-events: none;
-}
+// .loader::after {
+//   position: absolute;
+//   content: "";
+//   left: 0px;
+//   top: 0px;
+//   height: 100%;
+//   width: 100%;
+//   background: linear-gradient(transparent, #fff);
+//   pointer-events: none;
+// }
