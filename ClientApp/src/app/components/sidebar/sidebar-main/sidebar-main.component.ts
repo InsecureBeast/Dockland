@@ -6,11 +6,11 @@ import { EnvironmentService } from 'src/app/services/environment.service';
 import { NavbarService } from 'src/app/services/navbar.service';
 
 @Component({
-  selector: 'app-sidebar',
-  templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.scss']
+  selector: 'app-sidebar-main',
+  templateUrl: './sidebar-main.component.html',
+  styleUrls: ['./sidebar-main.component.scss']
 })
-export class SidebarComponent {
+export class SidebarMainComponent {
 
   isVisible: Observable<boolean>;
   isOpened: Observable<IEnvironment | undefined>;

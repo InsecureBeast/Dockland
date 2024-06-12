@@ -1,0 +1,42 @@
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins";
+
+@media ( max-width: #{map-get($grid-breakpoints, "xl")}) { 
+  .side-nav {
+    //width: 4.0rem;
+    // font-size: 18pt;
+  }
+
+  .nav-link {
+    width: 3rem;
+    padding-left: 1.0rem;
+    // margin-left: 0.5rem;
+  }
+}
+
+.nav-pills > .nav-item {
+  margin-top: 4px;
+}
+
+// .nav-item {
+//   padding-left: ;
+// }
+
+.nav-link {
+  // padding-left: 0.8rem;
+  //margin-left: 0.5rem;
+  //margin-right: 0.5rem;
+}
+
+.nav-link:hover {
+  background-color: $gray-300;
+}
+
+.active:hover {
+  background-color: $gray-800;
+}
+
+.active {
+  background-color: $gray-900;
+}

@@ -3,28 +3,6 @@
 @import "bootstrap/scss/mixins";
 
 :host {
-  .nav-pills > .nav-item {
-    margin-top: 4px;
-  }
-
-  .nav-link {
-    // padding-left: 0.8rem;
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
-  }
-
-  .nav-link:hover {
-    background-color: $gray-300;
-  }
-
-  .active:hover {
-    background-color: $gray-800;
-  }
-
-  .active {
-    background-color: $gray-900;
-  }
-  
   .brand-color {
     color: var(--bs-blue);
   }
@@ -39,26 +17,14 @@
     border-radius: 0.25rem;
     opacity: 0.5;
   }
-
-  
 }
 
 @media ( max-width: #{map-get($grid-breakpoints, "xl")}) { 
-  .side-nav {
-    width: 4.0rem;
-    // font-size: 18pt;
-  }
-
   .brand {
     margin-left: 1.2rem !important;
   }
 
-  .nav-link {
-    width: 3rem;
-    padding-left: 1.0rem;
-    margin-left: 0.5rem;
+  .nav-caption {
+    justify-content: center;
   }
-}
-
-
-  
+}  
