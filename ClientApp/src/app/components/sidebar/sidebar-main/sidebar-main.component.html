@@ -1,14 +1,20 @@
-<div class="d-flex flex-column pt-3 bg-light vh-100 side-nav justify-content-center" *ngIf="isVisible | async">
-  <a href="/" class="d-flex align-items-center link-dark text-decoration-none ms-3 brand">
+<div class="d-flex flex-column pt-3 bg-light vh-100 side-nav justify-content-center border-end">
+  <a href="/" class="d-flex align-items-center link-dark text-decoration-none brand">
     <i class="bi-box-seam-fill fs-4 brand-color"></i>
     <span class="fs-4 ms-2 d-none d-xl-block">Dockland</span>
   </a>
-  <hr>
   <ul class="nav nav-pills flex-column mb-auto">
-    <app-sidebar-item [name]="'Environments'" [icon]="'bi-hdd'" [routerLink]="'/'"></app-sidebar-item>
-    <app-sidebar-item [name]="'Settings'" [icon]="'bi-gear'" [routerLink]="'/dashboard'"></app-sidebar-item>
+    <app-sidebar-item [name]="'Environments'" 
+                      [icon]="'bi-hdd'" 
+                      [routerLink]="'/environments'" 
+                      [captionClass]="'d-md-none d-xl-block'">
+    </app-sidebar-item>
+    <app-sidebar-item [name]="'Settings'" 
+                      [icon]="'bi-gear'" 
+                      [routerLink]="'/dashboard'" 
+                      [captionClass]="'d-md-none d-xl-block'">
+    </app-sidebar-item>
   </ul>
-  <hr>
   <div class="p-3 pt-0">
     <span class="d-none d-xl-block">Version: 1.0.0</span>
   </div>

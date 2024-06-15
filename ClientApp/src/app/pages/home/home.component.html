@@ -20,6 +20,19 @@
   </div>
 </div>
 
-<div *ngIf="areEnvironmentsExist">
-  <app-environments></app-environments>
+<div *ngIf="areEnvironmentsExist" class="row m-0">
+  <ng-container *ngIf="!(isVisible | async)">
+    <div class="col-12 pt-3 p-4">
+      <router-outlet></router-outlet>
+    </div>
+  </ng-container>
+  
+  <ng-container *ngIf="isVisible | async">
+    <div class="col-1 col-md-3 p-0 d-none d-sm-block">
+      <app-sidebar-second></app-sidebar-second>
+    </div>
+    <div class="col-12 col-md-9 col-sm-11 pt-3 p-4">
+      <router-outlet></router-outlet>
+    </div>
+  </ng-container>
 </div>

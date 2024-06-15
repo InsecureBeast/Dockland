@@ -1,9 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { IEnvironment } from 'src/app/pages/environments/environment';
 import { EnvironmentService } from 'src/app/services/environment.service';
-import { NavbarService } from 'src/app/services/navbar.service';
 
 @Component({
   selector: 'app-sidebar-main',
@@ -12,15 +11,13 @@ import { NavbarService } from 'src/app/services/navbar.service';
 })
 export class SidebarMainComponent {
 
-  isVisible: Observable<boolean>;
   isOpened: Observable<IEnvironment | undefined>;
   environment: string | undefined = "Dashboard";
+  @Output() selected: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor(toolbarService: NavbarService, 
-              private _envService: EnvironmentService,
+  constructor(private _envService: EnvironmentService,
               private _router: Router) {
     this.isOpened = _envService.current;
-    this.isVisible = toolbarService.visible;
 
     _envService.current.subscribe(env => {
       this.environment = env?.name;
@@ -31,5 +28,9 @@ export class SidebarMainComponent {
     this._envService.closeEnvironment();
     this._router.navigate(["/"]);
     return false;
+  }
+
+  private select(): void {
+    this.selected.emit("www")
   }
 }

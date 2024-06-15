@@ -18,4 +18,4 @@ import { SidebarItemComponent } from "../sidebar-item/sidebar-item.component";
     SidebarItemComponent
   ]
 })
-export class SidebarTreeModule { }
+export class SidebarSecondModule { }

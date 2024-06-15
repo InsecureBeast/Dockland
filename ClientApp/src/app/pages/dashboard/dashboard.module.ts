@@ -11,9 +11,9 @@ import { FluidHeightDirective } from 'src/app/directives/fluid-height.directive'
   ],
   imports: [
     CommonModule,
-    RouterModule.forRoot([
-      { path: 'dashboard', component: DashboardComponent },
-    ]),
+    // RouterModule.forRoot([
+    //   { path: 'dashboard', component: DashboardComponent },
+    // ]),
     TitleModule,
     FluidHeightDirective
   ]

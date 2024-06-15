@@ -7,6 +7,10 @@
     color: var(--bs-blue);
   }
 
+  .brand {
+    margin-left: 1.5rem;
+  }
+
   .btn-close-env {
     box-sizing: content-box;
     width: 1em;
@@ -21,10 +25,7 @@
 
 @media ( max-width: #{map-get($grid-breakpoints, "xl")}) { 
   .brand {
-    margin-left: 1.2rem !important;
-  }
-
-  .nav-caption {
+    margin-left: 0rem !important;
     justify-content: center;
   }
 }  

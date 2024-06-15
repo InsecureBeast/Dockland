@@ -9,6 +9,7 @@ import { NavbarService } from './services/navbar.service';
 export class AppComponent implements OnInit{
   title = 'app';
   isVisible?: Observable<boolean>;
+  selectedSection!: string;
 
   constructor(private readonly _toolbarService: NavbarService) {
   }

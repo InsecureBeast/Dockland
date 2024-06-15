@@ -6,5 +6,4 @@ import { Component } from '@angular/core';
   styleUrls: ['./sidebar-second.component.scss']
 })
 export class SidebarSecondComponent {
-
 }

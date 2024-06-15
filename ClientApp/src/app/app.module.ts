@@ -7,7 +7,6 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { HomeComponent } from './pages/home/home.component';
 import { ContainersModule } from './pages/containers/containers.module';
 import { StacksModule } from './pages/stacks/stacks.module';
 import { VolumesModule } from './pages/volumes/volumes.module';
@@ -17,13 +16,14 @@ import { EnvironmentsModule } from './pages/environments/environments.module';
 import { DashboardModule } from './pages/dashboard/dashboard.module';
 import { SidebarModule } from './components/sidebar/sidebar-main/sidebar-main.module';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
-import { SidebarTreeModule } from './components/sidebar/sidebar-second/sidebar-second.module';
+import { SidebarSecondModule } from './components/sidebar/sidebar-second/sidebar-second.module';
+import { HomeModule } from './pages/home/home.module';
+import { appRouts } from './app.routes';
 
 @NgModule({
     declarations: [
         AppComponent,
         NavMenuComponent,
-        HomeComponent,
         ConfirmationDialogComponent
     ],
     providers: [],
@@ -32,18 +32,7 @@ import { SidebarTreeModule } from './components/sidebar/sidebar-second/sidebar-s
         BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
         HttpClientModule,
         FormsModule,
-        RouterModule.forRoot([
-            { path: '', component: HomeComponent, pathMatch: 'full' },
-            { path: 'test', redirectTo: '/stacks/pilot-saturn-environment?hide=true&env=pilot-saturn' },
-            { path: 'cf', redirectTo: '/containers?name=pilot-web-nalivka' },
-            { path: 'cfh', redirectTo: '/containers?name=pilot-web-nalivka&hide=true&env=pilot-saturn' },
-            { path: 'cfhp', redirectTo: '/containers?name=e2e-tests-pilot-web&hide=true&env=pilot-moon' },
-            // {
-            //   path: "stacks",
-            //   loadChildren: () =>
-            //     import('./pages/stacks/stacks.module').then((x) => x.StacksModule),
-            // },
-        ]),
+        RouterModule.forRoot(appRouts),
         ModalModule.forRoot(),
         EnvironmentsModule,
         ContainersModule,
@@ -53,7 +42,8 @@ import { SidebarTreeModule } from './components/sidebar/sidebar-second/sidebar-s
         NetworksModule,
         DashboardModule,
         SidebarModule,
-        SidebarTreeModule
+        SidebarSecondModule,
+        HomeModule
     ]
 })
 export class AppModule { }

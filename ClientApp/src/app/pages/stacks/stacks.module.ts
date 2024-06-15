@@ -1,6 +1,5 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
-import { RouterModule } from "@angular/router";
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { PipesModule } from "src/app/pipes/pipes.module";
 import { ContainersModule } from "../containers/containers.module";
@@ -24,22 +23,11 @@ import { LoaderComponent } from "../../components/loader/loader.component";
         StackComponent,
         StackNewComponent
     ],
-    exports: [RouterModule],
+    exports: [],
     providers: [],
     bootstrap: [StacksComponent, StackComponent],
     imports: [
         CommonModule,
-        RouterModule.forRoot([
-            { matcher: (url) => {
-                    if (url.length === 2 && url[1].path === "new") {
-                        return { consumed: url };
-                    }
-                    return null;
-                }, component: StackNewComponent },
-            { path: 'stacks', component: StacksComponent },
-            { path: 'stacks/:name', component: StackComponent },
-            { path: 'stacks/new', component: StackNewComponent },
-        ]),
         TabsModule.forRoot(),
         ReactiveFormsModule,
         PipesModule,

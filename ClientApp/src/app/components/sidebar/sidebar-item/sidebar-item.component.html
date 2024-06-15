@@ -1,11 +1,11 @@
 <li class="nav-item ps-2 pe-2 mt-1" >
   <a [routerLink]="routerLink" 
      [routerLinkActive]="['active', 'text-white']" 
-     [routerLinkActiveOptions]="{ exact: true }"
+     [routerLinkActiveOptions]="{ exact: false }"
      class="nav-link text-dark w-100">
     <div class="d-flex nav-caption">
       <i class="{{icon}}"></i>
-      <span class="ms-2 d-none d-md-block">{{name}}</span>
+      <span #itemName class="ms-2 d-none d-md-block" [ngClass]="captionClass ? captionClass : ''">{{name}}</span>
     </div> 
   </a>
 </li>
