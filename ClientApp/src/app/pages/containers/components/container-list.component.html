@@ -27,7 +27,9 @@
     </thead>
     <tbody [fluidHeightEnabled]="fluentHeightEnabled"
            [fluidHeight]
-           [fluidHeightBottomPadding]="1">
+           [fluidHeightBottomPadding]="14"
+           [fluidHeightTopOffsetElementName]="parentComponentName">
+           
       <ng-container *ngTemplateOutlet="loader"></ng-container>
       <tr *ngFor="let model of containers">
         <td class="cw-check" *ngIf="isInteractive">

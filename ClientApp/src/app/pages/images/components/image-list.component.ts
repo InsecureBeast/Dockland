@@ -11,7 +11,7 @@ import { remove } from 'src/app/utils/array-utils';
 export class ImageListComponent extends BaseListComponent<ImageModel> {
 
   @Input() fluentHeightEnabled: boolean = true;
-  @Input() fluentTopElementName: string | undefined;
+  @Input() parentComponentName: string | undefined;
   @Output() onChecked = new EventEmitter<ImageModel[]>();
   offset: number|undefined;
 

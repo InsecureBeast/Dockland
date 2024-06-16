@@ -19,7 +19,7 @@
     <tbody [fluidHeight]
            [fluidHeightEnabled]="fluentHeightEnabled"
            [fluidHeightBottomPadding]="14"
-           [fluidHeightTopOffsetElementName]="fluentTopElementName">
+           [fluidHeightTopOffsetElementName]="parentComponentName">
       <ng-container *ngTemplateOutlet="loader"></ng-container>
       <tr *ngFor="let imageModel of items">
         <td class="cw-check">

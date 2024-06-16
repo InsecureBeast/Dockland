@@ -23,11 +23,12 @@ export class ContainerListComponent {
   @Input() url: string | undefined;
   @Input() fluentHeightEnabled: boolean = true;
   @Input() isInteractive: boolean = true;
-  
+  @Input() parentComponentName: string | undefined;
+
   indeterminate: boolean = false;
   allChecked: boolean = false;
   processType: 'success' | 'info' | 'warning' | 'danger' = 'info';
-  
+    
   constructor(private readonly _remoteService: RemoteService, 
               private readonly _envService: EnvironmentService,
               private readonly _dialogService: DialogService) {

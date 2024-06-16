@@ -13,6 +13,6 @@
 </div>
 
 <app-image-list [items]="images | async | imagesSort"
-                [fluentTopElementName]="'app-images'"
+                [parentComponentName]="'app-images'"
                 (onChecked)="onChecked($event)">
 </app-image-list>
