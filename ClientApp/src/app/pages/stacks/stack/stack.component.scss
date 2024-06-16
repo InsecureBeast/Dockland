@@ -1,6 +1,9 @@
+@import '../../../../css/variables';
+  
 :host {
   display: block;
   height: 100%;
+  padding-top: $paddingTop;
 
   .table-text-truncate {
     max-width: 150px;

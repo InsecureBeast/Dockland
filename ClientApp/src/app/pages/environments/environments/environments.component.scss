@@ -1,9 +1,11 @@
 @import "../../../../styles.scss";
 @import "../../../../css/colors";
-
+@import '../../../../css/variables';
+  
 :host {
   display: block;
   height: 100%;
+  padding-top: $paddingTop;
 
   .env-logo {
     display: flex;

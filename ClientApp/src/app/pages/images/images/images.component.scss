@@ -1,6 +1,6 @@
+@import '../../../../css/variables';
 :host {
-  display: flex;
+  display: block;
   height: 100%;
-  flex-direction: column;
-  padding-top: 1.0rem;
+  padding-top: $paddingTop;
 }

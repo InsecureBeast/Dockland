@@ -1,8 +1,10 @@
 @import "../../../../css/colors";
+@import '../../../../css/variables';
 
 :host {
   display: block;
   height: 100%;
+  padding-top: $paddingTop;
   
   .dashboard-card {
     padding: 12px;
