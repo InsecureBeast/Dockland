@@ -1,5 +1,4 @@
-<div>
-  <table class='table table-hover mb-0'>
+  <table class='table table-hover mb-0 h-100'>
     <thead class="">
       <tr>
         <th class="cw-check">
@@ -17,10 +16,10 @@
       </tr>
     </thead>
     
-    <tbody [fluidHeight] 
+    <tbody [fluidHeight]
            [fluidHeightEnabled]="fluentHeightEnabled"
-           [fluidHeightBottomPadding]="1"
-           >
+           [fluidHeightBottomPadding]="14"
+           [fluidHeightTopOffsetElementName]="fluentTopElementName">
       <ng-container *ngTemplateOutlet="loader"></ng-container>
       <tr *ngFor="let imageModel of items">
         <td class="cw-check">
@@ -46,7 +45,6 @@
       </tr>
     </tbody>
   </table>
-</div>
  
 <ng-template #loader >
   <ng-container *ngIf="!items" >

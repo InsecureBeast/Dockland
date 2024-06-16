@@ -2,6 +2,8 @@
 @import "../../../../css/colors";
 
 :host {
+  display: block;
+  height: 100%;
 
   .env-logo {
     display: flex;

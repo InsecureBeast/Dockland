@@ -1,6 +1,9 @@
 @import "../../../../css/colors";
 
 :host {
+  display: block;
+  height: 100%;
+  
   .dashboard-card {
     padding: 12px;
   }

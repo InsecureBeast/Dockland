@@ -1,14 +1,18 @@
-<app-title [iconClassName]="'bi-collection'"
+<div>
+  <app-title [iconClassName]="'bi-collection'"
            [title]="'Images'">
-</app-title>
+  </app-title>
 
-<p>An image is a read-only template with instructions for creating a Docker container. <a href="https://docs.docker.com/get-started/overview/#images" target="_blank" rel="noopener noreferrer">Learn more</a></p>
+  <p>An image is a read-only template with instructions for creating a Docker container. <a href="https://docs.docker.com/get-started/overview/#images" target="_blank" rel="noopener noreferrer">Learn more</a></p>
 
-<div class="d-flex justify-content-start bg-light toolbar">
-  <div class="d-flex" role="group" aria-label="Containers group">
-    <button type="button" class="btn btn-light" [disabled]="!isAnyChecked()" (click)="remove()" ><i class="bi-trash2 me-1"></i>Remove</button>
+  <div class="d-flex justify-content-start bg-light toolbar">
+    <div class="d-flex" role="group" aria-label="Containers group">
+      <button type="button" class="btn btn-light" [disabled]="!isAnyChecked()" (click)="remove()" ><i class="bi-trash2 me-1"></i>Remove</button>
+    </div>
   </div>
 </div>
 
 <app-image-list [items]="images | async | imagesSort"
-                (onChecked)="onChecked($event)"></app-image-list>
+                [fluentTopElementName]="'app-images'"
+                (onChecked)="onChecked($event)">
+</app-image-list>

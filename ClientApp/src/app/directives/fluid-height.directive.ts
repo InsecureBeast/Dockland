@@ -1,28 +1,36 @@
-import { AfterViewInit, Directive, ElementRef, HostBinding, Input, OnDestroy, Renderer2,} from "@angular/core";
-import { Subscription, fromEvent } from "rxjs";
-import { debounceTime, throttleTime } from "rxjs/operators";
+import { AfterViewInit, Directive, ElementRef, HostBinding, Input, OnDestroy, Renderer2} from "@angular/core";
+import { Subject, fromEvent } from "rxjs";
+import { debounceTime, takeUntil, throttleTime } from "rxjs/operators";
 
 @Directive({
   selector: "[fluidHeight]",
   standalone: true
 })
 export class FluidHeightDirective implements AfterViewInit, OnDestroy {
+  private _domElement: HTMLElement;
+  private _destroy: Subject<void> = new Subject<void>();
+
   @Input() minHeight: number | undefined;
   @Input("fluidHeight") topOffset: number | undefined;
   @Input("fluidHeightBottomPadding") bottomPadding: number = 0;
   @Input("fluidHeightEnabled") enabled: boolean | undefined; 
+  @Input("fluidHeightTopOffsetElementName") topElementName: string | undefined;
+  
   @HostBinding('style.overflow-y') overflowY = 'auto';
   @HostBinding('style.overflow-x') overflowX = 'hidden';
 
-  private _domElement: HTMLElement;
-  private _resizeSub: Subscription;
-
-  constructor(private renderer: Renderer2, private elementRef: ElementRef) {
-    this._domElement = this.elementRef.nativeElement as HTMLElement;
+  constructor(
+    private readonly _renderer: Renderer2, 
+    private readonly _elementRef: ElementRef) {
+    
+    this._domElement = this._elementRef.nativeElement as HTMLElement;
 
     // register on window resize event
-    this._resizeSub = fromEvent(window, "resize")
-      .pipe(throttleTime(500), debounceTime(500))
+    fromEvent(window, "resize")
+      .pipe(
+        takeUntil(this._destroy),
+        throttleTime(500), 
+        debounceTime(500))
       .subscribe(() => this.setHeight());
   }
 
@@ -31,7 +39,8 @@ export class FluidHeightDirective implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this._resizeSub.unsubscribe();
+    this._destroy.next();
+    this._destroy.complete();
   }
 
   private setHeight() {
@@ -48,17 +57,34 @@ export class FluidHeightDirective implements AfterViewInit, OnDestroy {
     }
 
     height -= this.bottomPadding;
-    this.renderer.setStyle(this._domElement, "height", `${height}px`);
+    this._renderer.setStyle(this._domElement, "height", `${height}px`);
   }
 
   private calcTopOffset(): number {
     try {
       const rect = this._domElement.getBoundingClientRect();
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-      return rect.top + scrollTop;
+      let top = rect.top;
+      if (this.topElementName) {
+        const parentElement = this.findParentByTag(this.topElementName, this._domElement);
+        if (parentElement) {
+          const parentRect = parentElement.getBoundingClientRect();
+          top -= parentRect.top;
+        }
+      }
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      return top + scrollTop;
     } catch (e) {
       return 0;
     }
+  }
+
+  private findParentByTag(tag: string, element: HTMLElement | null): HTMLElement | null {
+    if (!element)
+      return null;
+
+    if (element.tagName.toLowerCase() === tag.toLowerCase())
+      return element;
+    
+    return this.findParentByTag(tag, element.parentElement);
   }
 }

@@ -11,7 +11,8 @@ import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-images',
-  templateUrl: './images.component.html'
+  templateUrl: './images.component.html',
+  styleUrls: [ './images.component.scss']
 })
 export class ImagesComponent implements OnInit, OnDestroy {
 

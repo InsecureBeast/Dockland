@@ -11,7 +11,9 @@ import { remove } from 'src/app/utils/array-utils';
 export class ImageListComponent extends BaseListComponent<ImageModel> {
 
   @Input() fluentHeightEnabled: boolean = true;
+  @Input() fluentTopElementName: string | undefined;
   @Output() onChecked = new EventEmitter<ImageModel[]>();
+  offset: number|undefined;
 
   override isDisabled(model: ImageModel): boolean {
     return model.name.includes("/dockland");
