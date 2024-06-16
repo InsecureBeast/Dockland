@@ -15,21 +15,13 @@ import { RouterModule } from '@angular/router';
 export class SidebarItemComponent implements AfterViewInit {
   @Input() icon: string | undefined;
   @Input() name: string | undefined;
-  @Input() routerLink: string | undefined;
+  @Input() link: string | any[] | null | undefined;
+  @Input() captionClass: string | undefined;
 
   @ViewChild("itemName", {static: false}) itemName!: ElementRef<HTMLSpanElement>;
 
-  @Input() captionClass: string | undefined;
+  isCollapsed = false;
 
   ngAfterViewInit(): void {
-    const nameElement = this.itemName.nativeElement;
-    const rect = nameElement.getBoundingClientRect();
-    // if (rect.width <= 84)
-    //   nameElement.style.display = "none !important";
-    // else
-    //   nameElement.style.display = "block";
-      //this.captionClass = "d-none";
-    //else 
-    //this.captionClass = "d-block";
   }
 }

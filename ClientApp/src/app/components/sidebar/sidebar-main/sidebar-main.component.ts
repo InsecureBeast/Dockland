@@ -29,8 +29,4 @@ export class SidebarMainComponent {
     this._router.navigate(["/"]);
     return false;
   }
-
-  private select(): void {
-    this.selected.emit("www")
-  }
 }

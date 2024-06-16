@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { first, map } from 'rxjs';
-import { EnvironmentService } from 'src/app/services/environment.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject, first, map, takeUntil } from 'rxjs';
 import { RemoteService } from 'src/app/services/remote.service';
 import { ElementType } from 'src/app/core/element.type';
 import { NavigationService } from 'src/app/services/navigation.service';
+import { ActivatedRoute } from '@angular/router';
 
 class DashboardItem {
   private readonly _type: ElementType;
@@ -28,8 +28,9 @@ class DashboardItem {
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
-  
+export class DashboardComponent implements OnInit, OnDestroy {
+  private _ngDestroy = new Subject<void>();
+
   stacks: DashboardItem = new DashboardItem(ElementType.Stack);
   containers: DashboardItem = new DashboardItem(ElementType.Container);
   images: DashboardItem = new DashboardItem(ElementType.Image);
@@ -39,39 +40,53 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private readonly _remoteService: RemoteService, 
-    private readonly _envService: EnvironmentService,
+    private readonly _route: ActivatedRoute,
     private readonly _navigationService: NavigationService) {
   }
 
+  ngOnDestroy(): void {
+    this._ngDestroy.next();
+    this._ngDestroy.complete();
+  }
+
   ngOnInit(): void {
-    this.environment = this._envService.currentEnv?.name;
-    if (!this.environment)
-      return;
+    this._route.paramMap
+      .pipe(takeUntil(this._ngDestroy))
+      .subscribe(params => {
+        this.stacks = new DashboardItem(ElementType.Stack);
+        this.containers = new DashboardItem(ElementType.Container);
+        this.images = new DashboardItem(ElementType.Image);
+        this.volumes = new DashboardItem(ElementType.Volume);
+        this.networks = new DashboardItem(ElementType.Network); 
+        const env = params?.get('env');
+        if (!env)
+          return;
+        
+        this.environment = env;
+        this._remoteService.getStacks(this.environment)
+          .pipe(first(), map(s => this.toDashboardItem(s, ElementType.Stack)))
+          .subscribe(item => this.stacks = item);
+        
+        this._remoteService.containers.getContainers(this.environment)
+          .pipe(first(), map(s => this.toDashboardItem(s, ElementType.Container)))
+          .subscribe(item => this.containers = item);
 
-    this._remoteService.getStacks(this.environment)
-      .pipe(first(), map(s => this.toDashboardItem(s, ElementType.Stack)))
-      .subscribe(item => this.stacks = item);
-    
-    this._remoteService.containers.getContainers(this.environment)
-      .pipe(first(), map(s => this.toDashboardItem(s, ElementType.Container)))
-      .subscribe(item => this.containers = item);
+        this._remoteService.images.getImages(this.environment)
+          .pipe(first(), map(s => this.toDashboardItem(s, ElementType.Image)))
+          .subscribe(item => this.images = item);
 
-    this._remoteService.images.getImages(this.environment)
-      .pipe(first(), map(s => this.toDashboardItem(s, ElementType.Image)))
-      .subscribe(item => this.images = item);
-
-    this._remoteService.getVolumes(this.environment)
-      .pipe(first(), map(s => this.toDashboardItem(s, ElementType.Volume)))
-      .subscribe(item => this.volumes = item);
-    
-    this._remoteService.getNetworks(this.environment)
-      .pipe(first(), map(s => this.toDashboardItem(s, ElementType.Network)))
-      .subscribe(item => this.networks = item);
-
+        this._remoteService.getVolumes(this.environment)
+          .pipe(first(), map(s => this.toDashboardItem(s, ElementType.Volume)))
+          .subscribe(item => this.volumes = item);
+        
+        this._remoteService.getNetworks(this.environment)
+          .pipe(first(), map(s => this.toDashboardItem(s, ElementType.Network)))
+          .subscribe(item => this.networks = item);
+    });
   }
 
   open(item: DashboardItem): void {
-    this._navigationService.navigate(item.type);
+    this._navigationService.navigate(this.environment, item.type);
   }
 
   private toDashboardItem(stacks: any[], type: ElementType): DashboardItem {

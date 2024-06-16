@@ -10,7 +10,7 @@ export const stacksRoutes: Routes = [
     }
     return null;
   }, component: StackNewComponent },
-  { path: '', component: StacksComponent },
-  { path: 'stacks/:name', component: StackComponent },
-  { path: 'stacks/new', component: StackNewComponent },
+  { path: ':env/', component: StacksComponent },
+  { path: ':env/stacks/:name', component: StackComponent },
+  { path: ':env/stacks/new', component: StackNewComponent },
 ];

@@ -8,22 +8,22 @@ export class NavigationService {
   constructor(private readonly _router: Router) {
   }
 
-  navigate(elementType: ElementType): void {
+  navigate(env: string | undefined, elementType: ElementType): void {
     switch (elementType) {
       case ElementType.Stack:
-        this._router.navigateByUrl("/stacks");
+        this._router.navigate(['environments', env, 'stacks']);
         break;
       case ElementType.Container:
-        this._router.navigateByUrl("/containers");
+        this._router.navigate(['environments', env, 'containers']);
         break;
       case ElementType.Image:
-        this._router.navigateByUrl("/images");
+        this._router.navigate(['environments', env, 'images']);
         break;
       case ElementType.Network:
-        this._router.navigateByUrl("/networks");
+        this._router.navigate(['environments', env, 'networks']);
         break;
       case ElementType.Volume:
-        this._router.navigateByUrl("/volumes");
+        this._router.navigate(['environments', env, 'volumes']);
         break;
     
       default:

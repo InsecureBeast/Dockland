@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subject, filter, map, mergeMap, of, takeUntil, toArray } from 'rxjs';
+import { Observable, Subject, combineLatest, filter, map, mergeMap, of, takeUntil, toArray } from 'rxjs';
 import { EnvironmentService } from 'src/app/services/environment.service';
 import { RemoteService } from 'src/app/services/remote.service';
 import { getHostFromUrl } from 'src/app/utils/url.utils';
@@ -28,14 +28,14 @@ export class ContainersComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this._route.queryParams.pipe(takeUntil(this._ngDestroy))
-    .subscribe(params => {
-      
-      const envName = params.env ? params.env : this._envService.currentEnv?.name;
+    const params = this._route.paramMap.pipe(takeUntil(this._ngDestroy));
+    const queryParams = this._route.queryParams.pipe(takeUntil(this._ngDestroy));
+    combineLatest({params, queryParams}).subscribe((obs) => {
+      const envName = obs.params.get('env');
       if (!envName)
         return;
 
-      this._navbarService.changeVisibility(!params.hide);
+      this._navbarService.changeVisibility(!obs.queryParams.hide);
       
       this._remoteService.findEnvironment(envName).subscribe(env => { 
         this._envService.openEnvironment(env);
@@ -44,8 +44,8 @@ export class ContainersComponent implements OnInit, OnDestroy {
         this.containers = this._remoteService.containers.getContainers(envName)
         .pipe(
           mergeMap(c => c),
-          filter(c => this.filterContainer(c, params.name)), 
-          map(c => new ContainerModel(c, !!params.name)),
+          filter(c => this.filterContainer(c, obs.queryParams.name)), 
+          map(c => new ContainerModel(c, !!obs.queryParams.name)),
           toArray()
         );
       });

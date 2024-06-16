@@ -4,7 +4,7 @@ import { ContainerComponent } from "./container/container.component";
 import { TerminalComponent } from "./terminal/terminal.component";
 
 export const containersRoutes: Routes = [
-  { path: 'containers', component: ContainersComponent },
-  { path: 'containers/:name', component: ContainerComponent },
-  { path: 'containers/:name/terminal', component: TerminalComponent },
+  { path: ':env/containers', component: ContainersComponent },
+  { path: ':env/containers/:name', component: ContainerComponent },
+  { path: ':env/containers/:name/terminal', component: TerminalComponent },
 ];

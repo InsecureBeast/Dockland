@@ -1,4 +1,4 @@
-export function getBoolean(value: any): boolean{
+export function getBoolean(value: unknown): boolean{
   switch(value){
        case true:
        case "true":

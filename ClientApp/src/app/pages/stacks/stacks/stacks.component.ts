@@ -1,39 +1,47 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 import { RemoteService } from 'src/app/services/remote.service';
 import { Stack } from '../stack';
 import { getStackName } from '../stacks.utils';
-import { EnvironmentService } from 'src/app/services/environment.service';
 
 @Component({
   selector: 'app-stacks',
   templateUrl: './stacks.component.html',
   styleUrls: ['./stacks.component.scss']
 })
-export class StacksComponent implements OnInit {
-
+export class StacksComponent implements OnInit, OnDestroy {
+  private _ngDestroy = new Subject<void>();
   private _env: string = "";
 
-  stacks!: Stack[];
+  stacks: Stack[] | undefined;
   checked: Stack[] = [];
 
   constructor(
     private readonly _remoteService: RemoteService, 
-    private readonly _route: ActivatedRoute,
-    private readonly _envService: EnvironmentService) {
+    private readonly _route: ActivatedRoute) {
     
   }
 
+  ngOnDestroy(): void {
+    this._ngDestroy.next();
+    this._ngDestroy.complete();
+  }
+
   ngOnInit() {
-    this._route.queryParams
+    this._route.paramMap
+      .pipe(takeUntil(this._ngDestroy))
       .subscribe(params => {
-        this._env = params.env ? params.env : this._envService.currentEnv?.name;
-        this._remoteService.getStacks(this._env).subscribe({ 
-          next: (result) => { this.stacks = result.map(i => i) }, 
-          error: (e) => console.error(e)
+        const env = params?.get('env');
+        if (!env)
+          return;
+
+        this._env = env;
+        this.stacks = undefined;
+        this._remoteService.getStacks(env).subscribe({ 
+          next: (result) => { this.stacks = result.map(i => i) }
         });
-      }
-    );
+      });
   }
 
   getStack(map: Map<string, string>): string {

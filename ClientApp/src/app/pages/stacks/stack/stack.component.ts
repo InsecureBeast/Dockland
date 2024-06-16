@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, map, of, tap } from 'rxjs';
+import { Observable, Subject, combineLatest, map, of, takeUntil, tap } from 'rxjs';
 import { IContainer } from 'src/app/core/container';
 import { Image } from 'src/app/core/image';
 import { INetwork } from 'src/app/core/network';
@@ -19,12 +19,13 @@ import { ImageModel } from '../../images/components/image.model';
   templateUrl: './stack.component.html',
   styleUrls: ['./stack.component.scss']
 })
-export class StackComponent implements OnInit {
+export class StackComponent implements OnInit, OnDestroy {
   private _env: string = "";
   private _containersCount = 0;
+  private _ngDestroy = new Subject<void>();
   
   url: string | undefined;
-  stack: string = '';
+  stack: string = "";
   containers: Observable<ContainerModel[]> = of([]);
   volumes: Observable<IVolume[]> = of([]);
   networks: Observable<INetwork[]> = of([]);
@@ -38,26 +39,38 @@ export class StackComponent implements OnInit {
     
   }
 
+  ngOnDestroy(): void {
+    this._ngDestroy.next();
+    this._ngDestroy.complete();
+  }
+
   ngOnInit() {
-    this._route.params
-      .subscribe(params => {
-        this.stack = params.name as string;
-        this._route.queryParams.subscribe(params => {
-          this.initEnvironment(params.env).subscribe(env => {
-            this._env = env.name;
-            this.url = getHostFromUrl(env.url);
-            this.updateInfo();
-            this._toolbarService.changeVisibility(!getBoolean(params.hide));
-          });
+    const params = this._route.paramMap.pipe(takeUntil(this._ngDestroy));
+    const queryParams = this._route.queryParams.pipe(takeUntil(this._ngDestroy));
+    combineLatest({params, queryParams}).subscribe((obs) => {
+      const stack = obs.params.get("name");
+      if (!stack)
+        return;
+      this.stack = stack;
+      const env = obs.params.get("env");
+      if (!env)
+        return;
+
+      const hide = obs.queryParams.hide;
+      this.initEnvironment(env)
+        .pipe(takeUntil(this._ngDestroy))
+        .subscribe(env => {
+          this._env = env.name;
+          this.url = getHostFromUrl(env.url);
+          this.updateInfo();
+          this._toolbarService.changeVisibility(!getBoolean(hide));
         });
-      }
-    );
+    });
   }
 
   remove(): void {
     this._remoteService.deleteStack(this._env, this.stack).subscribe({
-      next: (result) => this.updateInfo(), 
-      error: (e) => console.error(e)
+      next: (result) => this.updateInfo()
     }) 
   }
 

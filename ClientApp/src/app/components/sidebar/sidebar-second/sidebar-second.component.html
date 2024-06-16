@@ -1,17 +1,19 @@
 <div class="d-flex flex-column pt-3 vh-100 bg-light border-end">
   <div class="d-flex align-items-center link-dark ms-3 brand">
-    <!-- <span class="fs-4 ms-2">{{section}}</span> -->
+    <span class="fs-4 ms-2">&nbsp;</span>
   </div>
-  <ng-container *ngTemplateOutlet="environmentTemplate;"></ng-container>
+  <div class="overflow-y-auto">
+    <accordion [isAnimated]="true">
+      <accordion-group [heading]="environment.name" *ngFor="let environment of environments | async">
+        <ul class="nav nav-pills flex-column mb-auto">
+          <app-sidebar-item [name]="'Dashboard'" [icon]="'bi-hdd'" [link]="['./', environment.name]"></app-sidebar-item>
+          <app-sidebar-item [name]="'Containers'" [icon]="'bi-box'" [link]="['./', environment.name,'containers']"></app-sidebar-item>
+          <app-sidebar-item [name]="'Images'" [icon]="'bi-collection'" [link]="['./', environment.name, 'images']"></app-sidebar-item>
+          <app-sidebar-item [name]="'Stacks'" [icon]="'bi-layers'" [link]="['./', environment.name, 'stacks']"></app-sidebar-item>
+          <app-sidebar-item [name]="'Volumes'" [icon]="'bi-database'" [link]="['./', environment.name, 'volumes']"></app-sidebar-item>
+          <app-sidebar-item [name]="'Networks'" [icon]="'bi-hdd-network'" [link]="['./', environment.name, 'networks']"></app-sidebar-item>
+        </ul>
+      </accordion-group>
+    </accordion>
+  </div>
 </div>
-
-<ng-template #environmentTemplate>
-  <ul class="nav nav-pills flex-column mb-auto">
-    <app-sidebar-item [name]="'Environments'" [icon]="'bi-hdd'" [routerLink]="'./'"></app-sidebar-item>
-    <app-sidebar-item [name]="'Containers'" [icon]="'bi-box'" [routerLink]="'./containers'"></app-sidebar-item>
-    <app-sidebar-item [name]="'Images'" [icon]="'bi-collection'" [routerLink]="'./images'"></app-sidebar-item>
-    <app-sidebar-item [name]="'Stacks'" [icon]="'bi-layers'" [routerLink]="'./stacks'"></app-sidebar-item>
-    <app-sidebar-item [name]="'Volumes'" [icon]="'bi-database'" [routerLink]="'./volumes'"></app-sidebar-item>
-    <app-sidebar-item [name]="'Networks'" [icon]="'bi-hdd-network'" [routerLink]="'./networks'"></app-sidebar-item>
-  </ul>
-</ng-template>

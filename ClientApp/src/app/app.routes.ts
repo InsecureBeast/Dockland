@@ -14,19 +14,15 @@ export const appRouts: Routes = [
   { path: '*', redirectTo: 'environments' }, 
   { path: 'environments', component: HomeComponent, 
     children: [
-      { path: '', component: EnvironmentsComponent}
-    ] 
-  }, 
-  { path: 'environments/:env', component: HomeComponent , 
-    children: [
-      { path: '', component: DashboardComponent},
-      { path: 'containers', component: ContainersComponent },
+      { path: '', component: EnvironmentsComponent},
+      { path: ':env', component: DashboardComponent, },
+      { path: ':env/containers', component: ContainersComponent },
       ...containersRoutes,
-      { path: 'images', component: ImagesComponent },
-      { path: 'networks', component: NetworksComponent },
-      { path: 'stacks', component: StacksComponent },
+      { path: ':env/images', component: ImagesComponent },
+      { path: ':env/networks', component: NetworksComponent },
+      { path: ':env/stacks', component: StacksComponent },
       ...stacksRoutes,
-      { path: 'volumes', component: VolumesComponent }
+      { path: ':env/volumes', component: VolumesComponent }
     ]
   },
   { path: 'test', redirectTo: 'environments/pilot-saturn/stacks/pilot-saturn-environment?hide=true&env=pilot-saturn' },
