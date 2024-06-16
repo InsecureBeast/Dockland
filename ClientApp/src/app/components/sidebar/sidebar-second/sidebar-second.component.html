@@ -3,17 +3,20 @@
     <span class="fs-4 ms-2">&nbsp;</span>
   </div>
   <div class="overflow-y-auto">
-    <accordion [isAnimated]="true">
-      <accordion-group [heading]="environment.name" *ngFor="let environment of environments | async">
+    <app-accordion [isAnimated]="true" 
+               [closeOthers]="true">
+      <app-accordion-group *ngFor="let environment of environments | async"
+                           [heading]="environment.name"
+                           [icon]="'bi-hdd'">
         <ul class="nav nav-pills flex-column mb-auto">
-          <app-sidebar-item [name]="'Dashboard'" [icon]="'bi-hdd'" [link]="['./', environment.name]"></app-sidebar-item>
+          <app-sidebar-item [name]="'Dashboard'" [icon]="'bi-kanban'" [link]="['./', environment.name]"></app-sidebar-item>
           <app-sidebar-item [name]="'Containers'" [icon]="'bi-box'" [link]="['./', environment.name,'containers']"></app-sidebar-item>
           <app-sidebar-item [name]="'Images'" [icon]="'bi-collection'" [link]="['./', environment.name, 'images']"></app-sidebar-item>
           <app-sidebar-item [name]="'Stacks'" [icon]="'bi-layers'" [link]="['./', environment.name, 'stacks']"></app-sidebar-item>
           <app-sidebar-item [name]="'Volumes'" [icon]="'bi-database'" [link]="['./', environment.name, 'volumes']"></app-sidebar-item>
           <app-sidebar-item [name]="'Networks'" [icon]="'bi-hdd-network'" [link]="['./', environment.name, 'networks']"></app-sidebar-item>
         </ul>
-      </accordion-group>
-    </accordion>
+      </app-accordion-group>
+    </app-accordion>
   </div>
 </div>

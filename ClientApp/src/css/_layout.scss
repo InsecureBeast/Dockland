@@ -3,3 +3,12 @@
   height: 100vh;
 }
 
+@media (min-width: 1200px) {
+  .col-xl-2 {
+    width: 12.666667% !important;
+  }
+
+  .col-xl-10 {
+    width: 87.333333% !important;
+  }
+}

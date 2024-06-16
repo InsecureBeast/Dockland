@@ -5,7 +5,7 @@
      class="nav-link text-dark w-100">
     <div class="d-flex nav-caption">
       <i class="{{icon}}"></i>
-      <span #itemName class="ms-2 d-none d-md-block" [ngClass]="captionClass ? captionClass : ''">{{name}}</span>
+      <span #itemName class="ms-2 d-none d-md-block text-nowrap text-truncate" [ngClass]="captionClass ? captionClass : ''">{{name}}</span>
     </div> 
   </a>
 </li>

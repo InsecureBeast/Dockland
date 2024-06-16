@@ -1,0 +1,24 @@
+<div class="panel" [ngClass]="panelClass">
+  <div
+    class="panel-heading nav nav-pills w-100" 
+    role="tab"
+    (click)="toggleOpen()"
+    [ngClass]="isDisabled ? 'panel-disabled' : 'panel-enabled'">
+    <div class="panel-title w-100">
+      <div class="nav-item ps-2 pe-2 mt-1 accordion-toggle" role="button" [attr.aria-expanded]="isOpen">
+        <a class="nav-link text-dark w-100 d-flex justify-content-between">
+          <div class="d-flex nav-caption">
+            <i class="{{icon}}"></i>
+            <span class="ms-2 d-none d-md-block text-nowrap text-truncate">{{heading}}</span>
+          </div> 
+          <i [ngClass]="isOpen ? 'bi bi-chevron-down' : 'bi bi-chevron-right'"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="panel-collapse collapse" role="tabpanel" [collapse]="!isOpen" [isAnimated]="isAnimated">
+    <div class="panel-body border-start">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>
