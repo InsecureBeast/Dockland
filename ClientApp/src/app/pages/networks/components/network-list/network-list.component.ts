@@ -10,6 +10,7 @@ export class NetworkListComponent {
   
   @Input() networks!: INetwork[] | null;
   @Input() fluentHeightEnabled: boolean = true;
+  @Input() parentComponentName: string | undefined;
 
   constructor() {
   }

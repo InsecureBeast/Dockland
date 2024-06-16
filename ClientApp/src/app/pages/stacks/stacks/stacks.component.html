@@ -18,7 +18,8 @@
       </tr>
     </thead>
     <tbody [fluidHeight] 
-           [fluidHeightBottomPadding]="1">
+           [fluidHeightBottomPadding]="14"
+           [fluidHeightTopOffsetElementName]="'app-stacks'">
       <ng-container *ngTemplateOutlet="loader"></ng-container>
       <tr *ngFor="let stack of stacks">
         <td class="text-truncate"><a [routerLink]="['./', stack.name]">{{ stack.name }}</a></td>

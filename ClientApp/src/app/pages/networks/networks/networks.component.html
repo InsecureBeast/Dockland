@@ -4,4 +4,6 @@
 
 <p>Networks. <a href="https://docs.docker.com/network/" target="_blank" rel="noopener noreferrer">Learn more</a></p>
 
-<app-network-list [networks]="networks | async"></app-network-list>
+<app-network-list [networks]="networks | async"
+                  [parentComponentName]="'app-networks'">
+</app-network-list>

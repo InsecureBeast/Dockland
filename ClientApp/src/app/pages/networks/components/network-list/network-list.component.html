@@ -10,7 +10,8 @@
     </thead>
     <tbody [fluidHeight] 
            [fluidHeightEnabled]="fluentHeightEnabled"
-           [fluidHeightBottomPadding]="12">
+           [fluidHeightBottomPadding]="14"
+           [fluidHeightTopOffsetElementName]="parentComponentName">
       <ng-container *ngTemplateOutlet="loader"></ng-container>
       <tr *ngFor="let network of networks">
         <td class="text-truncate">{{ network.name }}</td>

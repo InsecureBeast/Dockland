@@ -10,6 +10,7 @@ export class VolumeListComponent {
 
   @Input() volumes!: IVolume[] | null;
   @Input() fluentHeightEnabled: boolean = true;
+  @Input() parentComponentName: string | undefined;
 
   constructor() {
   }
