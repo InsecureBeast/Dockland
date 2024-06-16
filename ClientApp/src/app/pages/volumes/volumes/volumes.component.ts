@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, of, Subject } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { Observable, of, Subject, takeUntil } from 'rxjs';
 import { IVolume } from 'src/app/core/volume';
-import { EnvironmentService } from 'src/app/services/environment.service';
 import { RemoteService } from 'src/app/services/remote.service';
 
 @Component({
@@ -16,12 +16,19 @@ export class VolumesComponent implements OnInit, OnDestroy {
 
   constructor(
     private _remoteService: RemoteService, 
-    private readonly _envService: EnvironmentService) {
+    private readonly _route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
-    if (this._envService.currentEnv)
-      this.volumes = this._remoteService.getVolumes(this._envService.currentEnv.name);
+    this._route.paramMap
+      .pipe(takeUntil(this._destroy))
+      .subscribe(params => {
+        const env = params.get("env");
+        if (!env)
+          return;
+        this.volumes = of([]);
+        this.volumes = this._remoteService.getVolumes(env);
+      });
   }
 
   ngOnDestroy(): void {

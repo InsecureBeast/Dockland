@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, of, Subject } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { Observable, of, Subject, takeUntil } from 'rxjs';
 import { INetwork } from 'src/app/core/network';
-import { EnvironmentService } from 'src/app/services/environment.service';
 import { RemoteService } from 'src/app/services/remote.service';
 
 @Component({
@@ -14,12 +14,21 @@ export class NetworksComponent implements OnInit, OnDestroy {
   
   networks: Observable<INetwork[]> = of([]);
 
-  constructor(private readonly _remoteService: RemoteService, private readonly _envService: EnvironmentService) {
+  constructor(
+    private readonly _remoteService: RemoteService, 
+    private readonly _route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
-    if (this._envService.currentEnv)
-      this.networks = this._remoteService.getNetworks(this._envService.currentEnv.name);
+    this._route.paramMap
+      .pipe(takeUntil(this._destroy))
+      .subscribe(params => {
+        const env = params.get("env");
+        if (!env)
+          return;
+        this.networks = of([]);
+        this.networks = this._remoteService.getNetworks(env);
+      });
   }
 
   ngOnDestroy(): void {

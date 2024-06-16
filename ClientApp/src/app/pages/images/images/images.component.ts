@@ -1,13 +1,13 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { RemoteService } from '../../../services/remote.service';
-import { map, Observable, of, Subject } from 'rxjs';
-import { EnvironmentService } from 'src/app/services/environment.service';
+import { map, Observable, of, Subject, takeUntil } from 'rxjs';
 import { ImageModel } from '../components/image.model';
 import { DialogService } from 'src/app/services/dialog.service';
 import { ImageListComponent } from '../components/image-list.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { parseDeleteImageErrorMessage } from './error.parser';
 import { remove } from '../../../utils/array-utils'; 
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-images',
@@ -17,21 +17,30 @@ export class ImagesComponent implements OnInit, OnDestroy {
 
   private _destroy: Subject<void> = new Subject();
   private _checked: ImageModel[] = [];
+  private _env: string = '';
 
   @ViewChild(ImageListComponent) private _imageListComponent: ImageListComponent | undefined;
   
   images: Observable<ImageModel[]> = of([]);
 
   constructor(
-    private _remoteService: RemoteService, 
-    private readonly _envService: EnvironmentService,
+    private readonly _remoteService: RemoteService, 
+    private readonly _route: ActivatedRoute,
     private readonly _dialogService: DialogService) {
   }
 
   ngOnInit(): void {
-    if (this._envService.currentEnv)
-      this.images = this._remoteService.images.getImages(this._envService.currentEnv?.name)
-        .pipe(map(i => i.map(x => new ImageModel(x))));
+    this._route.paramMap
+      .pipe(takeUntil(this._destroy))
+      .subscribe(params => {
+        const env = params.get("env");
+        if (!env)
+          return;
+        this._env = env;
+        this.images = of([]);
+        this.images = this._remoteService.images.getImages(env)
+          .pipe(map(i => i.map(x => new ImageModel(x))));
+      });
   }
 
   ngOnDestroy(): void {
@@ -53,9 +62,9 @@ export class ImagesComponent implements OnInit, OnDestroy {
       
       this._imageListComponent?.setProcessType("danger");
       this._checked.forEach(model => {
-        if (this._envService.currentEnv) {
+        if (this._env) {
           model.inProgress = true;
-          this._remoteService.images.delete(this._envService.currentEnv?.name, model.image)
+          this._remoteService.images.delete(this._env, model.image)
             .subscribe({
               next : result => {
                 if (result && this._imageListComponent) {
