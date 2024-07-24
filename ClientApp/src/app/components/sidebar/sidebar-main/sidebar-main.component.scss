@@ -3,10 +3,6 @@
 @import "bootstrap/scss/mixins";
 
 :host {
-  .brand-color {
-    color: var(--bs-blue);
-  }
-
   .brand {
     margin-left: 1.5rem;
   }
