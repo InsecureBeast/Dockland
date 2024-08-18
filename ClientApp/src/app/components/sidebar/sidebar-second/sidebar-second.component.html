@@ -8,7 +8,8 @@
       <app-accordion-group *ngFor="let environment of environments | async"
                            [heading]="environment.name"
                            [icon]="'bi-hdd'"
-                           [isOpen]="environment.isOpen">
+                           [isOpen]="environment.isOpen"
+                           [id]="environment.id">
         <ul class="nav nav-pills flex-column mb-auto">
           <app-sidebar-item [name]="'Dashboard'" [icon]="'bi-kanban'" [link]="['./', environment.name, 'dashboard']"></app-sidebar-item>
           <app-sidebar-item [name]="'Containers'" [icon]="'bi-box'" [link]="['./', environment.name,'containers']"></app-sidebar-item>
