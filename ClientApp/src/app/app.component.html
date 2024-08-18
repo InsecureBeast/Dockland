@@ -1,20 +1,17 @@
-<body class="overflow-hidden">
-  <ng-container *ngIf="!(isVisible | async)">
-    <div class="col-12 p-0">
+<ng-container *ngIf="!(isVisible | async)">
+  <div class="col-12 p-0">
+    <router-outlet></router-outlet>
+  </div>
+</ng-container>
+
+<div class="row m-0 p-0" *ngIf="isVisible | async">
+  <div class="col-1 col-xl-2 p-0 d-none d-sm-block" >
+    <app-sidebar-main></app-sidebar-main>
+  </div>
+
+  <ng-container *ngIf="isVisible | async">
+    <div class="col-12 col-sm-11 col-xl-10 p-0">
       <router-outlet></router-outlet>
     </div>
   </ng-container>
-
-  <div class="row m-0 p-0" *ngIf="isVisible | async">
-    <div class="col-1 col-xl-2 p-0 d-none d-sm-block" >
-      <app-sidebar-main></app-sidebar-main>
-    </div>
-
-    <ng-container *ngIf="isVisible | async">
-      <div class="col-12 col-sm-11 col-xl-10 p-0">
-        <router-outlet></router-outlet>
-      </div>
-    </ng-container>
-
-  </div>
-</body>
+</div>
