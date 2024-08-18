@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import "node_modules/bootstrap-icons/font/bootstrap-icons.scss";
 @import "./css/tables";
+@import "./css/checkbox";
 @import "./css/colors";
 @import "./css/layout";
 @import "./css/scrollbar";
@@ -11,6 +12,7 @@
 @import "./css/nav";
 @import "./css/common";
 @import "./css/components";
+@import "./css/utils";
 
 // required to get color variables
 @import "../node_modules/bootstrap/scss/functions"; 
@@ -22,6 +24,7 @@ $border-radius:               .25rem !default;
 $card-border-radius:          1.0rem !default;
 $font-size-root:              14px;
 $btn-disabled-opacity:        0.35;
+$border-color:                $gray-400 !default;
 
 // change
 @import "../node_modules/bootstrap/scss/bootstrap.scss";

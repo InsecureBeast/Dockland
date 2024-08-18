@@ -1,7 +1,7 @@
   <table class='table table-hover mb-0 h-100'>
     <thead class="">
       <tr>
-        <th class="cw-check">
+        <th class="w-30px">
           <input type="checkbox" 
                  class="form-check-input"
                  (change)="checkAll($event)"
@@ -22,7 +22,7 @@
            [fluidHeightTopOffsetElementName]="parentComponentName">
       <ng-container *ngTemplateOutlet="loader"></ng-container>
       <tr *ngFor="let imageModel of items">
-        <td class="cw-check">
+        <td class="w-30px">
           <input type="checkbox" 
                  class="form-check-input"
                  (change)="check(imageModel, $event)" 

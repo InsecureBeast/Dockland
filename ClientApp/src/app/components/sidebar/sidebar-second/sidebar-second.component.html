@@ -4,12 +4,13 @@
   </div>
   <div class="overflow-y-auto">
     <app-accordion [isAnimated]="true" 
-               [closeOthers]="true">
+                   [closeOthers]="true">
       <app-accordion-group *ngFor="let environment of environments | async"
                            [heading]="environment.name"
-                           [icon]="'bi-hdd'">
+                           [icon]="'bi-hdd'"
+                           [isOpen]="environment.isOpen">
         <ul class="nav nav-pills flex-column mb-auto">
-          <app-sidebar-item [name]="'Dashboard'" [icon]="'bi-kanban'" [link]="['./', environment.name]"></app-sidebar-item>
+          <app-sidebar-item [name]="'Dashboard'" [icon]="'bi-kanban'" [link]="['./', environment.name, 'dashboard']"></app-sidebar-item>
           <app-sidebar-item [name]="'Containers'" [icon]="'bi-box'" [link]="['./', environment.name,'containers']"></app-sidebar-item>
           <app-sidebar-item [name]="'Images'" [icon]="'bi-collection'" [link]="['./', environment.name, 'images']"></app-sidebar-item>
           <app-sidebar-item [name]="'Stacks'" [icon]="'bi-layers'" [link]="['./', environment.name, 'stacks']"></app-sidebar-item>

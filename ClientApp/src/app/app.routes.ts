@@ -15,7 +15,7 @@ export const appRouts: Routes = [
   { path: 'environments', component: HomeComponent, 
     children: [
       { path: '', component: EnvironmentsComponent},
-      { path: ':env', component: DashboardComponent, },
+      { path: ':env/dashboard', component: DashboardComponent, },
       { path: ':env/containers', component: ContainersComponent },
       ...containersRoutes,
       { path: ':env/images', component: ImagesComponent },

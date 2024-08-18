@@ -11,7 +11,7 @@
   <table class='table table-hover mb-0 align-middle'>
     <thead class="">
       <tr>
-        <th class="cw-check" *ngIf="isInteractive">
+        <th class="w-30px" *ngIf="isInteractive">
           <input type="checkbox" 
                  class="form-check-input"
                  (change)="checkAll($event)"
@@ -19,10 +19,10 @@
                  [indeterminate]="indeterminate">
         </th>
         <th>NAME</th>
-        <th class="cw-xs">STATE</th>
-        <th>PORTS</th>
-        <th>IMAGE</th>
-        <th class="d-none d-lg-block">CREATED</th>
+        <th class="w-10">STATE</th>
+        <th class="w-10">PORTS</th>
+        <th class="w-20">IMAGE</th>
+        <th class="w-20">CREATED</th>
       </tr>
     </thead>
     <tbody [fluidHeightEnabled]="fluentHeightEnabled"
@@ -32,7 +32,7 @@
            
       <ng-container *ngTemplateOutlet="loader"></ng-container>
       <tr *ngFor="let model of containers">
-        <td class="cw-check" *ngIf="isInteractive">
+        <td class="w-30px" *ngIf="isInteractive">
           <input type="checkbox" 
                  class="form-check-input"
                  (change)="check(model, $event)" 
@@ -44,16 +44,16 @@
           <ng-container *ngTemplateOutlet="nameTemplate;context: { model:model }"></ng-container>
           <progressbar *ngIf="model.inProgress" class="progress-striped active progress-child" [value]="100" [max]="100" [type]="processType"></progressbar>
         </td>
-        <td class="cw-xs">
+        <td class="w-10">
           <ng-container *ngTemplateOutlet="stateTemplate;context:{cState:model.container.state}"></ng-container>
         </td>
-        <td class="text-truncate">
+        <td class="text-truncate w-10">
           <ng-container *ngFor="let port of getAcceptablePorts(model.container.ports)">
             <a class="me-2" [href]="getUrl(port)" target="_blank">{{getPublishedPort(port)}}</a>
           </ng-container>
         </td>
-        <td class="text-truncate">{{ model.container.image }} </td>
-        <td class="text-truncate">{{ model.container.created | date:'medium' }} </td>
+        <td class="text-truncate w-20">{{ model.container.image }} </td>
+        <td class="text-truncate w-20">{{ model.container.created | date:'medium' }} </td>
       </tr>
     </tbody>
   </table>

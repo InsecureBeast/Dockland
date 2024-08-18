@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -12,16 +12,12 @@ import { RouterModule } from '@angular/router';
     RouterModule,
   ]
 })
-export class SidebarItemComponent implements AfterViewInit {
+export class SidebarItemComponent  {
   @Input() icon: string | undefined;
   @Input() name: string | undefined;
-  @Input() link: string | any[] | null | undefined;
+  @Input() link: string | unknown[] | null | undefined;
   @Input() captionClass: string | undefined;
+  @Input() exact: boolean = false;
 
   @ViewChild("itemName", {static: false}) itemName!: ElementRef<HTMLSpanElement>;
-
-  isCollapsed = false;
-
-  ngAfterViewInit(): void {
-  }
 }
