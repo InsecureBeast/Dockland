@@ -4,10 +4,9 @@ import { RemoteService } from '@services/remote.service';
 import { getHostFromUrl } from '@utils/url.utils';
 import { ContainerModel } from '../components/container.model';
 import { ActivatedRoute } from '@angular/router';
-import { IContainer } from 'src/app/pages/containers/container';
+import { IContainer } from '@pages/containers/container';
+import { RemoteContainers } from '@pages/containers/remote-containers.service';
 import { NavbarService } from '@services/navbar.service';
-import { EnvironmentService } from '../../environments/environment.service';
-import { RemoteContainers } from 'src/app/pages/containers/remote-containers.service';
 
 @Component({
   selector: 'app-containers',
@@ -25,32 +24,32 @@ export class ContainersComponent implements OnInit, OnDestroy {
     private readonly _remoteService: RemoteService,
     private readonly _remoteContainers: RemoteContainers,
     private readonly _route: ActivatedRoute,
-    private readonly _envService: EnvironmentService,
     private readonly _navbarService: NavbarService) {
   }
 
   ngOnInit(): void {
     const params = this._route.paramMap.pipe(takeUntil(this._ngDestroy));
     const queryParams = this._route.queryParams.pipe(takeUntil(this._ngDestroy));
+
     combineLatest({params, queryParams}).subscribe((obs) => {
       const envName = obs.params.get('env');
       if (!envName)
         return;
 
+      // TODO move to another service which controls this parameter
       this._navbarService.changeVisibility(!obs.queryParams.hide);
-      
-      this._remoteService.findEnvironment(envName).subscribe(env => { 
-        this._envService.openEnvironment(env);
-        this.url = getHostFromUrl(env.url);
 
-        this.containers = this._remoteContainers.getContainers(envName)
+      this._remoteService.findEnvironment(envName).subscribe(env => { 
+        this.url = getHostFromUrl(env.url);
+      });
+
+      this.containers = this._remoteContainers.getContainers(envName)
         .pipe(
           mergeMap(c => c),
           filter(c => this.filterContainer(c, obs.queryParams.name)), 
           map(c => new ContainerModel(c, !!obs.queryParams.name)),
           toArray()
         );
-      });
     });
   }
 

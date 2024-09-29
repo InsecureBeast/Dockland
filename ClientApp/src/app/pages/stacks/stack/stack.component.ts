@@ -6,11 +6,9 @@ import { getBoolean } from '@core/utils';
 import { IVolume } from '@core/volume';
 import { RemoteService } from '@services/remote.service';
 import { NavbarService } from '@services/navbar.service';
-import { IEnvironment } from '../../environments/environment';
 import { getHostFromUrl } from '@utils/url.utils';
 import { ContainerModel } from '../../containers/components/container.model';
 import { ImageModel } from '../../images/components/image.model';
-import { EnvironmentService } from '../../environments/environment.service';
 import { RemoteContainers } from '../../containers/remote-containers.service';
 import { RemoteImages } from '../../images/remote-images.service';
 
@@ -36,8 +34,7 @@ export class StackComponent implements OnInit, OnDestroy {
     private readonly _remoteContainers: RemoteContainers,
     private readonly _remoteImages: RemoteImages,
     private readonly _route: ActivatedRoute, 
-    private readonly _toolbarService: NavbarService,
-    private readonly _envService: EnvironmentService) {
+    private readonly _toolbarService: NavbarService) {
     
   }
 
@@ -59,13 +56,13 @@ export class StackComponent implements OnInit, OnDestroy {
         return;
 
       const hide = obs.queryParams.hide;
-      this.initEnvironment(env)
-        .pipe(takeUntil(this._ngDestroy))
+      this._toolbarService.changeVisibility(!getBoolean(hide));
+
+      this._remoteService.findEnvironment(env)
         .subscribe(env => {
           this._env = env.name;
           this.url = getHostFromUrl(env.url);
           this.updateInfo();
-          this._toolbarService.changeVisibility(!getBoolean(hide));
         });
     });
   }
@@ -78,14 +75,6 @@ export class StackComponent implements OnInit, OnDestroy {
 
   isDisabled(): boolean {
     return this._containersCount == 0;
-  }
-
-  private initEnvironment(name: string): Observable<IEnvironment> {
-    if (!this._envService.currentEnv || name) {
-      return this._remoteService.findEnvironment(name).pipe(tap(env => {this._envService.openEnvironment(env);}));
-    }
-
-    return of(this._envService.currentEnv);
   }
 
   private updateInfo() : void {

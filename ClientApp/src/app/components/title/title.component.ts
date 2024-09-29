@@ -1,14 +1,13 @@
-import { AfterViewInit, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
-import { EnvironmentService } from 'src/app/pages/environments/environment.service';
 
 @Component({
   selector: 'app-title',
   templateUrl: './title.component.html',
   styleUrls: ['./title.component.scss']
 })
-export class TitleComponent implements OnDestroy, AfterViewInit {
+export class TitleComponent implements OnDestroy {
 
   private _destroy: Subject<void> = new Subject();
 
@@ -16,14 +15,8 @@ export class TitleComponent implements OnDestroy, AfterViewInit {
   @Input() title: string | undefined;
   @Input() subtitle: string | undefined;
 
-  constructor(
-    private readonly _envService: EnvironmentService,
-    private readonly _route: ActivatedRoute) {
-    
-  }
-  ngAfterViewInit(): void {
-    
-  }
+  constructor(private readonly _route: ActivatedRoute) {}
+
   ngOnInit(): void {
     this._route.paramMap
       .pipe(takeUntil(this._destroy))
@@ -34,11 +27,6 @@ export class TitleComponent implements OnDestroy, AfterViewInit {
 
         this.subtitle = `Environment: ${env}`;
       });
-    // setTimeout(() => {
-    //   this._envService.current.pipe(takeUntil(this._destroy)).subscribe(env => {
-    //     this.subtitle = `Environment: ${env?.name}`;
-    //   });  
-    // });
   }
   
   ngOnDestroy(): void {

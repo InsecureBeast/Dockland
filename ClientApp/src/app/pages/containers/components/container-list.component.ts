@@ -1,12 +1,11 @@
 import { Component, Input } from '@angular/core';
-import { IContainer, IPort } from 'src/app/pages/containers/container';
-import { ContainerModel } from './container.model';
-import { RemoteService } from 'src/app/services/remote.service';
-import { remove } from 'src/app/utils/array-utils';
 import { ProgressbarConfig } from 'ngx-bootstrap/progressbar';
-import { DialogService } from 'src/app/services/dialog.service';
+import { remove } from '@utils/array-utils';
+import { ContainerModel } from './container.model';
+import { IContainer, IPort } from '@pages/containers/container';
+import { RemoteContainers } from '@pages/containers/remote-containers.service';
+import { DialogService } from '@services/dialog.service';
 import { EnvironmentService } from '../../environments/environment.service';
-import { RemoteContainers } from 'src/app/pages/containers/remote-containers.service';
 
 export function getProgressbarConfig(): ProgressbarConfig {
   return Object.assign(new ProgressbarConfig(), { animate: true, striped: true,  max: 100 });
@@ -105,69 +104,68 @@ export class ContainerListComponent {
     return model.container.names.includes("/dockland");
   }
 
-  stop(): boolean {
+  stop(): void {
     if (!this.containers)
-      return false;
+      return;
 
-    this.processType = "success";
-    const checked = this.containers?.filter(c => c.checked);
-    checked?.forEach(model => {
-      if (this._envService.currentEnv) {
-        model.inProgress = true;
-        this._remoteContainers.stop(this._envService.currentEnv?.name, model.container)
-          .subscribe(container => {
-            this.update(container, model);
-        });
-      }
-    });
-    
-    return true;
-  }
-
-  start(): boolean {
-    if (!this.containers)
-      return false;
+    const env = this._envService.getEnvironmentName();
+    if (!env)
+      return;
 
     this.processType = "success";
     const checked = this.containers.filter(c => c.checked);
     checked.forEach(model => {
-      if (this._envService.currentEnv) {
-        model.inProgress = true;
-        this._remoteContainers.start(this._envService.currentEnv?.name, model.container)
-          .subscribe(container => {
-            this.update(container, model);
-        });
-      }
+      model.inProgress = true;
+      this._remoteContainers.stop(env, model.container).subscribe(container => {
+        this.update(container, model);
+      });
     });
-
-    return true;
   }
 
-  restart(): boolean {
-    return this.stop() && this.start();
+  start(): void {
+    if (!this.containers)
+      return;
+
+    const env = this._envService.getEnvironmentName();
+    if (!env)
+      return;
+
+    this.processType = "success";
+    const checked = this.containers.filter(c => c.checked);
+    checked.forEach(model => {
+      model.inProgress = true;
+      this._remoteContainers.start(env, model.container).subscribe(container => {
+        this.update(container, model);
+      });
+    });
+  }
+
+  restart(): void {
+    this.stop();
+    this.start();
   }
 
   remove(): void {
-    if (!this.containers)
+    const env = this._envService.getEnvironmentName();
+    if (!env)
       return;
-    
-    this._dialogService.openConfirmationDialog()?.subscribe(res => {
-      if (!res) 
-        return
-  
-      this.processType = "danger";
-      const checked = this.containers?.filter(c => c.checked);
-      checked?.forEach(model => {
-        if (this._envService.currentEnv) {
-          model.inProgress = true;
-          this._remoteContainers.delete(this._envService.currentEnv?.name, model.container)
-            .subscribe(result => {
-              if (result && this.containers)
-                remove(this.containers, model);
-          });
-        }
-      });
 
+    this._dialogService.openConfirmationDialog().subscribe(res => {
+      if (!res)
+        return
+      
+      if (!this.containers)
+        return;
+
+      this.processType = "danger";
+      const checked = this.containers.filter(c => c.checked);
+      checked.forEach(model => {
+        model.inProgress = true;
+        this._remoteContainers.delete(env, model.container).subscribe(result => {
+          if (result && this.containers)
+            remove(this.containers, model);
+        });
+      });
     });
   }
 
@@ -184,12 +182,13 @@ export class ContainerListComponent {
   }
 
   private update(container: IContainer, model: ContainerModel): void {
-    if (container) {
-      model.container = container;
-      model.checked = false;
-      this.allChecked = false;
-      this.indeterminate = false;
-      model.inProgress = false;
-    }
+    if (!container)
+      remove;
+
+    model.container = container;
+    model.checked = false;
+    this.allChecked = false;
+    this.indeterminate = false;
+    model.inProgress = false;
   }
 }

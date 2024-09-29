@@ -6,7 +6,6 @@ import { RouterModule } from '@angular/router';
 import { ModalModule } from 'ngx-bootstrap/modal';
 
 import { AppComponent } from './app.component';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { ContainersModule } from './pages/containers/containers.module';
 import { StacksModule } from './pages/stacks/stacks.module';
 import { VolumesModule } from './pages/volumes/volumes.module';
@@ -21,29 +20,28 @@ import { HomeModule } from './pages/home/home.module';
 import { appRouts } from './app.routes';
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        NavMenuComponent,
-        ConfirmationDialogComponent
-    ],
-    providers: [],
-    bootstrap: [AppComponent],
-    imports: [
-        BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
-        HttpClientModule,
-        FormsModule,
-        RouterModule.forRoot(appRouts),
-        ModalModule.forRoot(),
-        EnvironmentsModule,
-        ContainersModule,
-        StacksModule,
-        VolumesModule,
-        ImagesModule,
-        NetworksModule,
-        DashboardModule,
-        SidebarModule,
-        SidebarSecondModule,
-        HomeModule
-    ]
+  declarations: [
+    AppComponent, 
+    ConfirmationDialogComponent
+  ],
+  providers: [],
+  bootstrap: [AppComponent],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    FormsModule,
+    RouterModule.forRoot(appRouts),
+    ModalModule.forRoot(),
+    EnvironmentsModule,
+    ContainersModule,
+    StacksModule,
+    VolumesModule,
+    ImagesModule,
+    NetworksModule,
+    DashboardModule,
+    SidebarModule,
+    SidebarSecondModule,
+    HomeModule,
+  ],
 })
-export class AppModule { }
+export class AppModule {}

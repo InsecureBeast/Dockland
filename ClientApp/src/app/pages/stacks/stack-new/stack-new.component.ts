@@ -42,11 +42,11 @@ export class StackNewComponent implements OnInit{
     private readonly _changeDetector: ChangeDetectorRef) {
   }
   ngOnInit(): void {
-    const env = this._envService.currentEnv;
+    const env = this._envService.getEnvironmentName();
     if (!env)
       return;
 
-    this._remoteService.get(env.name, "test").subscribe(data => {
+    this._remoteService.get(env, "test").subscribe(data => {
       console.log(data);
     });
   }
@@ -77,7 +77,7 @@ export class StackNewComponent implements OnInit{
   }
 
   onSubmit(): void {
-    const env = this._envService.currentEnv;
+    const env = this._envService.getEnvironmentName();
     if (!env)
       return;
     
@@ -87,7 +87,7 @@ export class StackNewComponent implements OnInit{
       stackName: value.stackName as string,
       editor: this._composeCode
     }
-    this._remoteService.set(env.name, options).subscribe();
+    this._remoteService.set(env, options).subscribe();
       // const gitValue = this.gitRepositoryComponent?.gitForm.value;
     // if (!gitValue)
     //   return;

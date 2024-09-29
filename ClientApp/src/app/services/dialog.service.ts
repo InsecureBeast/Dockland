@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { BsModalService, ModalOptions } from "ngx-bootstrap/modal";
 import { ConfirmationDialogComponent } from "../components/confirmation-dialog/confirmation-dialog.component";
-import { Observable } from "rxjs";
+import { Observable, of } from "rxjs";
 
 @Injectable({providedIn: "root"})
 export class DialogService {
@@ -9,7 +9,7 @@ export class DialogService {
   constructor(private readonly _modalService: BsModalService) {
   }
 
-  openConfirmationDialog(): Observable<boolean> | undefined {
+  openConfirmationDialog(): Observable<boolean> {
     const initialState: ModalOptions = {
       initialState: {
         title: 'Сonfirmation of the delete operation',
@@ -19,6 +19,6 @@ export class DialogService {
       }
     };
     const modalRef = this._modalService.show(ConfirmationDialogComponent, initialState);
-    return modalRef.content?.onClose;
+    return modalRef.content?.onClose ?? of(false);
   }
 }

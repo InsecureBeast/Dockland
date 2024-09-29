@@ -21,7 +21,7 @@ export class RemoteContainers {
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json'})
     };
-    return this._http.put<IContainer>(`$api/containers/${environment}/${container.id}`, body, httpOptions);
+    return this._http.put<IContainer>(`api/containers/${environment}/${container.id}`, body, httpOptions);
   }
 
   start(environment: string, container: IContainer): Observable<IContainer> {

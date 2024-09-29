@@ -5,5 +5,6 @@ export enum ElementType {
   Container = 2,
   Image = 3,
   Volume = 4,
-  Network = 5
+  Network = 5,
+  Dashboard = 6
 }

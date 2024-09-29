@@ -5,8 +5,7 @@ import { Router } from "@angular/router";
 @Injectable({ providedIn: "root" })
 export class NavigationService {
 
-  constructor(private readonly _router: Router) {
-  }
+  constructor(private readonly _router: Router) {}
 
   navigate(env: string | undefined, elementType: ElementType): void {
     switch (elementType) {
@@ -24,6 +23,9 @@ export class NavigationService {
         break;
       case ElementType.Volume:
         this._router.navigate(['environments', env, 'volumes']);
+        break;
+      case ElementType.Dashboard:
+        this._router.navigate(['environments', env, 'dashboard']);
         break;
     
       default:

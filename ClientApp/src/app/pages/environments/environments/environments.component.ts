@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { IEnvironment } from '../environment';
 import { Observable, of } from 'rxjs';
-import { RemoteService } from 'src/app/services/remote.service';
-import { Router } from '@angular/router';
-import { EnvironmentService } from '../environment.service';
+import { IEnvironment } from '../environment';
+import { RemoteService } from '@services/remote.service';
+import { NavigationService } from '@services/navigation.service';
+import { ElementType } from '@core/element.type';
 
 @Component({
   selector: 'app-environments',
@@ -15,8 +15,7 @@ export class EnvironmentsComponent implements OnInit {
 
   constructor(
     private readonly _remoteService: RemoteService, 
-    private readonly _envService: EnvironmentService,
-    private readonly _router: Router) {
+    private readonly _navigation: NavigationService) {
     
   }
 
@@ -25,14 +24,7 @@ export class EnvironmentsComponent implements OnInit {
   }
 
   open(env: IEnvironment): void {
-    this._envService.openEnvironment(env);
-    this._router.navigateByUrl('/dashboard');
-  }
-
-  close($event: Event): boolean {
-    this._envService.closeEnvironment();
-    $event.stopPropagation();
-    return true;
+    this._navigation.navigate(env.name, ElementType.Dashboard);
   }
 
   delete(env: IEnvironment, event: Event): boolean {
@@ -48,9 +40,5 @@ export class EnvironmentsComponent implements OnInit {
     
     event.stopPropagation();
     return true;
-  }
-
-  isOpen(env: IEnvironment): boolean {
-    return this._envService.currentEnv?.id === env.id;
   }
 }
