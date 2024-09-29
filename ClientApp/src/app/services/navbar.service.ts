@@ -4,14 +4,10 @@ import { BehaviorSubject, Observable } from "rxjs";
 @Injectable({ providedIn: 'root' })
 export class  NavbarService {
 
-  private _visibility$: BehaviorSubject<boolean>;
+  private _visibility$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
   
-  constructor() {
-    this._visibility$ = new BehaviorSubject<boolean>(true);
-  }
-
   get visible(): Observable<boolean> {
-    return this._visibility$ as Observable<boolean>;
+    return this._visibility$.asObservable();
   }
 
   changeVisibility(value: boolean): void {

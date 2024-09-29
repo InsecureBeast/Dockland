@@ -11,6 +11,7 @@ import { VolumesComponent } from "./pages/volumes/volumes/volumes.component";
 import { EnvironmentsComponent } from "./pages/environments/environments/environments.component";
 
 export const appRouts: Routes = [
+  { path: '', redirectTo: 'environments', pathMatch: "full" }, 
   { path: '*', redirectTo: 'environments' }, 
   { path: 'environments', component: HomeComponent, 
     children: [
