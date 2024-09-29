@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Observable, ReplaySubject, Subject } from "rxjs";
-import { IEnvironment } from "../pages/environments/environment";
+import { IEnvironment } from "./environment";
 
 @Injectable({ providedIn: "root"})
 export class EnvironmentService {

@@ -1,12 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subject, combineLatest, filter, map, mergeMap, of, takeUntil, toArray } from 'rxjs';
-import { EnvironmentService } from 'src/app/services/environment.service';
-import { RemoteService } from 'src/app/services/remote.service';
-import { getHostFromUrl } from 'src/app/utils/url.utils';
+import { RemoteService } from '@services/remote.service';
+import { getHostFromUrl } from '@utils/url.utils';
 import { ContainerModel } from '../components/container.model';
 import { ActivatedRoute } from '@angular/router';
-import { IContainer } from 'src/app/core/container';
-import { NavbarService } from 'src/app/services/navbar.service';
+import { IContainer } from 'src/app/pages/containers/container';
+import { NavbarService } from '@services/navbar.service';
+import { EnvironmentService } from '../../environments/environment.service';
+import { RemoteContainers } from 'src/app/pages/containers/remote-containers.service';
 
 @Component({
   selector: 'app-containers',
@@ -22,6 +23,7 @@ export class ContainersComponent implements OnInit, OnDestroy {
   
   constructor(
     private readonly _remoteService: RemoteService,
+    private readonly _remoteContainers: RemoteContainers,
     private readonly _route: ActivatedRoute,
     private readonly _envService: EnvironmentService,
     private readonly _navbarService: NavbarService) {
@@ -41,7 +43,7 @@ export class ContainersComponent implements OnInit, OnDestroy {
         this._envService.openEnvironment(env);
         this.url = getHostFromUrl(env.url);
 
-        this.containers = this._remoteService.containers.getContainers(envName)
+        this.containers = this._remoteContainers.getContainers(envName)
         .pipe(
           mergeMap(c => c),
           filter(c => this.filterContainer(c, obs.queryParams.name)), 

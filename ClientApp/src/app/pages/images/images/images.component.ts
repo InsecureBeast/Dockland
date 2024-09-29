@@ -1,13 +1,13 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { RemoteService } from '../../../services/remote.service';
 import { map, Observable, of, Subject, takeUntil } from 'rxjs';
 import { ImageModel } from '../components/image.model';
-import { DialogService } from 'src/app/services/dialog.service';
+import { DialogService } from '@services/dialog.service';
 import { ImageListComponent } from '../components/image-list.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { parseDeleteImageErrorMessage } from './error.parser';
-import { remove } from '../../../utils/array-utils'; 
+import { remove } from '@utils/array-utils'; 
 import { ActivatedRoute } from '@angular/router';
+import { RemoteImages } from '../remote-images.service';
 
 @Component({
   selector: 'app-images',
@@ -25,7 +25,7 @@ export class ImagesComponent implements OnInit, OnDestroy {
   images: Observable<ImageModel[]> = of([]);
 
   constructor(
-    private readonly _remoteService: RemoteService, 
+    private readonly _remoteImages: RemoteImages,
     private readonly _route: ActivatedRoute,
     private readonly _dialogService: DialogService) {
   }
@@ -39,7 +39,7 @@ export class ImagesComponent implements OnInit, OnDestroy {
           return;
         this._env = env;
         this.images = of([]);
-        this.images = this._remoteService.images.getImages(env)
+        this.images = this._remoteImages.getImages(env)
           .pipe(map(i => i.map(x => new ImageModel(x))));
       });
   }
@@ -65,7 +65,7 @@ export class ImagesComponent implements OnInit, OnDestroy {
       this._checked.forEach(model => {
         if (this._env) {
           model.inProgress = true;
-          this._remoteService.images.delete(this._env, model.image)
+          this._remoteImages.delete(this._env, model.image)
             .subscribe({
               next : result => {
                 if (result && this._imageListComponent) {

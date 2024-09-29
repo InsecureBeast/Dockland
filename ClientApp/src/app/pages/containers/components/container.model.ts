@@ -1,4 +1,4 @@
-import { IContainer } from 'src/app/core/container';
+import { IContainer } from 'src/app/pages/containers/container';
 import { IChecked } from 'src/app/directives/check-all.directive';
 
 export class ContainerModel implements IChecked {

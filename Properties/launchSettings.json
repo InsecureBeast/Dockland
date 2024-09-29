@@ -9,6 +9,16 @@
       },
       "applicationUrl": "http://localhost:5443"
     },
+    "server-only": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "/",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "http://localhost:5443"
+    },
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,

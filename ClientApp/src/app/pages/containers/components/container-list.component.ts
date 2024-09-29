@@ -1,11 +1,12 @@
 import { Component, Input } from '@angular/core';
-import { IContainer, IPort } from 'src/app/core/container';
+import { IContainer, IPort } from 'src/app/pages/containers/container';
 import { ContainerModel } from './container.model';
 import { RemoteService } from 'src/app/services/remote.service';
-import { EnvironmentService } from 'src/app/services/environment.service';
 import { remove } from 'src/app/utils/array-utils';
 import { ProgressbarConfig } from 'ngx-bootstrap/progressbar';
 import { DialogService } from 'src/app/services/dialog.service';
+import { EnvironmentService } from '../../environments/environment.service';
+import { RemoteContainers } from 'src/app/pages/containers/remote-containers.service';
 
 export function getProgressbarConfig(): ProgressbarConfig {
   return Object.assign(new ProgressbarConfig(), { animate: true, striped: true,  max: 100 });
@@ -29,7 +30,7 @@ export class ContainerListComponent {
   allChecked: boolean = false;
   processType: 'success' | 'info' | 'warning' | 'danger' = 'info';
     
-  constructor(private readonly _remoteService: RemoteService, 
+  constructor(private readonly _remoteContainers: RemoteContainers, 
               private readonly _envService: EnvironmentService,
               private readonly _dialogService: DialogService) {
     this.processType = 'success';
@@ -113,7 +114,7 @@ export class ContainerListComponent {
     checked?.forEach(model => {
       if (this._envService.currentEnv) {
         model.inProgress = true;
-        this._remoteService.containers.stop(this._envService.currentEnv?.name, model.container)
+        this._remoteContainers.stop(this._envService.currentEnv?.name, model.container)
           .subscribe(container => {
             this.update(container, model);
         });
@@ -132,7 +133,7 @@ export class ContainerListComponent {
     checked.forEach(model => {
       if (this._envService.currentEnv) {
         model.inProgress = true;
-        this._remoteService.containers.start(this._envService.currentEnv?.name, model.container)
+        this._remoteContainers.start(this._envService.currentEnv?.name, model.container)
           .subscribe(container => {
             this.update(container, model);
         });
@@ -159,7 +160,7 @@ export class ContainerListComponent {
       checked?.forEach(model => {
         if (this._envService.currentEnv) {
           model.inProgress = true;
-          this._remoteService.containers.delete(this._envService.currentEnv?.name, model.container)
+          this._remoteContainers.delete(this._envService.currentEnv?.name, model.container)
             .subscribe(result => {
               if (result && this.containers)
                 remove(this.containers, model);

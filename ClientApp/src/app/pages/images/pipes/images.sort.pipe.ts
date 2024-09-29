@@ -1,11 +1,12 @@
 import { Pipe, PipeTransform } from "@angular/core";
-import { ImageModel } from "../pages/images/components/image.model";
+import { ImageModel } from "../components/image.model";
 
 @Pipe({
   name: 'imagesSort',
   standalone: true
 })
-export class FormatFileSizePipe implements PipeTransform {
+export class ImagesSortPipe implements PipeTransform {
+  
  transform(images: ImageModel[] | null): ImageModel[] | null {
     if (!images)
       return null;

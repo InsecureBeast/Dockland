@@ -1,5 +1,5 @@
-FROM mcr.microsoft.com/dotnet/aspnet:7.0
-COPY ./bin/Release/net7.0/publish/linux-x64 /app/
+FROM mcr.microsoft.com/dotnet/aspnet:8.0
+COPY ./bin/Release/net8.0/publish /app/
 
 # Run section
 WORKDIR /app

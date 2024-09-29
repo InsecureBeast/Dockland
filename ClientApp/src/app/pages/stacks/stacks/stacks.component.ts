@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
-import { RemoteService } from 'src/app/services/remote.service';
 import { Stack } from '../stack';
 import { getStackName } from '../stacks.utils';
+import { RemoteService } from '@services/remote.service';
 
 @Component({
   selector: 'app-stacks',

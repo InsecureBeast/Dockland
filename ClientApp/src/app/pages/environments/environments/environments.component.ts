@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { IEnvironment } from '../environment';
 import { Observable, of } from 'rxjs';
 import { RemoteService } from 'src/app/services/remote.service';
-import { EnvironmentService } from 'src/app/services/environment.service';
 import { Router } from '@angular/router';
+import { EnvironmentService } from '../environment.service';
 
 @Component({
   selector: 'app-environments',

@@ -1,18 +1,18 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Subject, combineLatest, map, of, takeUntil, tap } from 'rxjs';
-import { IContainer } from 'src/app/core/container';
-import { Image } from 'src/app/core/image';
-import { INetwork } from 'src/app/core/network';
-import { getBoolean } from 'src/app/core/utils';
-import { IVolume } from 'src/app/core/volume';
-import { EnvironmentService } from 'src/app/services/environment.service';
-import { RemoteService } from 'src/app/services/remote.service';
-import { NavbarService } from 'src/app/services/navbar.service';
+import { INetwork } from '@core/network';
+import { getBoolean } from '@core/utils';
+import { IVolume } from '@core/volume';
+import { RemoteService } from '@services/remote.service';
+import { NavbarService } from '@services/navbar.service';
 import { IEnvironment } from '../../environments/environment';
-import { getHostFromUrl } from 'src/app/utils/url.utils';
+import { getHostFromUrl } from '@utils/url.utils';
 import { ContainerModel } from '../../containers/components/container.model';
 import { ImageModel } from '../../images/components/image.model';
+import { EnvironmentService } from '../../environments/environment.service';
+import { RemoteContainers } from '../../containers/remote-containers.service';
+import { RemoteImages } from '../../images/remote-images.service';
 
 @Component({
   selector: 'app-stack',
@@ -33,6 +33,8 @@ export class StackComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly _remoteService: RemoteService, 
+    private readonly _remoteContainers: RemoteContainers,
+    private readonly _remoteImages: RemoteImages,
     private readonly _route: ActivatedRoute, 
     private readonly _toolbarService: NavbarService,
     private readonly _envService: EnvironmentService) {
@@ -94,7 +96,7 @@ export class StackComponent implements OnInit, OnDestroy {
   }
 
   private getStackInfo(): void {
-    this.containers = this._remoteService.containers.getStackContainers(this._env, this.stack)
+    this.containers = this._remoteContainers.getStackContainers(this._env, this.stack)
       .pipe(tap(c => this._containersCount = c.length), map(c => c.map(x => new ContainerModel(x))));
   }
 
@@ -107,7 +109,7 @@ export class StackComponent implements OnInit, OnDestroy {
   }
 
   private getImagesInfo(): void {
-    this.images = this._remoteService.images.getImages(this._env, this.stack)
+    this.images = this._remoteImages.getImages(this._env, this.stack)
       .pipe(map(i => i.map(x => new ImageModel(x))));
   }
 }

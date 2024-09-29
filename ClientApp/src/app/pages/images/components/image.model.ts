@@ -1,6 +1,6 @@
 import { ICheckableModel } from "src/app/components/base-list/base-list.component";
-import { Image } from "src/app/core/image";
-import { getImageTagAndName } from "src/app/core/utils";
+import { Image } from "src/app/pages/images/image";
+import { getImageTagAndName } from "@core/utils";
 
 export class ImageModel implements ICheckableModel {
   public readonly name: string;

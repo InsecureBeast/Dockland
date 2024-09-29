@@ -2,8 +2,8 @@ import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { GitRepositoryComponent } from 'src/app/components/git-repository/git-repository.component';
 import { WebEditorOptions } from 'src/app/components/web-editor/web-editor.component';
-import { EnvironmentService } from 'src/app/services/environment.service';
-import { RemoteStacks, StackCreationOptions } from 'src/app/services/remote-stacks.interface';
+import { EnvironmentService } from '../../environments/environment.service';
+import { RemoteStacks, StackCreationOptions } from '../remote-stacks.service';
 
 @Component({
   selector: 'app-stack-new',

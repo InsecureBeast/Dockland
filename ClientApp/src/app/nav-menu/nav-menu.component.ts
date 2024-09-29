@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { NavbarService } from '../services/navbar.service';
-import { EnvironmentService } from '../services/environment.service';
+import { EnvironmentService } from '../pages/environments/environment.service';
 import { IEnvironment } from '../pages/environments/environment';
 
 @Component({

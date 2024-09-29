@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
-import { EnvironmentService } from 'src/app/services/environment.service';
+import { EnvironmentService } from 'src/app/pages/environments/environment.service';
 
 @Component({
   selector: 'app-title',

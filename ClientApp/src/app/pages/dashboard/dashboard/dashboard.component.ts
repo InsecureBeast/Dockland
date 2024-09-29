@@ -1,9 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subject, first, map, takeUntil } from 'rxjs';
-import { RemoteService } from 'src/app/services/remote.service';
-import { ElementType } from 'src/app/core/element.type';
-import { NavigationService } from 'src/app/services/navigation.service';
 import { ActivatedRoute } from '@angular/router';
+import { Subject, first, map, takeUntil } from 'rxjs';
+import { RemoteService } from '@services/remote.service';
+import { ElementType } from '@core/element.type';
+import { NavigationService } from '@services/navigation.service';
+import { RemoteContainers } from 'src/app/pages/containers/remote-containers.service';
+import { RemoteImages } from '../../images/remote-images.service';
 
 class DashboardItem {
   private readonly _type: ElementType;
@@ -39,7 +41,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
   environment: string | undefined;
 
   constructor(
-    private readonly _remoteService: RemoteService, 
+    private readonly _remoteService: RemoteService,
+    private readonly _remoteImages: RemoteImages,
+    private readonly _remoteContainers: RemoteContainers,
     private readonly _route: ActivatedRoute,
     private readonly _navigationService: NavigationService) {
   }
@@ -67,11 +71,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
           .pipe(first(), map(s => this.toDashboardItem(s, ElementType.Stack)))
           .subscribe(item => this.stacks = item);
         
-        this._remoteService.containers.getContainers(this.environment)
+        this._remoteContainers.getContainers(this.environment)
           .pipe(first(), map(s => this.toDashboardItem(s, ElementType.Container)))
           .subscribe(item => this.containers = item);
 
-        this._remoteService.images.getImages(this.environment)
+        this._remoteImages.getImages(this.environment)
           .pipe(first(), map(s => this.toDashboardItem(s, ElementType.Image)))
           .subscribe(item => this.images = item);
 
