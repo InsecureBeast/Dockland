@@ -1,5 +1,6 @@
 @import '../../../../css/variables';
   
 :host {
-  padding-top: $paddingTop;
+  display: block;
+  padding: 1.0rem 1.5rem;
 }

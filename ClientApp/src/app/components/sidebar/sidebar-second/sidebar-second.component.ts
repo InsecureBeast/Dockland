@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
-import { map, Observable, of, tap, timeout } from 'rxjs';
+import { map, Observable, of, tap } from 'rxjs';
 import { IEnvironment } from 'src/app/pages/environments/environment';
-import { RemoteService } from 'src/app/services/remote.service';
+import { EnvironmentService } from '@pages/environments/environment.service';
 
 interface IEnvironmentExt extends IEnvironment {
   get isOpen(): boolean;
@@ -17,13 +16,12 @@ export class SidebarSecondComponent implements OnInit {
   environments: Observable<IEnvironmentExt[]> = of([]);
   
   constructor(
-    private readonly _remoteService: RemoteService,
-    private readonly _location: Location) {
+    private readonly _environmentService: EnvironmentService) {
   }
 
   ngOnInit(): void {
     let openedItemId = "";
-    this.environments = this._remoteService.getEnvironments()
+    this.environments = this._environmentService.environments
       .pipe(
         map(envs => envs.map(env => {
           const isOpen = this.isOpen(env);
@@ -32,10 +30,12 @@ export class SidebarSecondComponent implements OnInit {
           return { ...env, isOpen };
         })), 
         tap(() => setTimeout(() => this.scrollToItem(openedItemId), 1)));
+    this._environmentService.refreshEnvironments();
   }
 
   private isOpen(env: IEnvironment): boolean {
-    return this._location.path().includes(env.name + "/");
+    var envName = this._environmentService.getEnvironmentName();
+    return envName === env.name;
   }
 
   private scrollToItem(id: string): void {

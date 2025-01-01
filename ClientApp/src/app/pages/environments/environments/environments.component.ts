@@ -1,44 +1,53 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { map, Observable, of, share, Subject, takeUntil } from 'rxjs';
 import { IEnvironment } from '../environment';
 import { RemoteService } from '@services/remote.service';
-import { NavigationService } from '@services/navigation.service';
-import { ElementType } from '@core/element.type';
+import { EnvironmentModel } from '../environment.model';
+import { EnvironmentService } from '../environment.service';
 
 @Component({
   selector: 'app-environments',
   templateUrl: './environments.component.html',
   styleUrls: ['./environments.component.scss']
 })
-export class EnvironmentsComponent implements OnInit {
-  environments: Observable<IEnvironment[]> = of([]);
+export class EnvironmentsComponent implements OnInit, OnDestroy {
+  private readonly _ngDestroy = new Subject<void>();
+
+  environments: Observable<EnvironmentModel[]> = of([]);
 
   constructor(
-    private readonly _remoteService: RemoteService, 
-    private readonly _navigation: NavigationService) {
+    private readonly _environmentService: EnvironmentService,
+    private readonly _remoteService: RemoteService) {
     
   }
-
+  
   ngOnInit(): void {
-    this.environments = this._remoteService.getEnvironments();
+    this.environments = this._environmentService.environments
+      .pipe(
+        takeUntil(this._ngDestroy),
+        map(environments => environments.map(env => new EnvironmentModel(env))), 
+        share()
+      );
+    this._environmentService.refreshEnvironments();
   }
 
-  open(env: IEnvironment): void {
-    this._navigation.navigate(env.name, ElementType.Dashboard);
+  ngOnDestroy(): void {
+    this._ngDestroy.next();
+    this._ngDestroy.complete();
   }
 
-  delete(env: IEnvironment, event: Event): boolean {
+  delete(environments: IEnvironment[]): boolean {
     const self = this;
-    this._remoteService.deleteEnvironment(env.name).subscribe({
-      next(value) {
-        self.environments = self._remoteService.getEnvironments();
-      },
-      error(err) {
-        alert(err.message);
-      },
+    environments.forEach(env => {
+      this._remoteService.deleteEnvironment(env.name).subscribe({
+        next() {
+          self._environmentService.refreshEnvironments();
+        },
+        error(err) {
+          alert(err.message);
+        },
+      });  
     });
-    
-    event.stopPropagation();
     return true;
   }
 }

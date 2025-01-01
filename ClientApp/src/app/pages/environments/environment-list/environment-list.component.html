@@ -1,0 +1,47 @@
+<table class='table table-hover mb-0 h-100'>
+  <thead class="">
+    <tr>
+      <th class="w-30px">
+        <input type="checkbox" 
+               class="form-check-input"
+               (change)="checkAll($event)"
+               [checked]="allChecked"
+               [indeterminate]="indeterminate">
+      </th>
+      <th>NAME</th>
+      <th class="w-10">STATE</th>
+      <th>TYPE</th>
+      <th>URL</th>
+    </tr>
+  </thead>
+  
+  <tbody [fluidHeight]>
+    <ng-container *ngTemplateOutlet="loader"></ng-container>
+    <tr *ngFor="let environmentModel of items">
+      <td class="w-30px">
+        <input type="checkbox" 
+               class="form-check-input"
+               (change)="check(environmentModel, $event)" 
+               [checked]="environmentModel.checked">
+      </td>
+      <td class="d-flex justify-content-between"
+          [ngClass]="[environmentModel.inProgress ? 'progress-parent' : '']">
+        <span class="text-truncate">{{ environmentModel.name }}</span>
+        <progressbar *ngIf="environmentModel.inProgress" class="progress-striped active progress-child" [value]="100" [max]="100" [type]="processType"></progressbar>
+        <span *ngIf="environmentModel.error" 
+              class="bi bi-exclamation-circle text-danger" 
+              [ngbTooltip] ="environmentModel.error">
+        </span>
+      </td>
+      <td class="text-truncate w-10"> <span class="badge bg-success">{{ environmentModel.state }}</span></td>
+      <td class="text-truncate">{{ environmentModel.type }}</td>
+      <td class="text-truncate">{{ environmentModel.url }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<ng-template #loader >
+<ng-container *ngIf="!items" >
+  <app-table-loader [rowsCount]="5"></app-table-loader>
+</ng-container>
+</ng-template>

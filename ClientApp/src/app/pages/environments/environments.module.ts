@@ -4,11 +4,20 @@ import { EnvironmentComponent } from './environment/environment.component';
 import { EnvironmentsComponent } from './environments/environments.component';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import { EnvironmentListComponent } from './environment-list/environment-list.component';
+import { FluidHeightDirective } from '@directives/fluid-height.directive';
+import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { LoaderComponent } from '@components/loader/loader.component';
+import { TitleModule } from '@components/title/title.module';
+import { EnvironmentToolbarComponent } from './environment-toolbar/environment-toolbar.component';
 
 @NgModule({
   declarations: [
     EnvironmentComponent,
-    EnvironmentsComponent
+    EnvironmentsComponent,
+    EnvironmentListComponent,
+    EnvironmentToolbarComponent
   ],
   imports: [
     CommonModule,
@@ -17,7 +26,12 @@ import { ReactiveFormsModule } from '@angular/forms';
       { path: 'environment', component: EnvironmentComponent },
       { path: 'environment/:name', component: EnvironmentComponent }, 
     ]),
-    ReactiveFormsModule
+    ProgressbarModule.forRoot(),
+    NgbTooltipModule,
+    ReactiveFormsModule,
+    FluidHeightDirective,
+    LoaderComponent,
+    TitleModule
   ],
   exports: [
     EnvironmentsComponent

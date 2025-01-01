@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import { Observable, share } from "rxjs";
 import { INetwork } from "../core/network";
 import { IVolume } from "../core/volume";
 import { Stack } from "../pages/stacks/stack";
