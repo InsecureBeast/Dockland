@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { map, Observable, of, tap } from 'rxjs';
-import { IEnvironment } from 'src/app/pages/environments/environment';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { filter, map, Observable, of, Subject, takeUntil, tap } from 'rxjs';
+import { IEnvironment } from '@pages/environments/environment';
 import { EnvironmentService } from '@pages/environments/environment.service';
+import { NavigationEnd, Router } from '@angular/router';
 
 interface IEnvironmentExt extends IEnvironment {
   get isOpen(): boolean;
@@ -12,17 +13,21 @@ interface IEnvironmentExt extends IEnvironment {
   templateUrl: './sidebar-second.component.html',
   styleUrls: ['./sidebar-second.component.scss']
 })
-export class SidebarSecondComponent implements OnInit {
+export class SidebarSecondComponent implements OnInit, OnDestroy {
+  private readonly _ngDestory = new Subject<void>();
+
   environments: Observable<IEnvironmentExt[]> = of([]);
   
   constructor(
+    private readonly _router: Router,
     private readonly _environmentService: EnvironmentService) {
   }
-
+  
   ngOnInit(): void {
     let openedItemId = "";
     this.environments = this._environmentService.environments
       .pipe(
+        takeUntil(this._ngDestory),
         map(envs => envs.map(env => {
           const isOpen = this.isOpen(env);
           if (isOpen)
@@ -31,6 +36,24 @@ export class SidebarSecondComponent implements OnInit {
         })), 
         tap(() => setTimeout(() => this.scrollToItem(openedItemId), 1)));
     this._environmentService.refreshEnvironments();
+    
+    this._router.events
+      .pipe(
+        takeUntil(this._ngDestory),
+        filter((event) => event instanceof NavigationEnd)
+      ) 
+      .subscribe((event) => {
+        if (event instanceof NavigationEnd) {
+          const currentUrl = event.urlAfterRedirects;
+          if (currentUrl.includes('/dashboard'))
+            this._environmentService.refreshEnvironments();
+        }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this._ngDestory.next();
+    this._ngDestory.complete();
   }
 
   private isOpen(env: IEnvironment): boolean {

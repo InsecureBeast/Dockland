@@ -26,7 +26,7 @@
       </td>
       <td class="d-flex justify-content-between"
           [ngClass]="[environmentModel.inProgress ? 'progress-parent' : '']">
-        <span class="text-truncate">{{ environmentModel.name }}</span>
+        <span class="text-truncate"><a [routerLink]="[environmentModel.name, 'dashboard']">{{ environmentModel.name }}</a></span>
         <progressbar *ngIf="environmentModel.inProgress" class="progress-striped active progress-child" [value]="100" [max]="100" [type]="processType"></progressbar>
         <span *ngIf="environmentModel.error" 
               class="bi bi-exclamation-circle text-danger" 
