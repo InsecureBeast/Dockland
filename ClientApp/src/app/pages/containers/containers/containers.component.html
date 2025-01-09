@@ -1,5 +1,5 @@
-<app-title [iconClassName]="'bi-box'"
-           [title]="'Containers'">
+<app-title iconClassName="bi-box"
+           title="Containers">
 </app-title>
 
 <p>A container packages up code and its dependencies so the application runs quickly and reliably from one computing environment to another.
@@ -7,5 +7,5 @@
 
 <app-container-list [containers]="containers | async" 
                     [url]="url"
-                    [parentComponentName]="'app-containers'">
+                    parentComponentName="app-containers">
 </app-container-list>

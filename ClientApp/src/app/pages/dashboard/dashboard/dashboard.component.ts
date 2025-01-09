@@ -4,7 +4,7 @@ import { Subject, first, map, takeUntil } from 'rxjs';
 import { RemoteService } from '@services/remote.service';
 import { ElementType } from '@core/element.type';
 import { NavigationService } from '@services/navigation.service';
-import { RemoteContainers } from 'src/app/pages/containers/remote-containers.service';
+import { RemoteContainers } from '@pages/containers/services/remote-containers.service';
 import { RemoteImages } from '../../images/remote-images.service';
 
 class DashboardItem {

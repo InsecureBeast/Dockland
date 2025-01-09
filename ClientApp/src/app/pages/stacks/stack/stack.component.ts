@@ -9,8 +9,8 @@ import { NavbarService } from '@services/navbar.service';
 import { getHostFromUrl } from '@utils/url.utils';
 import { ContainerModel } from '../../containers/components/container.model';
 import { ImageModel } from '../../images/components/image.model';
-import { RemoteContainers } from '../../containers/remote-containers.service';
 import { RemoteImages } from '../../images/remote-images.service';
+import { RemoteContainers } from '@pages/containers/services/remote-containers.service';
 
 @Component({
   selector: 'app-stack',

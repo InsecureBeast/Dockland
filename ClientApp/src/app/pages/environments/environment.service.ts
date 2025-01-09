@@ -1,8 +1,9 @@
 import { Injectable } from "@angular/core";
-import { ActivatedRouteSnapshot, Router } from "@angular/router";
+import { Router } from "@angular/router";
 import { BehaviorSubject, Observable } from "rxjs";
 import { IEnvironment } from "./environment";
 import { RemoteService } from "@services/remote.service";
+import { extractParam } from "@utils/url.utils";
 
 @Injectable({ providedIn: "root"})
 export class EnvironmentService {
@@ -21,24 +22,17 @@ export class EnvironmentService {
 
   getEnvironmentName(): string | null {
     const currentRoute = this._router.routerState.snapshot.root;
-    return this.extractParam(currentRoute, 'env');
+    return extractParam(currentRoute, 'env');
+  }
+
+  getEnvironment(): IEnvironment | undefined {
+    const name = this.getEnvironmentName();
+    return this._environments.getValue().find(env => env.name === name);
   }
 
   refreshEnvironments(): void {
     this._remoteService.getEnvironments().subscribe((environments: IEnvironment[]) => {
       this._environments.next(environments);
     });
-  }
-
-  private extractParam(route: ActivatedRouteSnapshot, paramName: string): string | null {
-    if (route.paramMap.has(paramName))
-      return route.paramMap.get(paramName);
-    
-    for (const childRoute of route.children) {
-      const param = this.extractParam(childRoute, paramName);
-      if (param)
-        return param;
-    }
-    return null;
   }
 }

@@ -54,8 +54,8 @@ namespace Dockland.Controllers
             if (status == "exited")
                 await client.Containers.StopContainerAsync(containerId, new ContainerStopParameters());
 
-            var containersRespose = await _dockerService.GetContainerAsync(env, containerId);
-            return containersRespose?.ToContainer();
+            var containersResponse = await _dockerService.GetContainerAsync(env, containerId);
+            return containersResponse?.ToContainer();
         }
 
         [HttpDelete("{env}/{containerId}")]

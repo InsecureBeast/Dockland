@@ -29,4 +29,5 @@ export const appRouts: Routes = [
   { path: 'test', redirectTo: 'environments/pilot-saturn/stacks/pilot-saturn-environment?hide=true' },
   { path: 'cf', redirectTo: 'environments/pilot-saturn/containers?name=pilot-web-nalivka' },
   { path: 'cfh', redirectTo: 'environments/pilot-saturn/containers/pilot-web-nalivka?hide=true' },
+  { path: "actions", loadChildren: () => import('./pages/actions/actions.module').then((x) => x.ActionsModule) },
 ];

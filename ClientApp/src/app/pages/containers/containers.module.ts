@@ -8,25 +8,37 @@ import { NgTerminalModule } from 'ng-terminal';
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 import { FluidHeightDirective } from 'src/app/directives/fluid-height.directive';
 import { LoaderCountPipe } from 'src/app/pipes/loader-count.pipe';
-import { LoaderComponent } from "../../components/loader/loader.component";
+import { LoaderComponent } from '../../components/loader/loader.component';
+import { RouterModule } from '@angular/router';
+import { ContainerComponent } from './container/container.component';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { ContainersService } from './services/containers.service';
+import { ContainerLogsComponent } from './components/container-logs/container-logs.component';
 
 @NgModule({
-    declarations: [
-        ContainersComponent,
-        ContainerListComponent,
-        TerminalComponent
-    ],
-    exports: [
-        ContainerListComponent
-    ],
-    imports: [
-        CommonModule,
-        ProgressbarModule.forRoot(),
-        TitleModule,
-        NgTerminalModule,
-        FluidHeightDirective,
-        LoaderCountPipe,
-        LoaderComponent
-    ]
+  declarations: [
+    ContainersComponent,
+    ContainerListComponent,
+    ContainerComponent,
+    ContainerLogsComponent,
+    TerminalComponent,
+  ],
+  exports: [
+    ContainerListComponent
+  ],
+  imports: [
+    CommonModule,
+    RouterModule,
+    ProgressbarModule.forRoot(),
+    TabsModule.forRoot(),
+    TitleModule,
+    NgTerminalModule,
+    FluidHeightDirective,
+    LoaderCountPipe,
+    LoaderComponent,
+  ],
+  providers: [
+    ContainersService
+  ]
 })
-export class ContainersModule { }
+export class ContainersModule {}

@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Observable } from "rxjs";
-import { IContainer } from "./container";
+import { HttpClient, HttpEventType, HttpHeaders, HttpResponse } from "@angular/common/http";
+import { map, Observable, tap } from "rxjs";
+import { IContainer } from "../container";
 
 @Injectable({providedIn: "root"})
 export class RemoteContainers {
@@ -34,5 +34,25 @@ export class RemoteContainers {
 
   delete(environment: string, container: IContainer): Observable<boolean> {
     return this._http.delete<boolean>(`api/containers/${environment}/${container.id}`);
+  }
+
+  getContainer(environment: string, containerId: string): Observable<IContainer> {
+    return this._http.get<IContainer>(`api/${environment}/container/${containerId}`);
+  }
+
+  getContainerLogs(environment: string, containerId: string, watch: boolean = false): Observable<string> {
+    const url = `/api/${environment}/container/${containerId}/logs?watch=${watch}`;
+    return this._http.get(url, {
+      responseType: 'text',
+      observe: 'events',
+      reportProgress: true
+    }).pipe(
+      map(event => {
+        if (event instanceof HttpResponse) {
+          return event.body as string;
+        }
+        return '';
+      })
+    );
   }
 }

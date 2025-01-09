@@ -1,1 +1,18 @@
-<p>container works!</p>
+<ng-container *ngIf="container | async as c">
+  <app-title [title]="c.names[0] | slice:1"
+             iconClassName="bi-box">
+  </app-title>
+
+  <tabset #tabset>
+    <tab heading="Logs"><app-container-logs [containerId]="c.id" [environment]="environment"></app-container-logs></tab>
+    <tab heading="Inspect">Inspect content</tab>
+    <tab heading="Bind mounts">Bind mounts content</tab>
+    <tab heading="Exec">Exec content</tab>
+    <tab heading="Files">Files content</tab>
+    <tab heading="Stats">Stats content</tab>
+  </tabset>
+</ng-container>
+
+
+
+

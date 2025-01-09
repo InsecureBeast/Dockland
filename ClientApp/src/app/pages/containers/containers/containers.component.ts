@@ -5,7 +5,7 @@ import { getHostFromUrl } from '@utils/url.utils';
 import { ContainerModel } from '../components/container.model';
 import { ActivatedRoute } from '@angular/router';
 import { IContainer } from '@pages/containers/container';
-import { RemoteContainers } from '@pages/containers/remote-containers.service';
+import { RemoteContainers } from '@pages/containers/services/remote-containers.service';
 import { NavbarService } from '@services/navbar.service';
 
 @Component({

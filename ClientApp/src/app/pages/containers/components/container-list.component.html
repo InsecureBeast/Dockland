@@ -73,7 +73,7 @@
 
 <ng-template #nameTemplate let-model="model">
   <div>
-    <span> {{ model.container.names[0] | slice:1 }} </span>
+    <a [routerLink]="[model.container.id]"> {{ model.container.names[0] | slice:1 }} </a>
     <!-- <div>
       <a class="bi-terminal btn btn-light btn-circle rounded-circle me-1" [routerLink]= "['/containers', model.container.id, 'terminal']"></a>
       <i class="bi-file-text btn btn-light btn-circle rounded-circle me-1"></i>
