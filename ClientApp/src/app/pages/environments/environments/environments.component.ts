@@ -36,7 +36,7 @@ export class EnvironmentsComponent implements OnInit, OnDestroy {
     this._ngDestroy.complete();
   }
 
-  delete(environments: IEnvironment[]): boolean {
+  delete(environments: EnvironmentModel[]): boolean {
     const self = this;
     environments.forEach(env => {
       this._remoteService.deleteEnvironment(env.name).subscribe({

@@ -11,13 +11,15 @@ import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoaderComponent } from '@components/loader/loader.component';
 import { TitleModule } from '@components/title/title.module';
 import { EnvironmentToolbarComponent } from './environment-toolbar/environment-toolbar.component';
+import { EnvironmentNamePipe } from './environment-name.pipe';
 
 @NgModule({
   declarations: [
     EnvironmentComponent,
     EnvironmentsComponent,
     EnvironmentListComponent,
-    EnvironmentToolbarComponent
+    EnvironmentToolbarComponent,
+    EnvironmentNamePipe
   ],
   imports: [
     CommonModule,

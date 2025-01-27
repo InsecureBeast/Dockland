@@ -1,6 +1,9 @@
 import { ActivatedRouteSnapshot } from "@angular/router";
 
-export function getHostFromUrl(url: string): string {
+export function getHostFromUrl(url?: string): string {
+  if (!url)
+    return "http://localhost";
+
   const lastIndexOf = url.lastIndexOf(":");
   const split = url.slice(0, lastIndexOf);
   return split;

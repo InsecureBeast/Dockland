@@ -4,7 +4,7 @@ import { IEnvironment } from "./environment";
 export class EnvironmentModel implements ICheckableModel {
   readonly id: string;
   readonly name: string;
-  readonly url: string;
+  readonly url?: string;
   readonly tag?: string;
 
   checked: boolean = false;

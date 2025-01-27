@@ -1,32 +1,41 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { RemoteService } from 'src/app/services/remote.service';
-import { IEnvironment } from '../environment';
+import { EnvironmentType, IEnvironment } from '../environment';
 import { ActivatedRoute, Router } from '@angular/router';
-import { first } from 'rxjs';
+import { first, Subject, takeUntil } from 'rxjs';
+import { enumToArray } from '@utils/array-utils';
 
 @Component({
   selector: 'app-environment',
   templateUrl: './environment.component.html',
   styleUrls: ['./environment.component.scss']
 })
-export class EnvironmentComponent implements OnInit {
-  
+export class EnvironmentComponent implements OnInit, OnDestroy {
+  private readonly _ngDestory = new Subject<void>();
   private _id: string = Date.now().toString();
 
   buttonTitle: string = "";
   title: string = "";
+  environmentTypes: { key: string, value: number }[] = [];
+
   environmentForm = new FormGroup({
+    envType: new FormControl<EnvironmentType>(0, Validators.required),
     envName: new FormControl('', Validators.required),
-    envUrl: new FormControl('', Validators.required),
+    envUrl: new FormControl('', (v: AbstractControl) => { return null }),
     envTag: new FormControl(''),
   });
+ 
   
   constructor(
     private readonly _remoteService: RemoteService, 
     private readonly _router: Router,
     private readonly _route: ActivatedRoute) {
 
+  }
+
+  get envType() {
+    return this.environmentForm.get('envType');
   }
 
   get envName() { 
@@ -41,7 +50,13 @@ export class EnvironmentComponent implements OnInit {
     return this.environmentForm.get('envTag'); 
   }
 
+  get showEnvUrl(): boolean {
+    return this.envType?.value !== EnvironmentType.Local;
+  }
+
   ngOnInit() {
+    this.environmentTypes = enumToArray(EnvironmentType);
+
     this._route.params.pipe(first()).subscribe(params => {
       if (!params.name) {
         this.initNew();
@@ -50,6 +65,21 @@ export class EnvironmentComponent implements OnInit {
 
       this.initEdit(params.name);
     });
+
+    this.envType?.valueChanges.pipe(takeUntil(this._ngDestory)).subscribe(value => {
+      if (value !== EnvironmentType.Local) {
+        this.environmentForm.get('envUrl')?.setValidators([Validators.required, Validators.nullValidator]); //todo add url validator
+      } else {
+        this.environmentForm.get('envUrl')?.clearValidators();
+        this.environmentForm.get('envUrl')?.setValue('');
+      }
+      this.environmentForm.get('envUrl')?.updateValueAndValidity();
+    });
+  }
+
+  ngOnDestroy(): void {
+    this._ngDestory.next();
+    this._ngDestory.complete();
   }
 
   isValid(field: string): boolean {
@@ -60,10 +90,11 @@ export class EnvironmentComponent implements OnInit {
 
   onSubmit(): void {
     const value = this.environmentForm.value;
-    const env = {
-      name: value.envName,
-      url: value.envUrl,
-      tag: value.envTag,
+    const env: IEnvironment  = {
+      type: value.envType ?? EnvironmentType.Http,
+      name: value.envName ?? "",
+      url: value.envUrl ?? "",
+      tag: value.envTag ?? "",
       id: this._id
     }
     this._remoteService.setEnvironment(env as IEnvironment).subscribe(result => {
@@ -80,10 +111,11 @@ export class EnvironmentComponent implements OnInit {
   private initEdit(envId: string): void {
     // TODO loading
     this._remoteService.getEnvironment(envId).subscribe(env => {
-      this.buttonTitle = "Update";  
+      this.buttonTitle = "Update";
       this.title = `Environment - ${env.name}`;
+      this.envType?.setValue(env.type);
       this.envName?.setValue(env.name);
-      this.envUrl?.setValue(env.url);
+      this.envUrl?.setValue(env.url ?? "");
       this.envTag?.setValue(env.tag!);
       this._id = envId;
     });

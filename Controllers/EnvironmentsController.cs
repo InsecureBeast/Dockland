@@ -34,9 +34,12 @@ namespace Dockland.Controllers
         [HttpPut]
         public bool Put(EnvironmentData data)
         {
-            var uri = Uri.IsWellFormedUriString(data.Url, UriKind.Absolute);
-            if (!uri)
-                return false;
+            if (data.Type == EnvironmentType.Http)
+            {
+                var uri = Uri.IsWellFormedUriString(data.Url, UriKind.Absolute);
+                if (!uri)
+                    return false; //error ?!
+            }
             
             var updated = _databaseService.Set(data);
             _dockerService.RegisterService(data.Name, data.Url);

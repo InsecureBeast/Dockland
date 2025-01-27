@@ -6,3 +6,12 @@ export function remove<T>(array: T[], item: T): T[]  {
 
   return new Array<T>();  
 }
+
+export function enumToArray<T extends object>(enumObj: T): { key: string, value: T[keyof T] }[] {
+  return Object.keys(enumObj)
+    .filter(key => isNaN(Number(key)))
+    .map(key => ({
+      key,
+      value: enumObj[key as keyof T]
+    }));
+}
