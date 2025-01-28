@@ -3,7 +3,7 @@ import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/fo
 import { RemoteService } from 'src/app/services/remote.service';
 import { EnvironmentType, IEnvironment } from '../environment';
 import { ActivatedRoute, Router } from '@angular/router';
-import { first, Subject, takeUntil } from 'rxjs';
+import { first, Subject, take, takeUntil } from 'rxjs';
 import { enumToArray } from '@utils/array-utils';
 
 @Component({
@@ -57,13 +57,13 @@ export class EnvironmentComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.environmentTypes = enumToArray(EnvironmentType);
 
-    this._route.params.pipe(first()).subscribe(params => {
-      if (!params.name) {
+    this._route.params.pipe(take(1)).subscribe(params => {
+      if (!params.envId) {
         this.initNew();
         return;
       }
 
-      this.initEdit(params.name);
+      this.initEdit(params.envId);
     });
 
     this.envType?.valueChanges.pipe(takeUntil(this._ngDestory)).subscribe(value => {

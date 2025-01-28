@@ -9,12 +9,15 @@ import { StacksComponent } from "./pages/stacks/stacks/stacks.component";
 import { stacksRoutes } from "./pages/stacks/stacks.routes";
 import { VolumesComponent } from "./pages/volumes/volumes/volumes.component";
 import { EnvironmentsComponent } from "./pages/environments/environments/environments.component";
+import { EnvironmentComponent } from "@pages/environments/environment/environment.component";
 
 export const appRouts: Routes = [
   { path: '', redirectTo: 'environments', pathMatch: "full" }, 
   { path: '*', redirectTo: 'environments' }, 
   { path: 'environments', component: HomeComponent, 
     children: [
+      { path: 'new', component: EnvironmentComponent },
+      { path: ':envId', component: EnvironmentComponent },
       { path: '', component: EnvironmentsComponent},
       { path: ':env/dashboard', component: DashboardComponent, },
       { path: ':env/containers', component: ContainersComponent },

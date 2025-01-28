@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { map, Observable, of, share, Subject, takeUntil } from 'rxjs';
-import { IEnvironment } from '../environment';
 import { RemoteService } from '@services/remote.service';
 import { EnvironmentModel } from '../environment.model';
 import { EnvironmentService } from '../environment.service';
+import { DialogService } from '@services/dialog.service';
 
 @Component({
   selector: 'app-environments',
@@ -17,7 +17,8 @@ export class EnvironmentsComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly _environmentService: EnvironmentService,
-    private readonly _remoteService: RemoteService) {
+    private readonly _remoteService: RemoteService,
+    private readonly _dialogService: DialogService) {
     
   }
   
@@ -37,17 +38,23 @@ export class EnvironmentsComponent implements OnInit, OnDestroy {
   }
 
   delete(environments: EnvironmentModel[]): boolean {
-    const self = this;
-    environments.forEach(env => {
-      this._remoteService.deleteEnvironment(env.name).subscribe({
-        next() {
-          self._environmentService.refreshEnvironments();
-        },
-        error(err) {
-          alert(err.message);
-        },
-      });  
+    this._dialogService.openConfirmationDialog()?.subscribe(res => {
+      if (!res) 
+        return
+
+      const self = this;
+      environments.forEach(env => {
+        this._remoteService.deleteEnvironment(env.name).subscribe({
+          next() {
+            self._environmentService.refreshEnvironments();
+          },
+          error(err) {
+            alert(err.message);
+          },
+        });  
+      });
     });
+    
     return true;
   }
 }

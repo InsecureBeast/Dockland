@@ -23,11 +23,7 @@ import { EnvironmentNamePipe } from './environment-name.pipe';
   ],
   imports: [
     CommonModule,
-    RouterModule.forRoot([
-      //{ path: 'environments', component: EnvironmentsComponent },
-      { path: 'environment', component: EnvironmentComponent },
-      { path: 'environment/:name', component: EnvironmentComponent }, 
-    ]),
+    RouterModule.forRoot([]),
     ProgressbarModule.forRoot(),
     NgbTooltipModule,
     ReactiveFormsModule,
