@@ -50,13 +50,9 @@ namespace Dockland.Controllers
             using var logStream = await client.Containers.GetContainerLogsAsync(id, false, parameters, cancellationToken);
             var log = await logStream.ReadOutputToEndAsync(cancellationToken);
             await Response.WriteAsync(log.stdout);
+            await Response.WriteAsync(log.stderr);
 
             return new EmptyResult();
-        }
-
-        private void Progress_ProgressChanged(object? sender, string e)
-        {
-            throw new NotImplementedException();
         }
     }
 }
