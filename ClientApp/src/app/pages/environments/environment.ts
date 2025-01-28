@@ -2,7 +2,7 @@
 export enum EnvironmentType {
   Http = 0,
   Local = 1,
-  Agent = 2,
+  //Agent = 2,
 }
 
 export interface IEnvironment {

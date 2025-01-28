@@ -12,8 +12,8 @@ export class EnvironmentNamePipe {
         return "Docker remote API" 
       case EnvironmentType.Local:
         return "Local socket"
-      case EnvironmentType.Agent:
-        return "Docland Agent"
+      //case EnvironmentType.Agent:
+      //  return "Docland Agent"
       default:
         break;
     }
