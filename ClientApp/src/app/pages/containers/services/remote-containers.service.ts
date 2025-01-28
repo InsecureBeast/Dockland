@@ -55,4 +55,8 @@ export class RemoteContainers {
       })
     );
   }
+
+  getContainerInspect(environment: string, containerId: string): Observable<string> {
+    return this._http.get<string>(`/api/${environment}/container/${containerId}/inspect`);
+  }
 }

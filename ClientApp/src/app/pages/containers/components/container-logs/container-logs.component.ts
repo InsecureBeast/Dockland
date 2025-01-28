@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { RemoteContainers } from '@pages/containers/services/remote-containers.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { RemoteContainers } from '@pages/containers/services/remote-containers.s
   templateUrl: './container-logs.component.html',
   styleUrl: './container-logs.component.scss'
 })
-export class ContainerLogsComponent implements OnInit, OnChanges {
+export class ContainerLogsComponent implements OnChanges {
 
   @Input() environment!: string | null;
   @Input() containerId!: string | undefined;
@@ -21,9 +21,4 @@ export class ContainerLogsComponent implements OnInit, OnChanges {
       this._containerService.getContainerLogs(this.environment!, this.containerId!, false)
         .subscribe(logs => this.logs = logs);
   }
-  
-  ngOnInit(): void {
-    
-  }
-
 }

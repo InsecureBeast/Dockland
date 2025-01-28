@@ -3,6 +3,7 @@ using Dockland.DataModels;
 using Dockland.Services;
 using Dockland.Utils;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace Dockland.Controllers
 {
@@ -53,6 +54,18 @@ namespace Dockland.Controllers
             await Response.WriteAsync(log.stderr);
 
             return new EmptyResult();
+        }
+
+        [HttpGet("{id}/inspect")]
+        public async Task<IActionResult> Inspect(string environment, string id, CancellationToken cancellationToken)
+        {
+            var client = _dockerService.GetService(environment);
+            if (client == null)
+                return BadRequest();
+
+            var inspect = await client.Containers.InspectContainerAsync(id, cancellationToken);
+            string jsonInspect = JsonSerializer.Serialize(inspect);
+            return Ok(jsonInspect);
         }
     }
 }

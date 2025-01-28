@@ -1,11 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { ProgressbarConfig } from 'ngx-bootstrap/progressbar';
 import { remove } from '@utils/array-utils';
-import { ContainerModel } from './container.model';
+import { ContainerModel } from '../container.model';
 import { IContainer, IPort } from '@pages/containers/container';
 import { RemoteContainers } from '@pages/containers/services/remote-containers.service';
 import { DialogService } from '@services/dialog.service';
-import { EnvironmentService } from '../../environments/environment.service';
+import { EnvironmentService } from '../../../environments/environment.service';
 
 export function getProgressbarConfig(): ProgressbarConfig {
   return Object.assign(new ProgressbarConfig(), { animate: true, striped: true,  max: 100 });
