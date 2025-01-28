@@ -3,7 +3,7 @@
              iconClassName="bi-box">
   </app-title>
 
-  <tabset #tabset>
+  <tabset #tabset [justified]="true" type="pills">
     <tab heading="Logs"><app-container-logs [containerId]="c.id" [environment]="environment"></app-container-logs></tab>
     <tab heading="Inspect">Inspect content</tab>
     <tab heading="Bind mounts">Bind mounts content</tab>

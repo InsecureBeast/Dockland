@@ -10,13 +10,16 @@ export class ContainerLogsComponent implements OnInit, OnChanges {
 
   @Input() environment!: string | null;
   @Input() containerId!: string | undefined;
+
+  logs: string = "";
  
   constructor(private readonly _containerService: RemoteContainers) {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (!!changes['environment'] && !!changes['containerId'])
-      this._containerService.getContainerLogs(this.environment!, this.containerId!, true).subscribe(e => console.log(e));
+      this._containerService.getContainerLogs(this.environment!, this.containerId!, false)
+        .subscribe(logs => this.logs = logs);
   }
   
   ngOnInit(): void {

@@ -35,7 +35,9 @@ export class FluidHeightDirective implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    this.setHeight();
+    setTimeout(() => {
+      this.setHeight();  
+    }, 0);
   }
 
   ngOnDestroy(): void {

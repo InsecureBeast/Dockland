@@ -3,7 +3,6 @@ using Dockland.DataModels;
 using Dockland.Services;
 using Dockland.Utils;
 using Microsoft.AspNetCore.Mvc;
-using System.Text;
 
 namespace Dockland.Controllers
 {
@@ -39,57 +38,25 @@ namespace Dockland.Controllers
                 Follow = watch,
                 Timestamps = false
             };
-
-            //using var reader = new StreamWriter();
-            //while (!reader.EndOfStream)
-            //{
-            //    var line = await reader.ReadLineAsync();
-            //    yield return line;
-            //}
-
-            //var progress = new Progress<string>(log => Console.WriteLine(log));
-            //progress.ProgressChanged += (object? sender, string e) => 
-            //{
-            //    yield return e;
-            //};
-
-            //if (!watch)
-            //{
-            var logBuilder = new StringBuilder();
-            //logBuilder.Capacity = int.MaxValue;
-
-            var progress = new Progress<string>(log => Console.WriteLine(log));
-            await client.Containers.GetContainerLogsAsync(id, parameters, cancellationToken, progress);
-            return Content(logBuilder.ToString(), "text/plain");
-            //}
-            //else
-            //{
-            //var writer = Response.BodyWriter;
-            //var progress = new Progress<string>(async log =>
-            //{
-            //    var bytes = Encoding.UTF8.GetBytes(log + Environment.NewLine);
-            //    await writer.WriteAsync(bytes, cancellationToken);
-
+            
+            Response.ContentType = "text/plain";
+            
+            //var progress = new Progress<string>(async log => {
+            //    await Response.WriteAsync(log);
             //});
 
-            //Response.ContentType = "text/plain; charset=utf-8";
             //await client.Containers.GetContainerLogsAsync(id, parameters, cancellationToken, progress);
-            //await writer.CompleteAsync();
-            //return Ok();
-            //}
+
+            using var logStream = await client.Containers.GetContainerLogsAsync(id, false, parameters, cancellationToken);
+            var log = await logStream.ReadOutputToEndAsync(cancellationToken);
+            await Response.WriteAsync(log.stdout);
+
+            return new EmptyResult();
         }
 
         private void Progress_ProgressChanged(object? sender, string e)
         {
             throw new NotImplementedException();
-        }
-    }
-
-    class Progress : IProgress<string>
-    {
-        public void Report(string value)
-        {
-            Console.WriteLine(value);
         }
     }
 }

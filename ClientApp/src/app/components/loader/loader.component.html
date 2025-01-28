@@ -1,3 +1,9 @@
-<tr *ngFor="let row of rows | loaderCount">
-  <div class="ssc-head-line m-2"></div>
-</tr>
+@if(type === 'table') {
+  <tr *ngFor="let row of rows | loaderCount">
+    <div class="ssc-head-line m-2"></div>
+  </tr>
+}
+
+@if (type === 'block') {
+  <div class="ssc-square mt-3"></div>
+}

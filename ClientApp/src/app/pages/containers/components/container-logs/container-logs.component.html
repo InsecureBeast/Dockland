@@ -1,1 +1,10 @@
-<p>container-logs works!</p>
+@if (!logs) {
+  <app-table-loader [type]="'block'" class="mt-3"></app-table-loader>
+} @else { 
+  <textarea class="form-control mt-3" 
+            [fluidHeight] 
+            [fluidHeightEnabled]="true" 
+            [fluidHeightBottomPadding]="4"
+            [value]="logs">
+  </textarea>
+}
