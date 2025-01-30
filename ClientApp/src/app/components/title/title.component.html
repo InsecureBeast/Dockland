@@ -1,2 +1,13 @@
-<h3><i class="bi me-2" [ngClass]="iconClassName"></i>{{title}}</h3>
-<span class="subtitle text-secondary">{{subtitle}}</span>
+<div class="d-flex flex-row gap-4">
+  @if (isBackShown) {
+    <h3>
+      <button type="button" class="btn btn-light" (click)="back()">
+        <i class="bi bi-arrow-left"></i>
+      </button>
+    </h3>
+  }
+  <div>
+    <h3 class="title-caption"><i class="bi me-2 title-icon" [ngClass]="iconClassName"></i>{{title}}</h3>
+    <span class="subtitle text-secondary">{{subtitle}}</span>
+  </div>
+</div>

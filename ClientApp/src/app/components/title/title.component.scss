@@ -1,5 +1,16 @@
-.subtitle {
-  position: relative;
-  margin-left: 2.2rem;
-  top: -0.6rem;
+:host {
+  .subtitle {
+    position: relative;
+    margin-left: 2.6rem;
+    top: -0.8rem;
+  }
+
+  .title-icon {
+    font-size: 28px;
+  }
+
+  .title-caption {
+    display: flex;
+    align-items: center;
+  }
 }

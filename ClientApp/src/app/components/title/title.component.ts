@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, Input, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
@@ -14,8 +15,11 @@ export class TitleComponent implements OnDestroy {
   @Input() iconClassName: string | undefined;
   @Input() title: string | undefined;
   @Input() subtitle: string | undefined;
+  @Input() isBackShown: boolean = true;
 
-  constructor(private readonly _route: ActivatedRoute) {}
+  constructor(
+    private readonly _route: ActivatedRoute,
+    private readonly _location: Location) {}
 
   ngOnInit(): void {
     this._route.paramMap
@@ -32,5 +36,9 @@ export class TitleComponent implements OnDestroy {
   ngOnDestroy(): void {
     this._destroy.next();
     this._destroy.complete();
+  }
+
+  back() {
+    this._location.back();
   }
 }

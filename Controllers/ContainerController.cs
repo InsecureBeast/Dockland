@@ -67,5 +67,11 @@ namespace Dockland.Controllers
             string jsonInspect = JsonSerializer.Serialize(inspect);
             return Ok(jsonInspect);
         }
+
+        [HttpGet("{id}/mounts")]
+        public async Task<IActionResult> GetMounts(string environment, string id, CancellationToken cancellationToken)
+        {
+            return Ok("");
+        }
     }
 }
