@@ -19,8 +19,8 @@ export class ImageListComponent extends BaseListComponent<ImageModel> {
     return model.name.includes("/dockland");
   }
 
-  override check(model: ImageModel, event: Event): boolean {
-    super.check(model, event);
+  override check(model: ImageModel): boolean {
+    super.check(model);
     this.onChecked.emit(this.getSelected());
     return true;
   }

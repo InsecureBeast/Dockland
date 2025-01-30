@@ -21,11 +21,10 @@
            [fluidHeightBottomPadding]="14"
            [fluidHeightTopOffsetElementName]="parentComponentName">
       <ng-container *ngTemplateOutlet="loader"></ng-container>
-      <tr *ngFor="let imageModel of items">
+      <tr *ngFor="let imageModel of items" (click)="select(imageModel, $event)">
         <td class="w-30px">
           <input type="checkbox" 
                  class="form-check-input"
-                 (change)="check(imageModel, $event)" 
                  [disabled]="isDisabled(imageModel)"
                  [checked]="imageModel.checked">
         </td>

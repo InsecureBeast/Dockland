@@ -20,8 +20,8 @@ export class BaseListComponent<T extends ICheckableModel> {
     this.processType = 'success';
   }
 
-  check(model: T, event: Event): boolean {
-    model.checked = this.getCheckboxValue(event);
+  check(model: T): boolean {
+    model.checked = this.isDisabled(model) ? false : !model.checked;
     
     if (this.isAllChecked()) {
       this.allChecked = true;
@@ -37,7 +37,7 @@ export class BaseListComponent<T extends ICheckableModel> {
   }
 
   checkAll(event: Event): void {
-    const checked = this.getCheckboxValue(event);
+    const checked = this.getCheckbox(event)?.checked;
     this.items?.forEach(m => this.isDisabled(m) ? m.checked = false : m.checked = checked);
   }
 
@@ -52,13 +52,27 @@ export class BaseListComponent<T extends ICheckableModel> {
     return false;
   }
 
+  select(model: T, event: Event): void {
+    if (this.isDisabled(model))
+      return;
+
+    if (!this.isCheckboxClicked(event))
+      this.items?.forEach(m => m.checked = false);
+    
+    this.check(model);
+  }
+
   protected getSelected(): T[] {
     return this.items?.filter(c => c.checked) ?? [];
   }
 
-  private getCheckboxValue(event: Event): boolean {
-    const check = event.target as HTMLInputElement;
-    return check?.checked;
+  private isCheckboxClicked(event: Event): boolean {
+    const check = this.getCheckbox(event);
+    return check?.type === "checkbox";
+  }
+
+  private getCheckbox(event: Event): HTMLInputElement {
+    return event.target as HTMLInputElement;
   }
 
   private isAllChecked(): boolean {

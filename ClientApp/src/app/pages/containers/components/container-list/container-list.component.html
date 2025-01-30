@@ -27,15 +27,14 @@
     </thead>
     <tbody [fluidHeightEnabled]="fluentHeightEnabled"
            [fluidHeight]
-           [fluidHeightBottomPadding]="14"
+           [fluidHeightBottomPadding]="4"
            [fluidHeightTopOffsetElementName]="parentComponentName">
            
       <ng-container *ngTemplateOutlet="loader"></ng-container>
-      <tr *ngFor="let model of containers">
+      <tr *ngFor="let model of items" (click)="select(model, $event)">
         <td class="w-30px" *ngIf="isInteractive">
           <input type="checkbox" 
                  class="form-check-input"
-                 (change)="check(model, $event)" 
                  [disabled]="isDisabled(model)"
                  [checked]="model.checked">
         </td>
@@ -83,7 +82,7 @@
 </ng-template>
 
 <ng-template #loader>
-  <ng-container *ngIf="!containers" >
+  <ng-container *ngIf="!items" >
     <app-table-loader [rowsCount]="5"></app-table-loader>
   </ng-container>
 </ng-template>

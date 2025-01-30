@@ -16,11 +16,10 @@
   
   <tbody [fluidHeight]>
     <ng-container *ngTemplateOutlet="loader"></ng-container>
-    <tr *ngFor="let actionModel of items">
+    <tr *ngFor="let actionModel of items" (click)="select(actionModel, $event)">
       <td class="w-30px">
         <input type="checkbox" 
                class="form-check-input"
-               (change)="check(actionModel, $event)" 
                [checked]="actionModel.checked">
       </td>
       <td class="d-flex justify-content-between"

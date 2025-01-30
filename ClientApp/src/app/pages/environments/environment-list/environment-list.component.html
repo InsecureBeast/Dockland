@@ -17,11 +17,10 @@
   
   <tbody [fluidHeight]>
     <ng-container *ngTemplateOutlet="loader"></ng-container>
-    <tr *ngFor="let environmentModel of items">
+    <tr *ngFor="let environmentModel of items" (click)="select(environmentModel, $event)">
       <td class="w-30px">
         <input type="checkbox" 
                class="form-check-input"
-               (change)="check(environmentModel, $event)" 
                [checked]="environmentModel.checked">
       </td>
       <td class="d-flex justify-content-between"
